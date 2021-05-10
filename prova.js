@@ -1,29 +1,98 @@
-let list = [];
-list.push([1,2,3]);
-list.push([4,5,6]);
-list.push([7,8,9]);
-
-let createTable = () => {
+let createTable = (orari) => {
 	let myTable = document.getElementById('myTable');
 
 	let table = document.createElement('TABLE');
 	table.border = '1';
 
-	for(let i = 0; i<list.length; i++){
-		let tr = document.createElement('TR');
-		table.appendChild(tr);
-		for(let j = 0; j<list[i].length; j++){
-			let td = document.createElement('TD');
-			td.innerHTML = list[i][j];
-			td.colSpan = '2';
-			//console.log(td.colSpan);
-			tr.appendChild(td);
+	let tr = document.createElement('TR');
+	let td;
+
+	let i;
+
+	for(i = 0; i<=orari.nPeriodi; i++){
+		td = document.createElement('TD');
+		switch(i){
+			case 0:
+				td.innerHTML = ""
+				break;
+			case 1:
+				td.innerHTML = "Lunedì"
+				break;
+			case 2:
+				td.innerHTML = "Martedì"
+				break;
+			case 3:
+				td.innerHTML = "Mercoledì"
+				break;
 		}
+		console.log(td.innerHTML);
+		tr.appendChild(td);
+	}
+
+	table.appendChild(tr);
+
+	for(i = 0; i<orari.nPeriodi; i++){
+		tr = document.createElement('TR');
+		table.appendChild(tr);
+
+		td = document.createElement('TD');
+		td.innerHTML = `${i+1}°`;
+		tr.appendChild(td);
+
+		
+		let aux;
+
+		aux = findElement(i+1, orari.orario);
+
+		console.log(aux);
+		console.log("---------");
+
+		let day;
+		let element
+		for(j = 0; j<orari.nGiorni; j++){
+			day;
+
+			switch(j){
+				case 0:
+					day="LUN"
+					break;
+				case 1:
+					day="MAR"
+					break;
+				case 2:
+					day="MER"
+					break;
+			}
+
+			td = document.createElement('TD');
+
+			element = aux.find(element => element.giorno === day);
+
+			if (element!=undefined){
+				td.innerHTML = element.materia;
+			}else td.innerHTML = "";
+
+			tr.appendChild(td);
+		}		
+		
 	}
 	myTable.appendChild(table);
 
 }
 
+
+function findElement(ora, array){
+
+	let aux = [];
+
+	for(i=0; i<array.length; i++){
+		if(array[i].ora === ora){
+			aux.push(array[i]);
+		}
+	}
+
+	return aux;
+}
 
 document.getElementById("read-button").addEventListener('click', function() {
 		let file = document.getElementById("file-input").files[0];
@@ -36,15 +105,8 @@ document.getElementById("read-button").addEventListener('click', function() {
 		reader.readAsText(file);
 		});
 
-
-//var prova=1;
 function read(text){
 	console.log(JSON.parse(text));
-	document.write(text);
-	//prova = 5;
+	createTable(JSON.parse(text));
 }
-//read("caio");
-//console.log(prova);
 
-
-createTable();
