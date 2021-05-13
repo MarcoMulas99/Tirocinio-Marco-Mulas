@@ -1,4 +1,3 @@
-
 document.getElementById("read-button").addEventListener('click', function() {
 		let file = document.getElementById("file-input").files[0];
 		read(file);
@@ -11,6 +10,7 @@ function read(file){
 		reader.addEventListener('load', function(e) {
 	   		let text = e.target.result;
 	   		dataManagement(JSON.parse(text));
+	   		localStorage.setItem("fileData", text);
 		});
 	reader.readAsText(file);
 
@@ -27,20 +27,23 @@ function dataManagement(data){
 	let body = document.getElementById('body');
 
 	let classes = document.getElementById('classes');
-	classes.appendChild(createTable(data.CLASSES));
+	classes.appendChild(createTable(data.CLASSES, "CLASSES"));
 
 	let teachers = document.getElementById('teachers');
-	teachers.appendChild(createTable(data.TEACHERS));
+	teachers.appendChild(createTable(data.TEACHERS, "TEACHERS"));
 
 	let courses = document.getElementById('courses');
-	courses.appendChild(createTable(data.COURSES));
+	courses.appendChild(createTable(data.COURSES, "COURSES"));
+
+
+	
 }
 
 
 
 
 
-function createTable(list){
+function createTable(list, elementsType){
 
 	//let body = document.getElementById('body');
 	let table = document.createElement('TABLE');
@@ -48,6 +51,7 @@ function createTable(list){
 
 	let tr;
 	let td;
+	let a;
 
 	let i = 0
 	let maxColumns = 10;
@@ -60,20 +64,35 @@ function createTable(list){
 		}
 
 		td = document.createElement('TD');
+		a = document.createElement('A');
+		a.href = "./linkedPage.html";
+		
+		
+
+		
 
 		if(typeof list[i] != "string"){
-			td.innerHTML = list[i].name;
+			a.innerHTML = list[i].name;
 
 		}else{
-			td.innerHTML = list[i]
+			a.innerHTML = list[i]
 		}
 
+		/*a.onclick = () => {
+			window.alert(a.innerHTML);
+			localStorage.setItem("type", elementsType);
+			localStorage.setItem("selectedElement", a.innerHTML);
+		}*/
+
+		td.appendChild(a);
 		tr.appendChild(td);
 		i++;
 	}
 
 	return table;
 }
+
+
 
 
 /*let createTable = (orari) => {
