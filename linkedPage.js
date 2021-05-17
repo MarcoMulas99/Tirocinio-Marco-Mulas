@@ -9,6 +9,7 @@ const data = JSON.parse(localStorage.getItem("fileData"));
 const nD = data.nD;
 const nH = data.nH;
 let filteredTimeTable;
+let totalPeriods;
 
 
 switch (type) {
@@ -24,15 +25,62 @@ switch (type) {
   break;
 }
 
+let htmlTable = document.getElementById('table');
+let tableMatrix = createTableMatrix(filteredTimeTable, nD, nH);
+let finalTable = createTable(tableMatrix, type);
+htmlTable.appendChild(finalTable);
+
+//INFORMAZIONI AGGIUNTIVE
+switch (type) {
+  case 'CLASSES':
+    totalPeriods = document.createElement('P');
+    totalPeriods.innerHTML = "Numero di ore settimanali: " + filteredTimeTable.length;//da cambiare per gli orari comibnati come lab
+    htmlTable.appendChild(totalPeriods);
+    break;
+  case 'TEACHERS':
+    totalPeriods = document.createElement('P');
+    totalPeriods.innerHTML = "Numero di ore settimanali: " + filteredTimeTable.length;//da cambiare per gli orari comibnati come lab
+    htmlTable.appendChild(totalPeriods);
+
+    freePeriods = document.createElement('P');
+    freePeriods.innerHTML = "Numero ore buche: " + countFreePeriods(tableMatrix, nH, nD);
+    htmlTable.appendChild(freePeriods);
+
+}
+
+/*******************************************************************************************************************************************************************************************************/
+function countFreePeriods(matrix, nH, nD){
+  let result = 0;
+  let count = 0;
+  let flag = false;
+
+  for (c = 0; c<nD; c++){
+    flag = false;
+    count = 0;
+    for(r = 0; r<nH; r++){
+      if(matrix[r][c]!==undefined){
+        flag = true;
+        result += count;
+        count = 0;
+        //console.log(result);
+      }
+      if(flag && matrix[r][c]===undefined){
+        count++;
+      }
+    }
+  }
+  return result;
+}
 
 function createTableMatrix(timeTable, nD, nH) {
   let matrix = [];
   for(var i=0; i<nH; i++) {
-    matrix[i] = new Array(nD);
+    //crare array(nD) = []
+    matrix[i] = new Array(nD); //OGNI CAMPO DELLA MATRICE DEVE DIVENTARE UN ARRAY
   }
 
   timeTable.forEach(item => {
-    matrix[item.period-1][item.day-1]=item;
+    matrix[item.period-1][item.day-1].push(item);
   });
 
   return matrix;
@@ -109,11 +157,11 @@ function createTable(matrix, type){
       }
     }
   }
+
   return table;
 }
 
-let body = document.getElementById('body');
-body.appendChild(createTable(createTableMatrix(filteredTimeTable, nD, nH), type));
+
 
 //document.write(JSON.stringify(createTableMatrix(filteredTimeTable, nD, nH)));
 

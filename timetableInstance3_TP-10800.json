@@ -1,0 +1,189 @@
+{
+  "Instance":"Instance3",
+  "nD":6,
+  "nH":6,
+  "CLASSES": [
+               "TERZA"
+              ,"QUARTA"
+              ,"QUINTA"
+             ],
+  "TEACHERS": [
+                "INGL"
+               ,"MINGL"
+               ,"LETT"
+               ,"INFO"
+               ,"LAB"
+               ,"SIST"
+               ,"MATE"
+               ,"TELE"
+              ],
+  "COURSES": [
+	        {"name":"TERZA_INGL",	"class":"TERZA",	"teacher":"INGL",	"duration":5}
+	       ,{"name":"TERZA_MINGL",	"class":"TERZA",	"teacher":"INGL",	"duration":1}
+	       ,{"name":"TERZA_MINGL",	"class":"TERZA",	"teacher":"MINGL",	"duration":1}
+	       ,{"name":"TERZA_LETT",	"class":"TERZA",	"teacher":"LETT",	"duration":6}
+	       ,{"name":"TERZA_INFO",	"class":"TERZA",	"teacher":"INFO",	"duration":3}
+	       ,{"name":"TERZA_LINFO",	"class":"TERZA",	"teacher":"INFO",	"duration":3}
+	       ,{"name":"TERZA_LINFO",	"class":"TERZA",	"teacher":"LAB",	"duration":3}
+	       ,{"name":"TERZA_SIST",	"class":"TERZA",	"teacher":"SIST",	"duration":3}
+	       ,{"name":"TERZA_LSIST",	"class":"TERZA",	"teacher":"SIST",	"duration":3}
+	       ,{"name":"TERZA_LSIST",	"class":"TERZA",	"teacher":"LAB",	"duration":3}
+	       ,{"name":"TERZA_MATE",	"class":"TERZA",	"teacher":"MATE",	"duration":6}
+	       ,{"name":"TERZA_TELE",	"class":"TERZA",	"teacher":"TELE",	"duration":6}
+	       ,{"name":"QUARTA_INGL",	"class":"QUARTA",	"teacher":"INGL",	"duration":5}
+	       ,{"name":"QUARTA_MINGL",	"class":"QUARTA",	"teacher":"INGL",	"duration":1}
+	       ,{"name":"QUARTA_MINGL",	"class":"QUARTA",	"teacher":"MINGL",	"duration":1}
+	       ,{"name":"QUARTA_LETT",	"class":"QUARTA",	"teacher":"LETT",	"duration":6}
+	       ,{"name":"QUARTA_INFO",	"class":"QUARTA",	"teacher":"INFO",	"duration":3}
+	       ,{"name":"QUARTA_LINFO",	"class":"QUARTA",	"teacher":"INFO",	"duration":3}
+	       ,{"name":"QUARTA_LINFO",	"class":"QUARTA",	"teacher":"LAB",	"duration":3}
+	       ,{"name":"QUARTA_SIST",	"class":"QUARTA",	"teacher":"SIST",	"duration":3}
+	       ,{"name":"QUARTA_LSIST",	"class":"QUARTA",	"teacher":"SIST",	"duration":3}
+	       ,{"name":"QUARTA_LSIST",	"class":"QUARTA",	"teacher":"LAB",	"duration":3}
+	       ,{"name":"QUARTA_MATE",	"class":"QUARTA",	"teacher":"MATE",	"duration":6}
+	       ,{"name":"QUARTA_TELE",	"class":"QUARTA",	"teacher":"TELE",	"duration":6}
+	       ,{"name":"QUINTA_INGL",	"class":"QUINTA",	"teacher":"INGL",	"duration":5}
+	       ,{"name":"QUINTA_MINGL",	"class":"QUINTA",	"teacher":"INGL",	"duration":1}
+	       ,{"name":"QUINTA_MINGL",	"class":"QUINTA",	"teacher":"MINGL",	"duration":1}
+	       ,{"name":"QUINTA_LETT",	"class":"QUINTA",	"teacher":"LETT",	"duration":6}
+	       ,{"name":"QUINTA_INFO",	"class":"QUINTA",	"teacher":"INFO",	"duration":3}
+	       ,{"name":"QUINTA_LINFO",	"class":"QUINTA",	"teacher":"INFO",	"duration":3}
+	       ,{"name":"QUINTA_LINFO",	"class":"QUINTA",	"teacher":"LAB",	"duration":3}
+	       ,{"name":"QUINTA_SIST",	"class":"QUINTA",	"teacher":"SIST",	"duration":3}
+	       ,{"name":"QUINTA_LSIST",	"class":"QUINTA",	"teacher":"SIST",	"duration":3}
+	       ,{"name":"QUINTA_LSIST",	"class":"QUINTA",	"teacher":"LAB",	"duration":3}
+	       ,{"name":"QUINTA_MATE",	"class":"QUINTA",	"teacher":"MATE",	"duration":6}
+	       ,{"name":"QUINTA_TELE",	"class":"QUINTA",	"teacher":"TELE",	"duration":6}
+             ],
+  "TIMETABLE": [
+	         {"class":"TERZA",	"teacher":"INGL",	"day":"2",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"INGL",	"day":"2",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"INGL",	"day":"3",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"INGL",	"day":"4",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"INGL",	"day":"5",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"INGL",	"day":"6",	"period":"1"}
+	        ,{"class":"TERZA",	"teacher":"MINGL",	"day":"4",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"LETT",	"day":"1",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"LETT",	"day":"3",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"LETT",	"day":"3",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"LETT",	"day":"4",	"period":"1"}
+	        ,{"class":"TERZA",	"teacher":"LETT",	"day":"5",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"LETT",	"day":"6",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"INFO",	"day":"1",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"INFO",	"day":"1",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"INFO",	"day":"2",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"INFO",	"day":"4",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"INFO",	"day":"5",	"period":"1"}
+	        ,{"class":"TERZA",	"teacher":"INFO",	"day":"6",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"LAB",	"day":"1",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"LAB",	"day":"1",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"LAB",	"day":"2",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"LAB",	"day":"4",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"LAB",	"day":"5",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"LAB",	"day":"6",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"SIST",	"day":"1",	"period":"1"}
+	        ,{"class":"TERZA",	"teacher":"SIST",	"day":"2",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"SIST",	"day":"3",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"SIST",	"day":"5",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"SIST",	"day":"6",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"SIST",	"day":"6",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"MATE",	"day":"1",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"MATE",	"day":"2",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"MATE",	"day":"3",	"period":"1"}
+	        ,{"class":"TERZA",	"teacher":"MATE",	"day":"4",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"MATE",	"day":"4",	"period":"3"}
+	        ,{"class":"TERZA",	"teacher":"MATE",	"day":"6",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"TELE",	"day":"1",	"period":"6"}
+	        ,{"class":"TERZA",	"teacher":"TELE",	"day":"2",	"period":"1"}
+	        ,{"class":"TERZA",	"teacher":"TELE",	"day":"3",	"period":"5"}
+	        ,{"class":"TERZA",	"teacher":"TELE",	"day":"4",	"period":"4"}
+	        ,{"class":"TERZA",	"teacher":"TELE",	"day":"5",	"period":"2"}
+	        ,{"class":"TERZA",	"teacher":"TELE",	"day":"5",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"INGL",	"day":"2",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"INGL",	"day":"2",	"period":"6"}
+	        ,{"class":"QUARTA",	"teacher":"INGL",	"day":"3",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"INGL",	"day":"4",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"INGL",	"day":"6",	"period":"2"}
+	        ,{"class":"QUARTA",	"teacher":"INGL",	"day":"6",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"MINGL",	"day":"4",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"LETT",	"day":"1",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"LETT",	"day":"3",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"LETT",	"day":"3",	"period":"6"}
+	        ,{"class":"QUARTA",	"teacher":"LETT",	"day":"4",	"period":"2"}
+	        ,{"class":"QUARTA",	"teacher":"LETT",	"day":"4",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"LETT",	"day":"5",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"INFO",	"day":"1",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"INFO",	"day":"1",	"period":"6"}
+	        ,{"class":"QUARTA",	"teacher":"INFO",	"day":"2",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"INFO",	"day":"5",	"period":"2"}
+	        ,{"class":"QUARTA",	"teacher":"INFO",	"day":"5",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"INFO",	"day":"6",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"LAB",	"day":"1",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"LAB",	"day":"1",	"period":"6"}
+	        ,{"class":"QUARTA",	"teacher":"LAB",	"day":"2",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"LAB",	"day":"5",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"LAB",	"day":"6",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"LAB",	"day":"6",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"SIST",	"day":"1",	"period":"2"}
+	        ,{"class":"QUARTA",	"teacher":"SIST",	"day":"1",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"SIST",	"day":"2",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"SIST",	"day":"5",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"SIST",	"day":"6",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"SIST",	"day":"6",	"period":"6"}
+	        ,{"class":"QUARTA",	"teacher":"MATE",	"day":"1",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"MATE",	"day":"3",	"period":"2"}
+	        ,{"class":"QUARTA",	"teacher":"MATE",	"day":"3",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"MATE",	"day":"4",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"MATE",	"day":"4",	"period":"6"}
+	        ,{"class":"QUARTA",	"teacher":"MATE",	"day":"6",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"TELE",	"day":"2",	"period":"2"}
+	        ,{"class":"QUARTA",	"teacher":"TELE",	"day":"2",	"period":"3"}
+	        ,{"class":"QUARTA",	"teacher":"TELE",	"day":"3",	"period":"4"}
+	        ,{"class":"QUARTA",	"teacher":"TELE",	"day":"4",	"period":"1"}
+	        ,{"class":"QUARTA",	"teacher":"TELE",	"day":"5",	"period":"5"}
+	        ,{"class":"QUARTA",	"teacher":"TELE",	"day":"5",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"INGL",	"day":"2",	"period":"1"}
+	        ,{"class":"QUINTA",	"teacher":"INGL",	"day":"3",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"INGL",	"day":"3",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"INGL",	"day":"4",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"INGL",	"day":"5",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"INGL",	"day":"5",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"MINGL",	"day":"4",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"LETT",	"day":"1",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"LETT",	"day":"1",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"LETT",	"day":"3",	"period":"1"}
+	        ,{"class":"QUINTA",	"teacher":"LETT",	"day":"5",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"LETT",	"day":"6",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"LETT",	"day":"6",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"INFO",	"day":"1",	"period":"1"}
+	        ,{"class":"QUINTA",	"teacher":"INFO",	"day":"2",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"INFO",	"day":"2",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"INFO",	"day":"4",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"INFO",	"day":"4",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"INFO",	"day":"6",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"LAB",	"day":"1",	"period":"1"}
+	        ,{"class":"QUINTA",	"teacher":"LAB",	"day":"2",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"LAB",	"day":"4",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"LAB",	"day":"4",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"LAB",	"day":"5",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"LAB",	"day":"5",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"SIST",	"day":"2",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"SIST",	"day":"3",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"SIST",	"day":"3",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"SIST",	"day":"5",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"SIST",	"day":"5",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"SIST",	"day":"6",	"period":"1"}
+	        ,{"class":"QUINTA",	"teacher":"MATE",	"day":"1",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"MATE",	"day":"2",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"MATE",	"day":"2",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"MATE",	"day":"4",	"period":"1"}
+	        ,{"class":"QUINTA",	"teacher":"MATE",	"day":"6",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"MATE",	"day":"6",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"TELE",	"day":"1",	"period":"4"}
+	        ,{"class":"QUINTA",	"teacher":"TELE",	"day":"1",	"period":"5"}
+	        ,{"class":"QUINTA",	"teacher":"TELE",	"day":"3",	"period":"6"}
+	        ,{"class":"QUINTA",	"teacher":"TELE",	"day":"4",	"period":"2"}
+	        ,{"class":"QUINTA",	"teacher":"TELE",	"day":"4",	"period":"3"}
+	        ,{"class":"QUINTA",	"teacher":"TELE",	"day":"5",	"period":"1"}
+             ]
+}

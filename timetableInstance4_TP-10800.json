@@ -1,0 +1,282 @@
+{
+  "Instance":"Instance4",
+  "nD":6,
+  "nH":6,
+  "CLASSES": [
+               "C3A"
+              ,"C4A"
+              ,"C5A"
+              ,"C3B"
+              ,"C4B"
+              ,"C5B"
+             ],
+  "TEACHERS": [
+                "ING1"
+               ,"LET1"
+               ,"INF1"
+               ,"SIS1"
+               ,"MAT1"
+               ,"TEL1"
+               ,"LET2"
+               ,"INF2"
+               ,"SIS2"
+               ,"MAT2"
+               ,"TEL2"
+              ],
+  "COURSES": [
+	        {"name":"C3A_ING1",	"class":"C3A",	"teacher":"ING1",	"duration":6}
+	       ,{"name":"C4A_ING1",	"class":"C4A",	"teacher":"ING1",	"duration":6}
+	       ,{"name":"C5A_ING1",	"class":"C5A",	"teacher":"ING1",	"duration":6}
+	       ,{"name":"C3A_LET1",	"class":"C3A",	"teacher":"LET1",	"duration":6}
+	       ,{"name":"C4A_LET1",	"class":"C4A",	"teacher":"LET1",	"duration":6}
+	       ,{"name":"C5A_LET1",	"class":"C5A",	"teacher":"LET1",	"duration":6}
+	       ,{"name":"C3A_INF1",	"class":"C3A",	"teacher":"INF1",	"duration":6}
+	       ,{"name":"C4A_INF1",	"class":"C4A",	"teacher":"INF1",	"duration":6}
+	       ,{"name":"C5A_INF1",	"class":"C5A",	"teacher":"INF1",	"duration":6}
+	       ,{"name":"C3A_SIS1",	"class":"C3A",	"teacher":"SIS1",	"duration":6}
+	       ,{"name":"C4A_SIS1",	"class":"C4A",	"teacher":"SIS1",	"duration":6}
+	       ,{"name":"C5A_SIS1",	"class":"C5A",	"teacher":"SIS1",	"duration":6}
+	       ,{"name":"C3A_MAT1",	"class":"C3A",	"teacher":"MAT1",	"duration":6}
+	       ,{"name":"C4A_MAT1",	"class":"C4A",	"teacher":"MAT1",	"duration":6}
+	       ,{"name":"C5A_MAT1",	"class":"C5A",	"teacher":"MAT1",	"duration":6}
+	       ,{"name":"C3A_TEL1",	"class":"C3A",	"teacher":"TEL1",	"duration":6}
+	       ,{"name":"C4A_TEL1",	"class":"C4A",	"teacher":"TEL1",	"duration":6}
+	       ,{"name":"C5A_TEL1",	"class":"C5A",	"teacher":"TEL1",	"duration":6}
+	      ,{"name":"C3B_ING1",	"class":"C3B",	"teacher":"ING1",	"duration":6}
+	      ,{"name":"C4B_ING1",	"class":"C4B",	"teacher":"ING1",	"duration":6}
+	      ,{"name":"C5B_ING1",	"class":"C5B",	"teacher":"ING1",	"duration":6}
+	       ,{"name":"C3B_LET2",	"class":"C3B",	"teacher":"LET2",	"duration":6}
+	       ,{"name":"C4B_LET2",	"class":"C4B",	"teacher":"LET2",	"duration":6}
+	       ,{"name":"C5B_LET2",	"class":"C5B",	"teacher":"LET2",	"duration":6}
+	       ,{"name":"C3B_INF2",	"class":"C3B",	"teacher":"INF2",	"duration":6}
+	       ,{"name":"C4B_INF2",	"class":"C4B",	"teacher":"INF2",	"duration":6}
+	       ,{"name":"C5B_INF2",	"class":"C5B",	"teacher":"INF2",	"duration":6}
+	       ,{"name":"C3B_SIS2",	"class":"C3B",	"teacher":"SIS2",	"duration":6}
+	       ,{"name":"C4B_SIS2",	"class":"C4B",	"teacher":"SIS2",	"duration":6}
+	       ,{"name":"C5B_SIS2",	"class":"C5B",	"teacher":"SIS2",	"duration":6}
+	       ,{"name":"C3B_MAT2",	"class":"C3B",	"teacher":"MAT2",	"duration":6}
+	       ,{"name":"C4B_MAT2",	"class":"C4B",	"teacher":"MAT2",	"duration":6}
+	       ,{"name":"C5B_MAT2",	"class":"C5B",	"teacher":"MAT2",	"duration":6}
+	       ,{"name":"C3B_TEL2",	"class":"C3B",	"teacher":"TEL2",	"duration":6}
+	       ,{"name":"C4B_TEL2",	"class":"C4B",	"teacher":"TEL2",	"duration":6}
+	       ,{"name":"C5B_TEL2",	"class":"C5B",	"teacher":"TEL2",	"duration":6}
+             ],
+  "TIMETABLE": [
+	         {"class":"C3A",	"teacher":"ING1",	"day":"2",	"period":"6"}
+	        ,{"class":"C3A",	"teacher":"ING1",	"day":"3",	"period":"4"}
+	        ,{"class":"C3A",	"teacher":"ING1",	"day":"3",	"period":"5"}
+	        ,{"class":"C3A",	"teacher":"ING1",	"day":"4",	"period":"2"}
+	        ,{"class":"C3A",	"teacher":"ING1",	"day":"4",	"period":"3"}
+	        ,{"class":"C3A",	"teacher":"ING1",	"day":"6",	"period":"1"}
+	        ,{"class":"C3A",	"teacher":"LET1",	"day":"1",	"period":"4"}
+	        ,{"class":"C3A",	"teacher":"LET1",	"day":"1",	"period":"5"}
+	        ,{"class":"C3A",	"teacher":"LET1",	"day":"3",	"period":"6"}
+	        ,{"class":"C3A",	"teacher":"LET1",	"day":"4",	"period":"1"}
+	        ,{"class":"C3A",	"teacher":"LET1",	"day":"5",	"period":"2"}
+	        ,{"class":"C3A",	"teacher":"LET1",	"day":"5",	"period":"3"}
+	        ,{"class":"C3A",	"teacher":"INF1",	"day":"1",	"period":"6"}
+	        ,{"class":"C3A",	"teacher":"INF1",	"day":"2",	"period":"4"}
+	        ,{"class":"C3A",	"teacher":"INF1",	"day":"2",	"period":"5"}
+	        ,{"class":"C3A",	"teacher":"INF1",	"day":"5",	"period":"1"}
+	        ,{"class":"C3A",	"teacher":"INF1",	"day":"6",	"period":"2"}
+	        ,{"class":"C3A",	"teacher":"INF1",	"day":"6",	"period":"3"}
+	        ,{"class":"C3A",	"teacher":"SIS1",	"day":"1",	"period":"2"}
+	        ,{"class":"C3A",	"teacher":"SIS1",	"day":"1",	"period":"3"}
+	        ,{"class":"C3A",	"teacher":"SIS1",	"day":"3",	"period":"1"}
+	        ,{"class":"C3A",	"teacher":"SIS1",	"day":"5",	"period":"4"}
+	        ,{"class":"C3A",	"teacher":"SIS1",	"day":"5",	"period":"5"}
+	        ,{"class":"C3A",	"teacher":"SIS1",	"day":"6",	"period":"6"}
+	        ,{"class":"C3A",	"teacher":"MAT1",	"day":"1",	"period":"1"}
+	        ,{"class":"C3A",	"teacher":"MAT1",	"day":"2",	"period":"2"}
+	        ,{"class":"C3A",	"teacher":"MAT1",	"day":"2",	"period":"3"}
+	        ,{"class":"C3A",	"teacher":"MAT1",	"day":"4",	"period":"6"}
+	        ,{"class":"C3A",	"teacher":"MAT1",	"day":"6",	"period":"4"}
+	        ,{"class":"C3A",	"teacher":"MAT1",	"day":"6",	"period":"5"}
+	        ,{"class":"C3A",	"teacher":"TEL1",	"day":"2",	"period":"1"}
+	        ,{"class":"C3A",	"teacher":"TEL1",	"day":"3",	"period":"2"}
+	        ,{"class":"C3A",	"teacher":"TEL1",	"day":"3",	"period":"3"}
+	        ,{"class":"C3A",	"teacher":"TEL1",	"day":"4",	"period":"4"}
+	        ,{"class":"C3A",	"teacher":"TEL1",	"day":"4",	"period":"5"}
+	        ,{"class":"C3A",	"teacher":"TEL1",	"day":"5",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"ING1",	"day":"2",	"period":"4"}
+	        ,{"class":"C4A",	"teacher":"ING1",	"day":"2",	"period":"5"}
+	        ,{"class":"C4A",	"teacher":"ING1",	"day":"3",	"period":"3"}
+	        ,{"class":"C4A",	"teacher":"ING1",	"day":"4",	"period":"1"}
+	        ,{"class":"C4A",	"teacher":"ING1",	"day":"5",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"ING1",	"day":"6",	"period":"2"}
+	        ,{"class":"C4A",	"teacher":"LET1",	"day":"1",	"period":"3"}
+	        ,{"class":"C4A",	"teacher":"LET1",	"day":"3",	"period":"4"}
+	        ,{"class":"C4A",	"teacher":"LET1",	"day":"3",	"period":"5"}
+	        ,{"class":"C4A",	"teacher":"LET1",	"day":"4",	"period":"2"}
+	        ,{"class":"C4A",	"teacher":"LET1",	"day":"5",	"period":"1"}
+	        ,{"class":"C4A",	"teacher":"LET1",	"day":"6",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"INF1",	"day":"1",	"period":"4"}
+	        ,{"class":"C4A",	"teacher":"INF1",	"day":"1",	"period":"5"}
+	        ,{"class":"C4A",	"teacher":"INF1",	"day":"2",	"period":"3"}
+	        ,{"class":"C4A",	"teacher":"INF1",	"day":"4",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"INF1",	"day":"5",	"period":"2"}
+	        ,{"class":"C4A",	"teacher":"INF1",	"day":"6",	"period":"1"}
+	        ,{"class":"C4A",	"teacher":"SIS1",	"day":"1",	"period":"1"}
+	        ,{"class":"C4A",	"teacher":"SIS1",	"day":"2",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"SIS1",	"day":"3",	"period":"2"}
+	        ,{"class":"C4A",	"teacher":"SIS1",	"day":"5",	"period":"3"}
+	        ,{"class":"C4A",	"teacher":"SIS1",	"day":"6",	"period":"4"}
+	        ,{"class":"C4A",	"teacher":"SIS1",	"day":"6",	"period":"5"}
+	        ,{"class":"C4A",	"teacher":"MAT1",	"day":"1",	"period":"2"}
+	        ,{"class":"C4A",	"teacher":"MAT1",	"day":"2",	"period":"1"}
+	        ,{"class":"C4A",	"teacher":"MAT1",	"day":"3",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"MAT1",	"day":"4",	"period":"4"}
+	        ,{"class":"C4A",	"teacher":"MAT1",	"day":"4",	"period":"5"}
+	        ,{"class":"C4A",	"teacher":"MAT1",	"day":"6",	"period":"3"}
+	        ,{"class":"C4A",	"teacher":"TEL1",	"day":"1",	"period":"6"}
+	        ,{"class":"C4A",	"teacher":"TEL1",	"day":"2",	"period":"2"}
+	        ,{"class":"C4A",	"teacher":"TEL1",	"day":"3",	"period":"1"}
+	        ,{"class":"C4A",	"teacher":"TEL1",	"day":"4",	"period":"3"}
+	        ,{"class":"C4A",	"teacher":"TEL1",	"day":"5",	"period":"4"}
+	        ,{"class":"C4A",	"teacher":"TEL1",	"day":"5",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"ING1",	"day":"2",	"period":"1"}
+	        ,{"class":"C5A",	"teacher":"ING1",	"day":"2",	"period":"2"}
+	        ,{"class":"C5A",	"teacher":"ING1",	"day":"3",	"period":"6"}
+	        ,{"class":"C5A",	"teacher":"ING1",	"day":"5",	"period":"4"}
+	        ,{"class":"C5A",	"teacher":"ING1",	"day":"5",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"ING1",	"day":"6",	"period":"3"}
+	        ,{"class":"C5A",	"teacher":"LET1",	"day":"1",	"period":"6"}
+	        ,{"class":"C5A",	"teacher":"LET1",	"day":"3",	"period":"1"}
+	        ,{"class":"C5A",	"teacher":"LET1",	"day":"3",	"period":"2"}
+	        ,{"class":"C5A",	"teacher":"LET1",	"day":"4",	"period":"3"}
+	        ,{"class":"C5A",	"teacher":"LET1",	"day":"6",	"period":"4"}
+	        ,{"class":"C5A",	"teacher":"LET1",	"day":"6",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"INF1",	"day":"1",	"period":"1"}
+	        ,{"class":"C5A",	"teacher":"INF1",	"day":"1",	"period":"2"}
+	        ,{"class":"C5A",	"teacher":"INF1",	"day":"2",	"period":"6"}
+	        ,{"class":"C5A",	"teacher":"INF1",	"day":"4",	"period":"4"}
+	        ,{"class":"C5A",	"teacher":"INF1",	"day":"4",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"INF1",	"day":"5",	"period":"3"}
+	        ,{"class":"C5A",	"teacher":"SIS1",	"day":"2",	"period":"4"}
+	        ,{"class":"C5A",	"teacher":"SIS1",	"day":"2",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"SIS1",	"day":"3",	"period":"3"}
+	        ,{"class":"C5A",	"teacher":"SIS1",	"day":"5",	"period":"6"}
+	        ,{"class":"C5A",	"teacher":"SIS1",	"day":"6",	"period":"1"}
+	        ,{"class":"C5A",	"teacher":"SIS1",	"day":"6",	"period":"2"}
+	        ,{"class":"C5A",	"teacher":"MAT1",	"day":"1",	"period":"3"}
+	        ,{"class":"C5A",	"teacher":"MAT1",	"day":"3",	"period":"4"}
+	        ,{"class":"C5A",	"teacher":"MAT1",	"day":"3",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"MAT1",	"day":"4",	"period":"1"}
+	        ,{"class":"C5A",	"teacher":"MAT1",	"day":"4",	"period":"2"}
+	        ,{"class":"C5A",	"teacher":"MAT1",	"day":"6",	"period":"6"}
+	        ,{"class":"C5A",	"teacher":"TEL1",	"day":"1",	"period":"4"}
+	        ,{"class":"C5A",	"teacher":"TEL1",	"day":"1",	"period":"5"}
+	        ,{"class":"C5A",	"teacher":"TEL1",	"day":"2",	"period":"3"}
+	        ,{"class":"C5A",	"teacher":"TEL1",	"day":"4",	"period":"6"}
+	        ,{"class":"C5A",	"teacher":"TEL1",	"day":"5",	"period":"1"}
+	        ,{"class":"C5A",	"teacher":"TEL1",	"day":"5",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"ING1",	"day":"2",	"period":"6"}
+	        ,{"class":"C3B",	"teacher":"ING1",	"day":"3",	"period":"4"}
+	        ,{"class":"C3B",	"teacher":"ING1",	"day":"3",	"period":"5"}
+	        ,{"class":"C3B",	"teacher":"ING1",	"day":"4",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"ING1",	"day":"4",	"period":"3"}
+	        ,{"class":"C3B",	"teacher":"ING1",	"day":"6",	"period":"1"}
+	        ,{"class":"C3B",	"teacher":"LET2",	"day":"1",	"period":"4"}
+	        ,{"class":"C3B",	"teacher":"LET2",	"day":"1",	"period":"5"}
+	        ,{"class":"C3B",	"teacher":"LET2",	"day":"3",	"period":"6"}
+	        ,{"class":"C3B",	"teacher":"LET2",	"day":"4",	"period":"1"}
+	        ,{"class":"C3B",	"teacher":"LET2",	"day":"5",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"LET2",	"day":"5",	"period":"3"}
+	        ,{"class":"C3B",	"teacher":"INF2",	"day":"1",	"period":"6"}
+	        ,{"class":"C3B",	"teacher":"INF2",	"day":"2",	"period":"4"}
+	        ,{"class":"C3B",	"teacher":"INF2",	"day":"2",	"period":"5"}
+	        ,{"class":"C3B",	"teacher":"INF2",	"day":"5",	"period":"1"}
+	        ,{"class":"C3B",	"teacher":"INF2",	"day":"6",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"INF2",	"day":"6",	"period":"3"}
+	        ,{"class":"C3B",	"teacher":"SIS2",	"day":"1",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"SIS2",	"day":"1",	"period":"3"}
+	        ,{"class":"C3B",	"teacher":"SIS2",	"day":"3",	"period":"1"}
+	        ,{"class":"C3B",	"teacher":"SIS2",	"day":"5",	"period":"4"}
+	        ,{"class":"C3B",	"teacher":"SIS2",	"day":"5",	"period":"5"}
+	        ,{"class":"C3B",	"teacher":"SIS2",	"day":"6",	"period":"6"}
+	        ,{"class":"C3B",	"teacher":"MAT2",	"day":"1",	"period":"1"}
+	        ,{"class":"C3B",	"teacher":"MAT2",	"day":"2",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"MAT2",	"day":"2",	"period":"3"}
+	        ,{"class":"C3B",	"teacher":"MAT2",	"day":"4",	"period":"6"}
+	        ,{"class":"C3B",	"teacher":"MAT2",	"day":"6",	"period":"4"}
+	        ,{"class":"C3B",	"teacher":"MAT2",	"day":"6",	"period":"5"}
+	        ,{"class":"C3B",	"teacher":"TEL2",	"day":"2",	"period":"1"}
+	        ,{"class":"C3B",	"teacher":"TEL2",	"day":"3",	"period":"2"}
+	        ,{"class":"C3B",	"teacher":"TEL2",	"day":"3",	"period":"3"}
+	        ,{"class":"C3B",	"teacher":"TEL2",	"day":"4",	"period":"4"}
+	        ,{"class":"C3B",	"teacher":"TEL2",	"day":"4",	"period":"5"}
+	        ,{"class":"C3B",	"teacher":"TEL2",	"day":"5",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"ING1",	"day":"2",	"period":"4"}
+	        ,{"class":"C4B",	"teacher":"ING1",	"day":"2",	"period":"5"}
+	        ,{"class":"C4B",	"teacher":"ING1",	"day":"3",	"period":"3"}
+	        ,{"class":"C4B",	"teacher":"ING1",	"day":"4",	"period":"1"}
+	        ,{"class":"C4B",	"teacher":"ING1",	"day":"5",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"ING1",	"day":"6",	"period":"2"}
+	        ,{"class":"C4B",	"teacher":"LET2",	"day":"1",	"period":"3"}
+	        ,{"class":"C4B",	"teacher":"LET2",	"day":"3",	"period":"4"}
+	        ,{"class":"C4B",	"teacher":"LET2",	"day":"3",	"period":"5"}
+	        ,{"class":"C4B",	"teacher":"LET2",	"day":"4",	"period":"2"}
+	        ,{"class":"C4B",	"teacher":"LET2",	"day":"5",	"period":"1"}
+	        ,{"class":"C4B",	"teacher":"LET2",	"day":"6",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"INF2",	"day":"1",	"period":"4"}
+	        ,{"class":"C4B",	"teacher":"INF2",	"day":"1",	"period":"5"}
+	        ,{"class":"C4B",	"teacher":"INF2",	"day":"2",	"period":"3"}
+	        ,{"class":"C4B",	"teacher":"INF2",	"day":"4",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"INF2",	"day":"5",	"period":"2"}
+	        ,{"class":"C4B",	"teacher":"INF2",	"day":"6",	"period":"1"}
+	        ,{"class":"C4B",	"teacher":"SIS2",	"day":"1",	"period":"1"}
+	        ,{"class":"C4B",	"teacher":"SIS2",	"day":"2",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"SIS2",	"day":"3",	"period":"2"}
+	        ,{"class":"C4B",	"teacher":"SIS2",	"day":"5",	"period":"3"}
+	        ,{"class":"C4B",	"teacher":"SIS2",	"day":"6",	"period":"4"}
+	        ,{"class":"C4B",	"teacher":"SIS2",	"day":"6",	"period":"5"}
+	        ,{"class":"C4B",	"teacher":"MAT2",	"day":"1",	"period":"2"}
+	        ,{"class":"C4B",	"teacher":"MAT2",	"day":"2",	"period":"1"}
+	        ,{"class":"C4B",	"teacher":"MAT2",	"day":"3",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"MAT2",	"day":"4",	"period":"4"}
+	        ,{"class":"C4B",	"teacher":"MAT2",	"day":"4",	"period":"5"}
+	        ,{"class":"C4B",	"teacher":"MAT2",	"day":"6",	"period":"3"}
+	        ,{"class":"C4B",	"teacher":"TEL2",	"day":"1",	"period":"6"}
+	        ,{"class":"C4B",	"teacher":"TEL2",	"day":"2",	"period":"2"}
+	        ,{"class":"C4B",	"teacher":"TEL2",	"day":"3",	"period":"1"}
+	        ,{"class":"C4B",	"teacher":"TEL2",	"day":"4",	"period":"3"}
+	        ,{"class":"C4B",	"teacher":"TEL2",	"day":"5",	"period":"4"}
+	        ,{"class":"C4B",	"teacher":"TEL2",	"day":"5",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"ING1",	"day":"2",	"period":"1"}
+	        ,{"class":"C5B",	"teacher":"ING1",	"day":"2",	"period":"2"}
+	        ,{"class":"C5B",	"teacher":"ING1",	"day":"3",	"period":"6"}
+	        ,{"class":"C5B",	"teacher":"ING1",	"day":"5",	"period":"4"}
+	        ,{"class":"C5B",	"teacher":"ING1",	"day":"5",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"ING1",	"day":"6",	"period":"3"}
+	        ,{"class":"C5B",	"teacher":"LET2",	"day":"1",	"period":"6"}
+	        ,{"class":"C5B",	"teacher":"LET2",	"day":"3",	"period":"1"}
+	        ,{"class":"C5B",	"teacher":"LET2",	"day":"3",	"period":"2"}
+	        ,{"class":"C5B",	"teacher":"LET2",	"day":"4",	"period":"3"}
+	        ,{"class":"C5B",	"teacher":"LET2",	"day":"6",	"period":"4"}
+	        ,{"class":"C5B",	"teacher":"LET2",	"day":"6",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"INF2",	"day":"1",	"period":"1"}
+	        ,{"class":"C5B",	"teacher":"INF2",	"day":"1",	"period":"2"}
+	        ,{"class":"C5B",	"teacher":"INF2",	"day":"2",	"period":"6"}
+	        ,{"class":"C5B",	"teacher":"INF2",	"day":"4",	"period":"4"}
+	        ,{"class":"C5B",	"teacher":"INF2",	"day":"4",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"INF2",	"day":"5",	"period":"3"}
+	        ,{"class":"C5B",	"teacher":"SIS2",	"day":"2",	"period":"4"}
+	        ,{"class":"C5B",	"teacher":"SIS2",	"day":"2",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"SIS2",	"day":"3",	"period":"3"}
+	        ,{"class":"C5B",	"teacher":"SIS2",	"day":"5",	"period":"6"}
+	        ,{"class":"C5B",	"teacher":"SIS2",	"day":"6",	"period":"1"}
+	        ,{"class":"C5B",	"teacher":"SIS2",	"day":"6",	"period":"2"}
+	        ,{"class":"C5B",	"teacher":"MAT2",	"day":"1",	"period":"3"}
+	        ,{"class":"C5B",	"teacher":"MAT2",	"day":"3",	"period":"4"}
+	        ,{"class":"C5B",	"teacher":"MAT2",	"day":"3",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"MAT2",	"day":"4",	"period":"1"}
+	        ,{"class":"C5B",	"teacher":"MAT2",	"day":"4",	"period":"2"}
+	        ,{"class":"C5B",	"teacher":"MAT2",	"day":"6",	"period":"6"}
+	        ,{"class":"C5B",	"teacher":"TEL2",	"day":"1",	"period":"4"}
+	        ,{"class":"C5B",	"teacher":"TEL2",	"day":"1",	"period":"5"}
+	        ,{"class":"C5B",	"teacher":"TEL2",	"day":"2",	"period":"3"}
+	        ,{"class":"C5B",	"teacher":"TEL2",	"day":"4",	"period":"6"}
+	        ,{"class":"C5B",	"teacher":"TEL2",	"day":"5",	"period":"1"}
+	        ,{"class":"C5B",	"teacher":"TEL2",	"day":"5",	"period":"2"}
+             ]
+}

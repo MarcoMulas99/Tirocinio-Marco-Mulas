@@ -7,17 +7,40 @@ document.getElementById("read-button").addEventListener('click', function() {
 function read(file){
 
 	let reader = new FileReader();
+
 		reader.addEventListener('load', function(e) {
 	   		let text = e.target.result;
-	   		dataManagement(JSON.parse(text));
+				let parsedText = JSON.parse(text);
+	   		dataManagement(parsedText);
 	   		localStorage.setItem("fileData", text);
+
+				let body = document.getElementById('body');
+
+				let fileName = document.createElement('P');
+				fileName.innerHTML = "Documento selezionato: "+file.name;
+				body.appendChild(fileName);
+
+				let numDays = document.createElement('P');
+				numDays.innerHTML = "Numero di Giorni: "+parsedText.nD;
+				body.appendChild(numDays);
+
+				let numPeriods = document.createElement('P');
+				numPeriods.innerHTML = "Numero di periodi: "+parsedText.nH;
+				body.appendChild(numPeriods);
+
+				let numClasses = document.createElement('P');
+				numClasses.innerHTML = "Numero di classi: "+ parsedText.CLASSES.length;
+				body.appendChild(numClasses);
+
+				let numTeachers = document.createElement('P');
+				numTeachers.innerHTML = "Numero di insegnanti: "+ parsedText.TEACHERS.length;
+				body.appendChild(numTeachers);
+
+				let numCourses = document.createElement('P');
+				numCourses.innerHTML = "Numero di corsi: "+ parsedText.COURSES.length;
+				body.appendChild(numCourses);
 		});
 	reader.readAsText(file);
-
-	let body = document.getElementById('body');
-	let fileName = document.createElement('P');
-	fileName.innerHTML = "Documento selezionato: "+file.name;
-	body.appendChild(fileName);
 }
 
 function dataManagement(data){
