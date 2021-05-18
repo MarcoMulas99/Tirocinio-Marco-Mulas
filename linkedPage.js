@@ -34,12 +34,12 @@ htmlTable.appendChild(finalTable);
 switch (type) {
   case 'CLASSES':
     totalPeriods = document.createElement('P');
-    totalPeriods.innerHTML = "Numero di ore settimanali: " + filteredTimeTable.length;//da cambiare per gli orari comibnati come lab
+    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);//da cambiare per gli orari comibnati come lab
     htmlTable.appendChild(totalPeriods);
     break;
   case 'TEACHERS':
     totalPeriods = document.createElement('P');
-    totalPeriods.innerHTML = "Numero di ore settimanali: " + filteredTimeTable.length;//da cambiare per gli orari comibnati come lab
+    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);//da cambiare per gli orari comibnati come lab
     htmlTable.appendChild(totalPeriods);
 
     freePeriods = document.createElement('P');
@@ -49,6 +49,17 @@ switch (type) {
 }
 
 /*******************************************************************************************************************************************************************************************************/
+function countWeeklyPeriods(matrix){
+  let count = 0;
+  for (let i = 0; i<matrix.length; i++){
+    for (let j = 0; j<matrix[i].length; j++){
+      if(matrix[i][j].length!==0) count++;
+    }
+  }
+
+  return count;
+}
+
 function countFreePeriods(matrix, nH, nD){
   let result = 0;
   let count = 0;
@@ -58,13 +69,13 @@ function countFreePeriods(matrix, nH, nD){
     flag = false;
     count = 0;
     for(r = 0; r<nH; r++){
-      if(matrix[r][c]!==undefined){
+      if(matrix[r][c].length !== 0){
         flag = true;
         result += count;
         count = 0;
         //console.log(result);
       }
-      if(flag && matrix[r][c]===undefined){
+      if(flag && matrix[r][c].length === 0){
         count++;
       }
     }
@@ -74,10 +85,17 @@ function countFreePeriods(matrix, nH, nD){
 
 function createTableMatrix(timeTable, nD, nH) {
   let matrix = [];
+
   for(var i=0; i<nH; i++) {
-    //crare array(nD) = []
-    matrix[i] = new Array(nD); //OGNI CAMPO DELLA MATRICE DEVE DIVENTARE UN ARRAY
+    let row = new Array(nD);
+    for(var j=0; j<nD; j++){
+      row[j] = []
+    }
+
+    matrix[i] = row;
   }
+
+
 
   timeTable.forEach(item => {
     matrix[item.period-1][item.day-1].push(item);
@@ -140,16 +158,29 @@ function createTable(matrix, type){
     for(j = 0; j<matrix[i].length; j++){
       td = document.createElement('TD');
       tr.appendChild(td);
-      if(typeof matrix[i][j] !== 'undefined'){
+      let str = "";
+      if(matrix[i][j].length !== 0){
         switch (type) {
           case 'CLASSES':
-            td.innerHTML = matrix[i][j].teacher;
+            for(k = 0; k<matrix[i][j].length; k++){
+              str = str +" "+matrix[i][j][k].teacher
+            }
+            k=0;
+            td.innerHTML = str;
             break;
           case 'TEACHERS':
-            td.innerHTML = matrix[i][j].class;
+            for(k = 0; k<matrix[i][j].length; k++){
+              str = str+" "+matrix[i][j][k].class;
+            }
+            k=0;
+            td.innerHTML = str;
             break;
           case 'COURSES':
-            td.innerHTML = matrix[i][j].teacher+"-"+matrix[i][j].class;
+            for(k = 0; k<matrix[i][j].length; k++){
+              str = str+" "+matrix[i][j][k].teacher+"-"+matrix[i][j][k].class;
+            }
+            k=0;
+            td.innerHTML = str;
           break;
         }
       }else{

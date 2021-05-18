@@ -1,6 +1,11 @@
 document.getElementById("read-button").addEventListener('click', function() {
 		let file = document.getElementById("file-input").files[0];
 		read(file);
+		//document.getElementById('read-button').disabled = true;
+		document.getElementById('classes').innerHTML = "";
+		document.getElementById('teachers').innerHTML = "";
+		document.getElementById('courses').innerHTML = "";
+		document.getElementById('info').innerHTML = "";
 		});
 
 
@@ -14,31 +19,31 @@ function read(file){
 	   		dataManagement(parsedText);
 	   		localStorage.setItem("fileData", text);
 
-				let body = document.getElementById('body');
+				let info = document.getElementById('info');
 
 				let fileName = document.createElement('P');
 				fileName.innerHTML = "Documento selezionato: "+file.name;
-				body.appendChild(fileName);
+				info.appendChild(fileName);
 
 				let numDays = document.createElement('P');
 				numDays.innerHTML = "Numero di Giorni: "+parsedText.nD;
-				body.appendChild(numDays);
+				info.appendChild(numDays);
 
 				let numPeriods = document.createElement('P');
 				numPeriods.innerHTML = "Numero di periodi: "+parsedText.nH;
-				body.appendChild(numPeriods);
+				info.appendChild(numPeriods);
 
 				let numClasses = document.createElement('P');
 				numClasses.innerHTML = "Numero di classi: "+ parsedText.CLASSES.length;
-				body.appendChild(numClasses);
+				info.appendChild(numClasses);
 
 				let numTeachers = document.createElement('P');
 				numTeachers.innerHTML = "Numero di insegnanti: "+ parsedText.TEACHERS.length;
-				body.appendChild(numTeachers);
+				info.appendChild(numTeachers);
 
 				let numCourses = document.createElement('P');
 				numCourses.innerHTML = "Numero di corsi: "+ parsedText.COURSES.length;
-				body.appendChild(numCourses);
+				info.appendChild(numCourses);
 		});
 	reader.readAsText(file);
 }
