@@ -16,8 +16,12 @@ function read(file){
 		reader.addEventListener('load', function(e) {
 	   		let text = e.target.result;
 				let parsedText = JSON.parse(text);
-	   		dataManagement(parsedText);
+				const coursesList = coursesListConstructor(parsedText.COURSES);
+
+	   		dataManagement(parsedText, coursesList);
+
 	   		localStorage.setItem("fileData", text);
+
 
 				let info = document.getElementById('info');
 
@@ -41,14 +45,14 @@ function read(file){
 				numTeachers.innerHTML = "Numero di insegnanti: "+ parsedText.TEACHERS.length;
 				info.appendChild(numTeachers);
 
-				let numCourses = document.createElement('P');
-				numCourses.innerHTML = "Numero di corsi: "+ parsedText.COURSES.length;
+				let numCourses = document.createElement('P');//////////////////////////////////////////////////////////////
+				numCourses.innerHTML = "Numero di corsi: "+ coursesList.length;
 				info.appendChild(numCourses);
 		});
 	reader.readAsText(file);
 }
 
-function dataManagement(data){
+function dataManagement(data, coursesList){
 
 	console.log(data);
 
@@ -61,15 +65,23 @@ function dataManagement(data){
 	teachers.appendChild(createTable(data.TEACHERS, "TEACHERS"));
 
 	let courses = document.getElementById('courses');
-	courses.appendChild(createTable(data.COURSES, "COURSES"));
+	courses.appendChild(createTable(coursesList, 'COURSES'));
 
 
 
 }
 
-
-
-
+function coursesListConstructor(coursesList){
+  let list = [];
+  for(let i = 0; i<coursesList.length; i++){
+    let occurence = list.find(e => e[0].name === coursesList[i].name);
+    if(typeof occurence === "undefined") list.push([coursesList[i]]);
+    else {
+      occurence.push(coursesList[i]);
+    }
+  }
+  return list;
+}
 
 function createTable(list, elementsType){
 
@@ -92,12 +104,12 @@ function createTable(list, elementsType){
 		td = document.createElement('TD');
 		a = document.createElement('A');
 
+		if(elementsType === 'COURSES'){
 
+			a.innerHTML = list[i][0].name;
 
+		}else if(typeof list[i] != "string"){
 
-
-
-		if(typeof list[i] != "string"){
 			a.innerHTML = list[i].name;
 
 		}else{

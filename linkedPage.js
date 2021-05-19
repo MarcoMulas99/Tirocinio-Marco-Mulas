@@ -8,6 +8,8 @@ const data = JSON.parse(localStorage.getItem("fileData"));
 
 const nD = data.nD;
 const nH = data.nH;
+const courses = coursesListConstructor(data.COURSES);
+console.log(courses);
 let filteredTimeTable;
 let totalPeriods;
 
@@ -19,8 +21,13 @@ switch (type) {
   case 'TEACHERS':
     filteredTimeTable = data.TIMETABLE.filter(e => {return e.teacher === selectedElement});
     break;
-  case 'COURSES':
-    const course = data.COURSES.find(e => e.name === selectedElement);
+  case 'COURSES'://da aggiunstare è buggato!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  /*
+  
+  */
+
+    const course = data.COURSES.filter(e => e.name === selectedElement);
+    console.log(course);
     filteredTimeTable = data.TIMETABLE.filter(e => {return e.class === course.class && e.teacher === course.teacher});
   break;
 }
@@ -49,6 +56,19 @@ switch (type) {
 }
 
 /*******************************************************************************************************************************************************************************************************/
+
+function coursesListConstructor(coursesList){
+  let list = [];
+  for(let i = 0; i<coursesList.length; i++){
+    let occurence = list.find(e => e[0].name === coursesList[i].name);
+    if(typeof occurence === "undefined") list.push([coursesList[i]]);
+    else {
+      occurence.push(coursesList[i]);
+    }
+  }
+  return list;
+}
+
 function countWeeklyPeriods(matrix){
   let count = 0;
   for (let i = 0; i<matrix.length; i++){
@@ -162,25 +182,13 @@ function createTable(matrix, type){
       if(matrix[i][j].length !== 0){
         switch (type) {
           case 'CLASSES':
-            for(k = 0; k<matrix[i][j].length; k++){
-              str = str +" "+matrix[i][j][k].teacher
-            }
-            k=0;
-            td.innerHTML = str;
+            td.innerHTML = findCourse(matrix[i][j]);
             break;
           case 'TEACHERS':
-            for(k = 0; k<matrix[i][j].length; k++){
-              str = str+" "+matrix[i][j][k].class;
-            }
-            k=0;
-            td.innerHTML = str;
+            td.innerHTML = findCourse(matrix[i][j]);
             break;
           case 'COURSES':
-            for(k = 0; k<matrix[i][j].length; k++){
-              str = str+" "+matrix[i][j][k].teacher+"-"+matrix[i][j][k].class;
-            }
-            k=0;
-            td.innerHTML = str;
+            td.innerHTML = findCourse(matrix[i][j]);
           break;
         }
       }else{
@@ -192,6 +200,24 @@ function createTable(matrix, type){
   return table;
 }
 
+function findCourse(period){
+  let aux = courses.filter(e => e.length === period.length);
+  let result = "";
+  let count = 0;
+
+  if(typeof aux !== "undefined"){
+    for(let i = 0; i<aux.length; i++){
+      count=0;
+      for(let j = 0; j<period.length; j++){
+        if(typeof aux[i].find(e => e.class === period[j].class && e.teacher === period[j].teacher) !== "undefined") count++;
+        else break;
+        if(count === period.length) result = aux[i][0].name;
+      }
+    }
+  }
+
+  return  result;
+ }
 
 
 //document.write(JSON.stringify(createTableMatrix(filteredTimeTable, nD, nH)));
