@@ -20,15 +20,21 @@ switch (type) {
     break;
   case 'TEACHERS':
     filteredTimeTable = data.TIMETABLE.filter(e => {return e.teacher === selectedElement});
+    let aux = [];
+    for(let i = 0; i<filteredTimeTable.length; i++){
+      const element = data.TIMETABLE.find(e => e.class === filteredTimeTable[i].class && e.day===filteredTimeTable[i].day && e.period===filteredTimeTable[i].period && e.teacher!==filteredTimeTable[i].teacher);
+      if (typeof element !== "undefined") aux.push(element);
+    }
+    filteredTimeTable = filteredTimeTable.concat(aux);
+    //console.log(filteredTimeTable);
     break;
   case 'COURSES'://da aggiunstare è buggato!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  /*
-  
-  */
-
+    filteredTimeTable = [];
     const course = data.COURSES.filter(e => e.name === selectedElement);
-    console.log(course);
-    filteredTimeTable = data.TIMETABLE.filter(e => {return e.class === course.class && e.teacher === course.teacher});
+
+    filteredTimeTable = filteredTimeTable.concat(data.TIMETABLE.filter(e => {return e.class === course[0].class}));
+
+
   break;
 }
 
@@ -185,10 +191,12 @@ function createTable(matrix, type){
             td.innerHTML = findCourse(matrix[i][j]);
             break;
           case 'TEACHERS':
-            td.innerHTML = findCourse(matrix[i][j]);
+            td.innerHTML = findCourse(matrix[i][j]);/////////////////////////da sistemare, si bugga in caso di un insegnante che gestisce più classi nella stessa ora
             break;
           case 'COURSES':
-            td.innerHTML = findCourse(matrix[i][j]);
+            const aux = findCourse(matrix[i][j]);
+            if(aux !== selectedElement) td.innerHTML = "";
+             else td.innerHTML = aux;
           break;
         }
       }else{
@@ -201,9 +209,12 @@ function createTable(matrix, type){
 }
 
 function findCourse(period){
-  let aux = courses.filter(e => e.length === period.length);
+  let aux;
   let result = "";
   let count = 0;
+
+  if(period.length !== 0) aux = courses.filter(e => e.length === period.length);
+  else return "";
 
   if(typeof aux !== "undefined"){
     for(let i = 0; i<aux.length; i++){
@@ -213,6 +224,26 @@ function findCourse(period){
         else break;
         if(count === period.length) result = aux[i][0].name;
       }
+    }
+  }
+
+  let classes = [];
+  let teachers = [];
+  aux = "undefined";
+  console.log(period);
+  if(result === ""){
+    for(let k = 0; k<period.length; k++){
+      aux = classes.find(e => e === period[k].class);
+      if(typeof aux === "undefined") classes.push(period[k].class);
+      aux = teachers.find(e => e === period[k].teacher);
+      if(typeof aux === "undefined") teachers.push(period[k].teacher);
+    }
+    result = classes[0];
+    for (let i = 1; i<classes.length; i++){
+      result = result.concat('_', classes[i]);
+    }
+    for (let i = 0; i<teachers.length; i++){
+      result = result.concat('_', teachers[i]);
     }
   }
 
