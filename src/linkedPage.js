@@ -9,7 +9,9 @@ const data = JSON.parse(localStorage.getItem("fileData"));
 const nD = data.nD;
 const nH = data.nH;
 const courses = coursesListConstructor(data.COURSES);
-console.log(courses);
+
+
+//console.log(courses);
 let filteredTimeTable;
 let totalPeriods;
 
@@ -28,7 +30,7 @@ switch (type) {
     filteredTimeTable = filteredTimeTable.concat(aux);
     //console.log(filteredTimeTable);
     break;
-  case 'COURSES'://da aggiunstare è buggato!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  case 'COURSES':
     filteredTimeTable = [];
     const course = data.COURSES.filter(e => e.name === selectedElement);
 
@@ -43,25 +45,233 @@ let tableMatrix = createTableMatrix(filteredTimeTable, nD, nH);
 let finalTable = createTable(tableMatrix, type);
 htmlTable.appendChild(finalTable);
 
+
+let info;
 //INFORMAZIONI AGGIUNTIVE
 switch (type) {
   case 'CLASSES':
     totalPeriods = document.createElement('P');
-    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);//da cambiare per gli orari comibnati come lab
+    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
     htmlTable.appendChild(totalPeriods);
+
+    info = chartsInfo(type, extractTeachersFromMatrix(tableMatrix), tableMatrix);
+
+    for(let i = 0; i<info.length; i++){
+      let canvas = document.createElement('canvas');
+      //canvas.id = i;
+      //canvas.width = 200;
+      //canvas.height = 500;
+      //canvas.style.width  = '1px';
+      //canvas.style.height = '1px';
+
+      htmlTable.appendChild(canvas);
+      canvas.removeAttribute("style");
+
+      let ctx = canvas.getContext('2d');
+
+      let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB'],
+            datasets: [{
+                label: 'Ore '+info[i].teacher,
+                data: info[i].days,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+
+            title: {/////////////
+                display: true,
+                text: 'TESTaffafafafafafafafafafafafafafafafafaf'
+            },
+            maintainAspectRatio: false,
+            responsive: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                      stepSize: 1
+                    }
+                }
+            },
+            legend: {///////////
+             display: false
+            }
+        }
+    });
+
+
+    }
+
     break;
   case 'TEACHERS':
     totalPeriods = document.createElement('P');
-    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);//da cambiare per gli orari comibnati come lab
+    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
     htmlTable.appendChild(totalPeriods);
 
     freePeriods = document.createElement('P');
     freePeriods.innerHTML = "Numero ore buche: " + countFreePeriods(tableMatrix, nH, nD);
     htmlTable.appendChild(freePeriods);
 
+    info = chartsInfo(type, extractClassesFromMatrix(tableMatrix), tableMatrix);
+
+    for(let i = 0; i<info.length; i++){
+      let canvas = document.createElement('canvas');
+      //canvas.id = i;
+      //canvas.width = 200;
+      canvas.height = 200;
+      //canvas.style.width  = '1px';
+      //canvas.style.height = '1px';
+
+      htmlTable.appendChild(canvas);
+      canvas.removeAttribute("style");
+
+      let ctx = canvas.getContext('2d');
+
+      let l = [];
+
+      for (let j = 0; j<nH; j++){
+        l.push(j+1);
+      }
+
+
+      let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: l,
+            datasets: [{
+                label: info[i].class,
+                data: info[i].periods,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            title: {/////////////
+                display: true,
+                text: 'TESTaffafafafafafafafafafafafafafafafafaf'
+            },
+            maintainAspectRatio: false,
+            responsive: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                      stepSize: 1
+                    }
+                }
+            },
+            legend: {///////////
+             display: false
+            }
+        }
+    });
+
+
+    }
 }
 
+
+
+
+
+
+
+
+
+
 /*******************************************************************************************************************************************************************************************************/
+
+function chartsInfo(type, chartOwners, matrix){
+  let info = [];
+
+  switch (type) {
+    case 'CLASSES':
+      for(let i = 0; i<chartOwners.length; i++){
+        info.push({teacher:chartOwners[i], days:new Array(nD).fill(0)});
+      }
+      for(let i = 0; i<matrix.length; i++){
+        for(let j = 0; j<matrix[i].length; j++){
+          for(let k = 0; k<matrix[i][j].length; k++){
+              if(matrix[i][j].length>0)info.find(e => e.teacher === matrix[i][j][k].teacher).days[j]++;
+          }
+        }
+      }
+      break;
+    case 'TEACHERS':
+      for(let i = 0; i<chartOwners.length; i++){
+        info.push({class:chartOwners[i], periods:new Array(nH).fill(0)});
+      }
+      for(let i = 0; i<matrix.length; i++){
+        for(let j = 0; j<matrix[i].length; j++){
+          if(matrix[i][j].length>0)info.find(e => e.class === matrix[i][j][0].class).periods[matrix[i][j][0].period-1]++;
+        }
+      }
+    break;
+  }
+  return info;
+}
+
+function extractClassesFromMatrix(matrix){
+  let c = [];
+
+  for(let i = 0; i<matrix.length; i++){
+    for(let j = 0; j<matrix[i].length; j++){
+      for(let k = 0; k<matrix[i][j].length; k++){
+        if (!c.includes(matrix[i][j][k].class))c.push(matrix[i][j][k].class);
+      }
+    }
+  }
+
+  return c;
+}
+
+function extractTeachersFromMatrix(matrix){
+  let t = [];
+
+  for(let i = 0; i<matrix.length; i++){
+    for(let j = 0; j<matrix[i].length; j++){
+      for(let k = 0; k<matrix[i][j].length; k++){
+        if (!t.includes(matrix[i][j][k].teacher))t.push(matrix[i][j][k].teacher);
+      }
+    }
+  }
+
+  return t;
+}
 
 function coursesListConstructor(coursesList){
   let list = [];
@@ -127,6 +337,7 @@ function createTableMatrix(timeTable, nD, nH) {
     matrix[item.period-1][item.day-1].push(item);
   });
 
+  console.log(matrix);
   return matrix;
 }
 
@@ -169,7 +380,7 @@ function createTable(matrix, type){
 		tr.appendChild(td);
   }
 
-  console.log(matrix);
+
 
   for (i = 0; i<matrix.length; i++){
     tr = document.createElement('TR');
@@ -191,7 +402,7 @@ function createTable(matrix, type){
             td.innerHTML = findCourse(matrix[i][j]);
             break;
           case 'TEACHERS':
-            td.innerHTML = findCourse(matrix[i][j]);/////////////////////////da sistemare, si bugga in caso di un insegnante che gestisce più classi nella stessa ora
+            td.innerHTML = findCourse(matrix[i][j]);
             break;
           case 'COURSES':
             const aux = findCourse(matrix[i][j]);
@@ -230,7 +441,7 @@ function findCourse(period){
   let classes = [];
   let teachers = [];
   aux = "undefined";
-  console.log(period);
+
   if(result === ""){
     for(let k = 0; k<period.length; k++){
       aux = classes.find(e => e === period[k].class);

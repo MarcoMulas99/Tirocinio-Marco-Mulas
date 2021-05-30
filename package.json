@@ -1,0 +1,22 @@
+{
+  "name": "tirocinio-marco-mulas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcoMulas99/Tirocinio-Marco-Mulas.git"
+  },
+  "author": "Marco Mulas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcoMulas99/Tirocinio-Marco-Mulas/issues"
+  },
+  "homepage": "https://github.com/MarcoMulas99/Tirocinio-Marco-Mulas#readme",
+  "dependencies": {
+    "chart.js": "^3.3.1"
+  }
+}

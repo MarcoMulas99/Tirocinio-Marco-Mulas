@@ -45,7 +45,7 @@ function read(file){
 				numTeachers.innerHTML = "Numero di insegnanti: "+ parsedText.TEACHERS.length;
 				info.appendChild(numTeachers);
 
-				let numCourses = document.createElement('P');//////////////////////////////////////////////////////////////
+				let numCourses = document.createElement('P');
 				numCourses.innerHTML = "Numero di corsi: "+ coursesList.length;
 				info.appendChild(numCourses);
 		});
