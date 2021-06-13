@@ -10,23 +10,23 @@ const nD = data.nD;
 const nH = data.nH;
 const courses = coursesListConstructor(data.COURSES);
 
-// const colors = [
-//   'rgba(255, 99, 132, 0.2)',
-//   'rgba(54, 162, 235, 0.2)',
-//   'rgba(255, 206, 86, 0.2)',
-//   'rgba(75, 192, 192, 0.2)',
-//   'rgba(153, 102, 255, 0.2)',
-//   'rgba(255, 159, 64, 0.2)',
-//   'rgba(0,0,0, 0.2)',
-//   'rgba(15, 21, 128, 0.2)',
-//   'rgba(15, 99, 128, 0.2)',
-//   'rgba(15, 128, 101, 0.2)',
-//   'rgba(15, 128, 53, 0.2)',
-//   'rgba(15, 128, 15, 0.2)',
-//   'rgba(96, 128, 15, 0.2)',
-//   'rgba(128, 118, 15, 0.2)',
-//   'rgba(128, 56, 15, 0.2)',
-//   'rgba(128, 15, 34, 0.2)'];
+const colors = [
+  'rgba(255, 99, 132, 0.2)',
+  'rgba(54, 162, 235, 0.2)',
+  'rgba(255, 206, 86, 0.2)',
+  'rgba(75, 192, 192, 0.2)',
+  'rgba(153, 102, 255, 0.2)',
+  'rgba(255, 159, 64, 0.2)',
+  'rgba(0,0,0, 0.2)',
+  'rgba(15, 21, 128, 0.2)',
+  'rgba(15, 99, 128, 0.2)',
+  'rgba(15, 128, 101, 0.2)',
+  'rgba(15, 128, 53, 0.2)',
+  'rgba(15, 128, 15, 0.2)',
+  'rgba(96, 128, 15, 0.2)',
+  'rgba(128, 118, 15, 0.2)',
+  'rgba(128, 56, 15, 0.2)',
+  'rgba(128, 15, 34, 0.2)'];
 
 
 //console.log(courses);
@@ -42,10 +42,12 @@ let tableMatrix;
 let finalTable;
 
 let colorAssociations;
-
+let header;
 
 switch (type) {
   case 'CLASSES':
+    header = document.createElement('h1');
+    header.innerHTML = 'Tabella orario relativa alla classe '+selectedElement;
     filteredTimeTable = data.TIMETABLE.filter(e => {return e.class === selectedElement});
 
     tableMatrix = createTableMatrix(filteredTimeTable, nD, nH);
@@ -59,6 +61,8 @@ switch (type) {
 
     break;
   case 'TEACHERS':
+    header = document.createElement('h1');
+    header.innerHTML = "Tabella orario relativa all'insegnante "+selectedElement;
     filteredTimeTable = data.TIMETABLE.filter(e => {return e.teacher === selectedElement});
     let aux = [];
     for(let i = 0; i<filteredTimeTable.length; i++){
@@ -78,6 +82,8 @@ switch (type) {
 
     break;
   case 'COURSES':
+    header = document.createElement('h1');
+    header.innerHTML = 'Tabella orario relativa al corso '+selectedElement;
     filteredTimeTable = [];
     const course = data.COURSES.filter(e => e.name === selectedElement);
 
@@ -94,6 +100,7 @@ switch (type) {
   break;
 }
 
+htmlTable.appendChild(header);
 htmlTable.appendChild(finalTable);
 
 
@@ -101,15 +108,15 @@ let info;
 //INFORMAZIONI AGGIUNTIVE
 switch (type) {
   case 'CLASSES':
-    totalPeriods = document.createElement('P');
-    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
-    htmlTable.appendChild(totalPeriods);
+    // totalPeriods = document.createElement('P');
+    // totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);///////////////////////////////////da tenere, bisogna solo spostare
+    // htmlTable.appendChild(totalPeriods);
 
     info = chartsInfo(type, elementsList, tableMatrix);
 
     for(let i = 0; i<info.length; i++){
       let canvas = document.createElement('canvas');
-      canvas.classList.add('prova');
+      //canvas.classList.add('prova');
       //canvas.id = i;
       //canvas.width = 200;
       //canvas.height = 100;
@@ -146,12 +153,22 @@ switch (type) {
                     //   display: true,
                     //   text: 'TESTaffafafafafafafafafafafafafafafafafaf'
                     // },
+                    grid:{
+                      display: false
+                      //color: "rgba(0, 0, 0, 0)"
+                    },
                     max: nH,
                     min: 0,
                     beginAtZero: true,
                     ticks: {
                       stepSize: 1
                     }
+                },
+                x: {
+                  grid:{
+                    display: false
+                    //color: "rgba(0, 0, 0, 0)"
+                  },
                 },
             },
             plugins: {
@@ -167,27 +184,29 @@ switch (type) {
 
     break;
   case 'TEACHERS':
-    totalPeriods = document.createElement('P');
-    totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
-    htmlTable.appendChild(totalPeriods);
-
-    freePeriods = document.createElement('P');
-    freePeriods.innerHTML = "Numero ore buche: " + countFreePeriods(tableMatrix, nH, nD);
-    htmlTable.appendChild(freePeriods);
+    // totalPeriods = document.createElement('P');
+    // totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
+    // htmlTable.appendChild(totalPeriods);
+    //
+    // freePeriods = document.createElement('P');
+    // freePeriods.innerHTML = "Numero ore buche: " + countFreePeriods(tableMatrix, nH, nD);/////////////////////////////////da tenere, bisogna solo spostare
+    // htmlTable.appendChild(freePeriods);
 
     info = chartsInfo(type, elementsList, tableMatrix);
-
+    console.log(info);
     for(let i = 0; i<info.length; i++){
       let canvas = document.createElement('canvas');
+      //canvas.style.display = 'inline-block';
       canvas.classList.add('prova');
+
       //canvas.id = i;
-      //canvas.width = 500;
-      canvas.height = 200;
+      canvas.width = 100;
+      canvas.height = finalTable.getBoundingClientRect().height+20;
       //canvas.style.width  = '1px';
       //canvas.style.height = '1px';
 
       htmlTable.appendChild(canvas);
-      canvas.removeAttribute("style");
+      //canvas.removeAttribute("style");
 
       let ctx = canvas.getContext('2d');
 
@@ -206,27 +225,17 @@ switch (type) {
                 label: info[i].class+'°',
                 data: info[i].periods,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    findColor(info[i].class)
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    findColor(info[i].class)
                 ],
                 borderWidth: 1
             }]
         },
         options: {
             indexAxis: 'y',
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             responsive: false,
             scales: {
                 x: {
@@ -234,12 +243,22 @@ switch (type) {
                     //     display: true,
                     //     text: 'TESTaffafafafafafafafafafafafafafafafafaf'
                     //   },
+                    grid:{
+                      display: false
+                      //color: "rgba(0, 0, 0, 0)"
+                    },
                     max: nD,
                     min: 0,
                     beginAtZero: true,
                     ticks: {
                       stepSize: 1
                     }
+                },
+                y: {
+                  grid:{
+                    display: false
+                    //color: "rgba(0, 0, 0, 0)"
+                  }
                 },
             },
             plugins: {
@@ -272,7 +291,7 @@ function colorAssociationList(list){
     temp.push(
       {
         element: list[i],
-        color: 'color'+(i+1)
+        color: colors[i]
       }
     );
   }
@@ -302,7 +321,10 @@ function chartsInfo(type, chartOwners, matrix){
       }
       for(let i = 0; i<matrix.length; i++){
         for(let j = 0; j<matrix[i].length; j++){
-          if(matrix[i][j].length>0)info.find(e => e.class === matrix[i][j][0].class).periods[matrix[i][j][0].period-1]++;
+          for(let k = 0; k<matrix[i][j].length; k++){
+            //if(matrix[i][j].length>0)
+            info.find(e => e.class === matrix[i][j][k].class).periods[matrix[i][j][k].period-1]++;
+          }
         }
       }
     break;
@@ -415,6 +437,8 @@ function createTable(matrix, type){
 	let td;
   let temp;
 
+  table.classList.add('prova');
+
   tr = document.createElement('TR');
   table.appendChild(tr);
 
@@ -470,7 +494,8 @@ function createTable(matrix, type){
             for(let k = 0; k<matrix[i][j].length; k++){
               temp = document.createElement('p');
               temp.innerHTML = matrix[i][j][k].teacher;
-              temp.classList.add(findColor(matrix[i][j][k].teacher));
+              //temp.classList.add(findColor(matrix[i][j][k].teacher));
+              temp.style.backgroundColor = findColor(matrix[i][j][k].teacher);
               temp.classList.add('inTable');
               td.appendChild(temp);
             }
@@ -480,7 +505,8 @@ function createTable(matrix, type){
             for(let k = 0; k<matrix[i][j].length; k++){
               temp = document.createElement('p');
               temp.innerHTML = matrix[i][j][k].class;
-              temp.classList.add(findColor(matrix[i][j][k].class));
+              //temp.classList.add(findColor(matrix[i][j][k].class));
+              temp.style.backgroundColor = findColor(matrix[i][j][k].class);
               temp.classList.add('inTable');
               td.appendChild(temp);
             }
