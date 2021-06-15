@@ -11,22 +11,22 @@ const nH = data.nH;
 const courses = coursesListConstructor(data.COURSES);
 
 const colors = [
-  'rgba(255, 99, 132, 0.2)',
-  'rgba(54, 162, 235, 0.2)',
-  'rgba(255, 206, 86, 0.2)',
-  'rgba(75, 192, 192, 0.2)',
-  'rgba(153, 102, 255, 0.2)',
-  'rgba(255, 159, 64, 0.2)',
-  'rgba(0,0,0, 0.2)',
-  'rgba(15, 21, 128, 0.2)',
-  'rgba(15, 99, 128, 0.2)',
-  'rgba(15, 128, 101, 0.2)',
-  'rgba(15, 128, 53, 0.2)',
-  'rgba(15, 128, 15, 0.2)',
-  'rgba(96, 128, 15, 0.2)',
-  'rgba(128, 118, 15, 0.2)',
-  'rgba(128, 56, 15, 0.2)',
-  'rgba(128, 15, 34, 0.2)'];
+  'rgba(255, 99, 132, 1)',
+  'rgba(54, 162, 235, 1)',
+  'rgba(255, 206, 86, 1)',
+  'rgba(75, 192, 192, 1)',
+  'rgba(153, 102, 255, 1)',
+  'rgba(255, 159, 64, 1)',
+  'rgba(200,34,34, 1)',
+  'rgba(15, 21, 128, 1)',
+  'rgba(15, 99, 128, 1)',
+  'rgba(15, 128, 101, 1)',
+  'rgba(15, 128, 53, 1)',
+  'rgba(15, 128, 15, 1)',
+  'rgba(96, 128, 15, 1)',
+  'rgba(128, 118, 15, 1)',
+  'rgba(128, 56, 15, 1)',
+  'rgba(128, 15, 34, 1)'];
 
 
 //console.log(courses);
@@ -104,7 +104,8 @@ htmlTable.appendChild(header);
 htmlTable.appendChild(finalTable);
 
 
-let info;
+let horizontalInfo;
+let info2;
 //INFORMAZIONI AGGIUNTIVE
 switch (type) {
   case 'CLASSES':
@@ -112,96 +113,18 @@ switch (type) {
     // totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);///////////////////////////////////da tenere, bisogna solo spostare
     // htmlTable.appendChild(totalPeriods);
 
-    info = chartsInfo(type, elementsList, tableMatrix);
+    horizontalInfo = chartsInfo(type, elementsList, tableMatrix, 'horizontal');
+    verticalInfo = chartsInfo(type, elementsList, tableMatrix, 'vertical');
+    console.log(verticalInfo);
 
-    for(let i = 0; i<info.length; i++){
-      let canvas = document.createElement('canvas');
-      //canvas.classList.add('prova');
-      //canvas.id = i;
-      //canvas.width = 200;
-      //canvas.height = 100;
-      //canvas.style.width  = '1px';
-      //canvas.style.height = '1px';
-
-      htmlTable.appendChild(canvas);
-      canvas.removeAttribute("style");
-
-      let ctx = canvas.getContext('2d');
-
-      let myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB'],
-            datasets: [{
-                label: 'Ore '+info[i].teacher,
-                data: info[i].days,
-                backgroundColor: [
-                    findColor(info[i].teacher)
-                ],
-                borderColor: [
-                    findColor(info[i].teacher)
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            responsive: false,
-            scales: {
-                y: {
-                    // title: {/////////////
-                    //   display: true,
-                    //   text: 'TESTaffafafafafafafafafafafafafafafafafaf'
-                    // },
-                    grid:{
-                      display: false
-                      //color: "rgba(0, 0, 0, 0)"
-                    },
-                    max: nH,
-                    min: 0,
-                    beginAtZero: true,
-                    ticks: {
-                      stepSize: 1
-                    }
-                },
-                x: {
-                  grid:{
-                    display: false
-                    //color: "rgba(0, 0, 0, 0)"
-                  },
-                },
-            },
-            plugins: {
-              legend: {
-               display: false
-              }
-            }
-        }
-    });
-
-
-    }
-
-    break;
-  case 'TEACHERS':
-    // totalPeriods = document.createElement('P');
-    // totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
-    // htmlTable.appendChild(totalPeriods);
-    //
-    // freePeriods = document.createElement('P');
-    // freePeriods.innerHTML = "Numero ore buche: " + countFreePeriods(tableMatrix, nH, nD);/////////////////////////////////da tenere, bisogna solo spostare
-    // htmlTable.appendChild(freePeriods);
-
-    info = chartsInfo(type, elementsList, tableMatrix);
-    console.log(info);
-    for(let i = 0; i<info.length; i++){
+    for(let i = 0; i<verticalInfo.length; i++){
       let canvas = document.createElement('canvas');
       //canvas.style.display = 'inline-block';
       canvas.classList.add('prova');
 
       //canvas.id = i;
       canvas.width = 100;
-      canvas.height = finalTable.getBoundingClientRect().height+20;
+      canvas.height = finalTable.getBoundingClientRect().height-15;
       //canvas.style.width  = '1px';
       //canvas.style.height = '1px';
 
@@ -222,13 +145,13 @@ switch (type) {
         data: {
             labels: l,
             datasets: [{
-                label: info[i].class+'°',
-                data: info[i].periods,
+                label: verticalInfo[i].teacher,
+                data: verticalInfo[i].periods,
                 backgroundColor: [
-                    findColor(info[i].class)
+                    findColor(verticalInfo[i].teacher)
                 ],
                 borderColor: [
-                    findColor(info[i].class)
+                    findColor(verticalInfo[i].teacher)
                 ],
                 borderWidth: 1
             }]
@@ -251,6 +174,7 @@ switch (type) {
                     min: 0,
                     beginAtZero: true,
                     ticks: {
+                      display: false,
                       stepSize: 1
                     }
                 },
@@ -258,6 +182,10 @@ switch (type) {
                   grid:{
                     display: false
                     //color: "rgba(0, 0, 0, 0)"
+                  },
+                  ticks: {
+                    display: false,
+                    stepSize: 1
                   }
                 },
             },
@@ -267,6 +195,251 @@ switch (type) {
               }
             }
 
+        }
+    });
+
+
+    }
+
+    for(let i = 0; i<horizontalInfo.length; i++){
+      let canvas = document.createElement('canvas');
+      //canvas.classList.add('prova');
+      //canvas.id = i;
+      canvas.width = finalTable.getBoundingClientRect().width;
+      canvas.height = 80;
+      //canvas.style.width  = '1px';
+      //canvas.style.height = '1px';
+
+      htmlTable.appendChild(canvas);
+      canvas.removeAttribute("style");
+
+      let ctx = canvas.getContext('2d');
+
+      let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB'],
+            datasets: [{
+                label: horizontalInfo[i].teacher,
+                data: horizontalInfo[i].days,
+                backgroundColor: [
+                    findColor(horizontalInfo[i].teacher)
+                ],
+                borderColor: [
+                    findColor(horizontalInfo[i].teacher)
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: false,
+            scales: {
+                y: {
+                    // title: {/////////////
+                    //   display: true,
+                    //   text: 'TESTaffafafafafafafafafafafafafafafafafaf'
+                    // },
+                    grid:{
+                      display: false
+                      //color: "rgba(0, 0, 0, 0)"
+                    },
+                    max: nH,
+                    min: 0,
+                    beginAtZero: true,
+                    ticks: {
+                      display: false,
+                      stepSize: 1
+                    }
+                },
+                x: {
+                  grid:{
+                    display: false
+                    //color: "rgba(0, 0, 0, 0)"
+                  },
+                  ticks: {
+                    display: false,
+                    stepSize: 1
+                  }
+                },
+            },
+            plugins: {
+              legend: {
+               display: false
+              }
+            }
+        }
+    });
+
+
+    }
+
+
+
+    break;
+  case 'TEACHERS':
+    // totalPeriods = document.createElement('P');
+    // totalPeriods.innerHTML = "Numero di ore settimanali: " + countWeeklyPeriods(tableMatrix);
+    // htmlTable.appendChild(totalPeriods);
+    //
+    // freePeriods = document.createElement('P');
+    // freePeriods.innerHTML = "Numero ore buche: " + countFreePeriods(tableMatrix, nH, nD);/////////////////////////////////da tenere, bisogna solo spostare
+    // htmlTable.appendChild(freePeriods);
+
+    verticalInfo = chartsInfo(type, elementsList, tableMatrix, 'vertical');
+    horizontalInfo = chartsInfo(type, elementsList, tableMatrix, 'horizontal');
+    console.log(horizontalInfo);
+    for(let i = 0; i<verticalInfo.length; i++){
+      let canvas = document.createElement('canvas');
+      //canvas.style.display = 'inline-block';
+      canvas.classList.add('prova');
+
+      //canvas.id = i;
+      canvas.width = 100;
+      canvas.height = finalTable.getBoundingClientRect().height-15;
+      //canvas.style.width  = '1px';
+      //canvas.style.height = '1px';
+
+      htmlTable.appendChild(canvas);
+      //canvas.removeAttribute("style");
+
+      let ctx = canvas.getContext('2d');
+
+      let l = [];
+
+      for (let j = 0; j<nH; j++){
+        l.push(j+1);
+      }
+
+
+      let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: l,
+            datasets: [{
+                label: verticalInfo[i].class+'°',
+                data: verticalInfo[i].periods,
+                backgroundColor: [
+                    findColor(verticalInfo[i].class)
+                ],
+                borderColor: [
+                    findColor(verticalInfo[i].class)
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: true,
+            responsive: false,
+            scales: {
+                x: {
+                    // title: {/////////////
+                    //     display: true,
+                    //     text: 'TESTaffafafafafafafafafafafafafafafafafaf'
+                    //   },
+                    grid:{
+                      display: false
+                      //color: "rgba(0, 0, 0, 0)"
+                    },
+                    max: nD,
+                    min: 0,
+                    beginAtZero: true,
+                    ticks: {
+                      display: false,
+                      stepSize: 1
+                    }
+                },
+                y: {
+                  grid:{
+                    display: false
+                    //color: "rgba(0, 0, 0, 0)"
+                  },
+                  ticks: {
+                    display: false,
+                    stepSize: 1
+                  }
+                },
+            },
+            plugins: {
+              legend: {
+               display: false
+              }
+            }
+
+        }
+    });
+
+
+    }
+
+    for(let i = 0; i<horizontalInfo.length; i++){
+      let canvas = document.createElement('canvas');
+      //canvas.classList.add('prova');
+      //canvas.id = i;
+      canvas.width = finalTable.getBoundingClientRect().width;
+      canvas.height = 80;
+      //canvas.style.width  = '1px';
+      //canvas.style.height = '1px';
+
+      htmlTable.appendChild(canvas);
+      canvas.removeAttribute("style");
+
+      let ctx = canvas.getContext('2d');
+
+      let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB'],
+            datasets: [{
+                label: horizontalInfo[i].class+'°',
+                data: horizontalInfo[i].days,
+                backgroundColor: [
+                    findColor(horizontalInfo[i].class)
+                ],
+                borderColor: [
+                    findColor(horizontalInfo[i].class)
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: false,
+            scales: {
+                y: {
+                    // title: {/////////////
+                    //   display: true,
+                    //   text: 'TESTaffafafafafafafafafafafafafafafafafaf'
+                    // },
+                    grid:{
+                      display: false
+                      //color: "rgba(0, 0, 0, 0)"
+                    },
+                    max: nH,
+                    min: 0,
+                    beginAtZero: true,
+                    ticks: {
+                      display: false,
+                      stepSize: 1
+                    }
+                },
+                x: {
+                  grid:{
+                    display: false
+                    //color: "rgba(0, 0, 0, 0)"
+                  },
+                  ticks: {
+                    display: false,
+                    stepSize: 1
+                  }
+                },
+            },
+            plugins: {
+              legend: {
+               display: false
+              }
+            }
         }
     });
 
@@ -299,31 +472,49 @@ function colorAssociationList(list){
   return temp;
 }
 
-function chartsInfo(type, chartOwners, matrix){
+function chartsInfo(type, chartOwners, matrix, distrType){
   let info = [];
 
   switch (type) {
     case 'CLASSES':
       for(let i = 0; i<chartOwners.length; i++){
-        info.push({teacher:chartOwners[i], days:new Array(nD).fill(0)});
+        if(distrType==='horizontal'){
+          info.push({teacher:chartOwners[i], days:new Array(nD).fill(0)});
+        }else{
+          info.push({teacher:chartOwners[i], periods:new Array(nH).fill(0)});
+        }
       }
       for(let i = 0; i<matrix.length; i++){
         for(let j = 0; j<matrix[i].length; j++){
           for(let k = 0; k<matrix[i][j].length; k++){
+            if(distrType==='horizontal'){
               if(matrix[i][j].length>0)info.find(e => e.teacher === matrix[i][j][k].teacher).days[j]++;
+            }else{
+              if(matrix[i][j].length>0)info.find(e => e.teacher === matrix[i][j][k].teacher).periods[matrix[i][j][k].period-1]++;
+            }
           }
         }
       }
       break;
     case 'TEACHERS':
       for(let i = 0; i<chartOwners.length; i++){
-        info.push({class:chartOwners[i], periods:new Array(nH).fill(0)});
+        if(distrType === 'vertical'){
+          info.push({class:chartOwners[i], periods:new Array(nH).fill(0)});
+        }
+        else{
+          info.push({class:chartOwners[i], days:new Array(nD).fill(0)});
+        }
       }
       for(let i = 0; i<matrix.length; i++){
         for(let j = 0; j<matrix[i].length; j++){
           for(let k = 0; k<matrix[i][j].length; k++){
             //if(matrix[i][j].length>0)
-            info.find(e => e.class === matrix[i][j][k].class).periods[matrix[i][j][k].period-1]++;
+            if(distrType === 'vertical'){
+              info.find(e => e.class === matrix[i][j][k].class).periods[matrix[i][j][k].period-1]++;
+            }else{
+              if(matrix[i][j].length>0)info.find(e => e.class === matrix[i][j][k].class).days[j]++;
+            }
+
           }
         }
       }
@@ -435,6 +626,7 @@ function createTable(matrix, type){
 	table.border = '1';
   let tr;
 	let td;
+  let th;
   let temp;
 
   table.classList.add('prova');
@@ -443,32 +635,32 @@ function createTable(matrix, type){
   table.appendChild(tr);
 
   for(let i = 0; i<=6; i++){
-    td = document.createElement('TD');
+    th = document.createElement('TH');
     switch(i){
 			case 0:
-				td.innerHTML = ""
+				th.innerHTML = ""
 				break;
 			case 1:
-				td.innerHTML = "Lunedì"
+				th.innerHTML = "Lunedì"
 				break;
 			case 2:
-				td.innerHTML = "Martedì"
+				th.innerHTML = "Martedì"
 				break;
 			case 3:
-				td.innerHTML = "Mercoledì"
+				th.innerHTML = "Mercoledì"
 				break;
       case 4:
-        td.innerHTML = "Giovedì"
+        th.innerHTML = "Giovedì"
         break;
       case 5:
-        td.innerHTML = "Venerdì"
+        th.innerHTML = "Venerdì"
         break;
       case 6:
-        td.innerHTML = "Sabato"
+        th.innerHTML = "Sabato"
         break;
 		}
 		//console.log(td.innerHTML);
-		tr.appendChild(td);
+		tr.appendChild(th);
   }
 
 
@@ -476,12 +668,11 @@ function createTable(matrix, type){
   for (i = 0; i<matrix.length; i++){
     tr = document.createElement('TR');
 
-    td = document.createElement('TD');
-    td.innerHTML = i+1;
-
-    tr.appendChild(td);
-
     table.appendChild(tr);
+
+    th = document.createElement('TH');
+    th.innerHTML = i+1;
+    tr.appendChild(th);
 
     for(j = 0; j<matrix[i].length; j++){
       td = document.createElement('TD');
@@ -492,9 +683,8 @@ function createTable(matrix, type){
           case 'CLASSES':
             //td.innerHTML = findCourse(matrix[i][j]);
             for(let k = 0; k<matrix[i][j].length; k++){
-              temp = document.createElement('p');
+              temp = document.createElement('div');//////////////////pensare a quale tipo di tag potrebbe essere ottimale in questo ambito
               temp.innerHTML = matrix[i][j][k].teacher;
-              //temp.classList.add(findColor(matrix[i][j][k].teacher));
               temp.style.backgroundColor = findColor(matrix[i][j][k].teacher);
               temp.classList.add('inTable');
               td.appendChild(temp);
@@ -503,12 +693,13 @@ function createTable(matrix, type){
           case 'TEACHERS':
             //td.innerHTML = findCourse(matrix[i][j]);
             for(let k = 0; k<matrix[i][j].length; k++){
-              temp = document.createElement('p');
-              temp.innerHTML = matrix[i][j][k].class;
-              //temp.classList.add(findColor(matrix[i][j][k].class));
-              temp.style.backgroundColor = findColor(matrix[i][j][k].class);
-              temp.classList.add('inTable');
-              td.appendChild(temp);
+              if(matrix[i][j][k].teacher === selectedElement){
+                temp = document.createElement('div');
+                temp.innerHTML = matrix[i][j][k].class;
+                temp.style.backgroundColor = findColor(matrix[i][j][k].class);
+                temp.classList.add('inTable');
+                td.appendChild(temp);
+              }
             }
             break;
           case 'COURSES':
@@ -556,9 +747,9 @@ function findCourse(period){
       aux = teachers.find(e => e === period[k].teacher);
       if(typeof aux === "undefined") teachers.push(period[k].teacher);
     }
-    result = "<p class='prova'>"+classes[0]+"</p>";
+    result = "<div class='prova'>"+classes[0]+"</div>";
     for (let i = 1; i<classes.length; i++){
-      result = result.concat('', "<p class='prova'>"+classes[i]+"</p>");
+      result = result.concat('', "<div class='prova'>"+classes[i]+"</div>");
     }
     // for (let i = 0; i<teachers.length; i++){
     //   result = result.concat('', "<p class='prova'>"+teachers[i]+"</p>");
