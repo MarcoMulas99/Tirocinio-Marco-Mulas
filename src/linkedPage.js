@@ -103,6 +103,9 @@ switch (type) {
 htmlTable.appendChild(header);
 htmlTable.appendChild(finalTable);
 
+changeTableDimensions(finalTable, determineTableDimesions(finalTable));
+
+
 
 let horizontalInfo;
 let info2;
@@ -206,7 +209,7 @@ switch (type) {
       //canvas.classList.add('prova');
       //canvas.id = i;
       canvas.width = finalTable.getBoundingClientRect().width;
-      canvas.height = 80;
+      canvas.height = 70;
       //canvas.style.width  = '1px';
       //canvas.style.height = '1px';
 
@@ -288,7 +291,7 @@ switch (type) {
 
     verticalInfo = chartsInfo(type, elementsList, tableMatrix, 'vertical');
     horizontalInfo = chartsInfo(type, elementsList, tableMatrix, 'horizontal');
-    console.log(horizontalInfo);
+    //console.log(horizontalInfo);
     for(let i = 0; i<verticalInfo.length; i++){
       let canvas = document.createElement('canvas');
       //canvas.style.display = 'inline-block';
@@ -378,7 +381,7 @@ switch (type) {
       //canvas.classList.add('prova');
       //canvas.id = i;
       canvas.width = finalTable.getBoundingClientRect().width;
-      canvas.height = 80;
+      canvas.height = 70;
       //canvas.style.width  = '1px';
       //canvas.style.height = '1px';
 
@@ -457,6 +460,44 @@ switch (type) {
 
 
 /*******************************************************************************************************************************************************************************************************/
+
+function determineTableDimesions(table){
+  let rows = table.children;
+  let rowCells;
+  let maxWidth = 0;
+  let maxHeight = 0;
+
+  for(let i = 0; i<rows.length; i++){
+    rowCells = rows[i].children;
+    for(let j = 0; j<rowCells.length; j++){
+      if(rowCells[j].getBoundingClientRect().height>maxHeight) maxHeight = rowCells[j].getBoundingClientRect().height;
+      if(rowCells[j].getBoundingClientRect().width>maxWidth) maxWidth = rowCells[j].getBoundingClientRect().width;
+
+    }
+  }
+  return [maxWidth, maxHeight];
+}
+
+function changeTableDimensions(table, dimensions){//dimensions = [width, height]
+  let rows = table.children;
+  let rowCells;
+  let divs;
+
+  for(let i = 0; i<rows.length; i++){
+    rowCells = rows[i].children;
+    for(let j = 0; j<rowCells.length; j++){
+      if(rowCells[j].nodeName === 'TD'){
+        rowCells[j].style.width = dimensions[0]+'px';
+        rowCells[j].style.height = dimensions[1]+'px';
+        divs = rowCells[j].children;
+        for(let k = 0; k<divs.length; k++){
+          divs[k].style.height = dimensions[1]/divs.length+'px';
+
+        }
+      }
+    }
+  }
+}
 
 function colorAssociationList(list){
   let temp = [];

@@ -1,7 +1,14 @@
-
 .inTable{
   margin: 0px 0px;
 }
+
+table, th, td {
+            border: 1px solid black;
+}
+
+ /* td{
+  height: 300px;
+} */
 
 .prova{
   display: inline-block !important;
