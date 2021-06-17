@@ -10,23 +10,43 @@ const nD = data.nD;
 const nH = data.nH;
 const courses = coursesListConstructor(data.COURSES);
 
+// const colors = [
+//   'rgba(255, 99, 132, 1)',
+//   'rgba(54, 162, 235, 1)',
+//   'rgba(255, 206, 86, 1)',
+//   'rgba(75, 192, 192, 1)',
+//   'rgba(153, 102, 255, 1)',
+//   'rgba(255, 159, 64, 1)',
+//   'rgba(200,34,34, 1)',
+//   'rgba(15, 21, 128, 1)',
+//   'rgba(15, 99, 128, 1)',
+//   'rgba(15, 128, 101, 1)',
+//   'rgba(15, 128, 53, 1)',
+//   'rgba(15, 128, 15, 1)',
+//   'rgba(96, 128, 15, 1)',
+//   'rgba(128, 118, 15, 1)',
+//   'rgba(128, 56, 15, 1)',
+//   'rgba(128, 15, 34, 1)'];
+
 const colors = [
-  'rgba(255, 99, 132, 1)',
-  'rgba(54, 162, 235, 1)',
-  'rgba(255, 206, 86, 1)',
-  'rgba(75, 192, 192, 1)',
-  'rgba(153, 102, 255, 1)',
-  'rgba(255, 159, 64, 1)',
-  'rgba(200,34,34, 1)',
-  'rgba(15, 21, 128, 1)',
-  'rgba(15, 99, 128, 1)',
-  'rgba(15, 128, 101, 1)',
-  'rgba(15, 128, 53, 1)',
-  'rgba(15, 128, 15, 1)',
-  'rgba(96, 128, 15, 1)',
-  'rgba(128, 118, 15, 1)',
-  'rgba(128, 56, 15, 1)',
-  'rgba(128, 15, 34, 1)'];
+    {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(255, 255, 255, 1)'},
+    {backGround: 'rgba(255, 221, 0, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
+    {backGround: 'rgba(127, 219, 255, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
+    {backGround: 'rgba(170, 170, 170, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
+    {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 133, 27, 1)'},
+    {backGround: 'rgba(255, 133, 27, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
+    {backGround: 'rgba(57, 204, 204, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
+    {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(57, 204, 204, 1)'},
+    {backGround: 'rgba(46, 204, 64, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
+    {backGround: '(255, 255, 255, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
+    {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(1, 255, 111, 1)'},
+    {backGround: 'rgba(1, 255, 111, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
+    {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(127, 219, 255, 1)'},
+    {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(46, 204, 64, 1)'},
+    {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(255, 221, 0, 1)'},
+    {backGround: 'rgba(17, 17, 17, 1)', foreGround: 'rgba(46, 204, 64, 1)'},
+    {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(255, 133, 27, 1)'},
+    {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 64, 54, 1)'}];
 
 
 //console.log(courses);
@@ -126,7 +146,7 @@ switch (type) {
       canvas.classList.add('prova');
 
       //canvas.id = i;
-      canvas.width = 100;
+      canvas.width = 70;
       canvas.height = finalTable.getBoundingClientRect().height-15;
       //canvas.style.width  = '1px';
       //canvas.style.height = '1px';
@@ -151,10 +171,10 @@ switch (type) {
                 label: verticalInfo[i].teacher,
                 data: verticalInfo[i].periods,
                 backgroundColor: [
-                    findColor(verticalInfo[i].teacher)
+                    findColor(verticalInfo[i].teacher).backGround
                 ],
                 borderColor: [
-                    findColor(verticalInfo[i].teacher)
+                    findColor(verticalInfo[i].teacher).backGround
                 ],
                 borderWidth: 1
             }]
@@ -226,10 +246,10 @@ switch (type) {
                 label: horizontalInfo[i].teacher,
                 data: horizontalInfo[i].days,
                 backgroundColor: [
-                    findColor(horizontalInfo[i].teacher)
+                    findColor(horizontalInfo[i].teacher).backGround
                 ],
                 borderColor: [
-                    findColor(horizontalInfo[i].teacher)
+                    findColor(horizontalInfo[i].teacher).backGround
                 ],
                 borderWidth: 1
             }]
@@ -298,7 +318,7 @@ switch (type) {
       canvas.classList.add('prova');
 
       //canvas.id = i;
-      canvas.width = 100;
+      canvas.width = 70;
       canvas.height = finalTable.getBoundingClientRect().height-15;
       //canvas.style.width  = '1px';
       //canvas.style.height = '1px';
@@ -323,10 +343,10 @@ switch (type) {
                 label: verticalInfo[i].class+'°',
                 data: verticalInfo[i].periods,
                 backgroundColor: [
-                    findColor(verticalInfo[i].class)
+                    findColor(verticalInfo[i].class).backGround
                 ],
                 borderColor: [
-                    findColor(verticalInfo[i].class)
+                    findColor(verticalInfo[i].class).backGround
                 ],
                 borderWidth: 1
             }]
@@ -398,10 +418,10 @@ switch (type) {
                 label: horizontalInfo[i].class+'°',
                 data: horizontalInfo[i].days,
                 backgroundColor: [
-                    findColor(horizontalInfo[i].class)
+                    findColor(horizontalInfo[i].class).backGround
                 ],
                 borderColor: [
-                    findColor(horizontalInfo[i].class)
+                    findColor(horizontalInfo[i].class).backGround
                 ],
                 borderWidth: 1
             }]
@@ -665,6 +685,8 @@ function createTable(matrix, type){
 
   let table = document.createElement('TABLE');
 	table.border = '1';
+  //table.style.minWidth = '50%';
+  //table.style.minHeight = '50%';
   let tr;
 	let td;
   let th;
@@ -726,7 +748,8 @@ function createTable(matrix, type){
             for(let k = 0; k<matrix[i][j].length; k++){
               temp = document.createElement('div');//////////////////pensare a quale tipo di tag potrebbe essere ottimale in questo ambito
               temp.innerHTML = matrix[i][j][k].teacher;
-              temp.style.backgroundColor = findColor(matrix[i][j][k].teacher);
+              temp.style.color = findColor(matrix[i][j][k].teacher).foreGround;
+              temp.style.backgroundColor = findColor(matrix[i][j][k].teacher).backGround;
               temp.classList.add('inTable');
               td.appendChild(temp);
             }
@@ -737,7 +760,8 @@ function createTable(matrix, type){
               if(matrix[i][j][k].teacher === selectedElement){
                 temp = document.createElement('div');
                 temp.innerHTML = matrix[i][j][k].class;
-                temp.style.backgroundColor = findColor(matrix[i][j][k].class);
+                temp.style.color = findColor(matrix[i][j][k].class).foreGround;
+                temp.style.backgroundColor = findColor(matrix[i][j][k].class).backGround;
                 temp.classList.add('inTable');
                 td.appendChild(temp);
               }
