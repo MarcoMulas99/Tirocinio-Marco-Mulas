@@ -7,15 +7,17 @@
 </head>
 <body id="body">
 
-
-	<div id="optionBar">
-		<a class="active" href="#home">Home</a>
-  	<a href="#news"><img src = './Immagini/prova.png'></a>
-  	<a href="#contact">Contact</a>
-  	<a href="#about">About</a>
+	<div id = 'overlay' onclick="off()">
+		<div id="currentColors"></div>
 	</div>
 
-	<div id = "table">
+
+	<div id="optionBar">
+		<a href="#home" id = 'home'>Home</a>
+  	<a href="#damettere" id = 'color' onclick="on()"><img src = './Immagini/prova.png' width = '37' height = '37'></a>
+	</div>
+
+	<div id = "tableSpot">
 	</div>
 
 	<script src="..\node_modules\chart.js\dist\chart.js"></script>

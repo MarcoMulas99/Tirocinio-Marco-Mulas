@@ -57,7 +57,7 @@ let elementsList;
 //let teachersList;
 //let classesList;
 
-let htmlTable = document.getElementById('table');
+let htmlTable = document.getElementById('tableSpot');
 let tableMatrix;
 let finalTable;
 
@@ -226,6 +226,7 @@ switch (type) {
 
     for(let i = 0; i<horizontalInfo.length; i++){
       let canvas = document.createElement('canvas');
+      canvas.classList.add('verticalSpace');
       //canvas.classList.add('prova');
       //canvas.id = i;
       canvas.width = finalTable.getBoundingClientRect().width;
@@ -398,6 +399,7 @@ switch (type) {
 
     for(let i = 0; i<horizontalInfo.length; i++){
       let canvas = document.createElement('canvas');
+      canvas.classList.add('verticalSpace');
       //canvas.classList.add('prova');
       //canvas.id = i;
       canvas.width = finalTable.getBoundingClientRect().width;
@@ -476,10 +478,31 @@ switch (type) {
 
 
 
-
-
-
 /*******************************************************************************************************************************************************************************************************/
+
+function on() {
+  document.getElementById("overlay").style.display = "block";
+  printColorsInUse();
+}
+
+function off() {
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById('currentColors').innerHTML = '';
+}
+
+function printColorsInUse(){
+  scrollView = document.getElementById('currentColors');
+  let sample;
+
+  for(let i = 0; i<colorAssociations.length; i++){
+    sample = document.createElement('div');
+    sample.style.backgroundColor = colorAssociations[i].color.backGround;
+    sample.style.color = colorAssociations[i].color.foreGround;
+    sample.innerHTML = 'Aa';
+    sample.classList.add('listColors');
+    scrollView.appendChild(sample);
+  }
+}
 
 function determineTableDimesions(table){
   let rows = table.children;
@@ -503,12 +526,19 @@ function changeTableDimensions(table, dimensions){//dimensions = [width, height]
   let rowCells;
   let divs;
 
+  const totWidth = window.innerWidth/2;
+  const totHeight = window.innerHeight/4;
+
+  console.log(window.innerWidth);
+
+
   for(let i = 0; i<rows.length; i++){
     rowCells = rows[i].children;
+    rows[i].style.width = totWidth + 'px';
     for(let j = 0; j<rowCells.length; j++){
       if(rowCells[j].nodeName === 'TD'){
-        rowCells[j].style.width = dimensions[0]+'px';
-        rowCells[j].style.height = dimensions[1]+'px';
+        rowCells[j].style.minWidth = totWidth/6+'px';
+        rowCells[j].style.height = totHeight/6+'px';
         divs = rowCells[j].children;
         for(let k = 0; k<divs.length; k++){
           divs[k].style.height = dimensions[1]/divs.length+'px';
@@ -684,6 +714,8 @@ function createTableMatrix(timeTable, nD, nH) {
 function createTable(matrix, type){
 
   let table = document.createElement('TABLE');
+  table.id = 'timeTable';
+  table.classList.add('verticalSpace');
 	table.border = '1';
   //table.style.minWidth = '50%';
   //table.style.minHeight = '50%';
@@ -746,7 +778,7 @@ function createTable(matrix, type){
           case 'CLASSES':
             //td.innerHTML = findCourse(matrix[i][j]);
             for(let k = 0; k<matrix[i][j].length; k++){
-              temp = document.createElement('div');//////////////////pensare a quale tipo di tag potrebbe essere ottimale in questo ambito
+              temp = document.createElement('div');
               temp.innerHTML = matrix[i][j][k].teacher;
               temp.style.color = findColor(matrix[i][j][k].teacher).foreGround;
               temp.style.backgroundColor = findColor(matrix[i][j][k].teacher).backGround;
