@@ -25,12 +25,14 @@ h1{
 
 .prova{
   display: inline-block !important;
-  margin-right: 20px;
+  margin-right: 0px;
+  margin-top: 10px;
 }
 
 canvas.prova{
   position: relative;
   top: 15px;
+  z-index: -1;
 }
 
 body{
@@ -39,6 +41,8 @@ body{
 }
 
 #optionBar{
+  position: fixed;
+  top: 0;
   width: 100%;
   overflow: hidden;
   background-color: #333;
@@ -46,13 +50,14 @@ body{
 
 #color{
   padding: 3px 10px;
+  float: right !important;
 }
 
 #home{
   padding: 14px 16px;
 }
 
-#optionBar a{
+#optionBar a,#optionBar div{
   float: left;
   color: #f2f2f2;
   text-align: center;
@@ -63,7 +68,7 @@ body{
 
 
 
-#optionBar a:hover{
+#optionBar a:hover,#optionBar div:hover{
   background-color: #ddd;
   color: black;
 }
@@ -96,10 +101,11 @@ body{
   border-radius: 10px;
 }
 
-#currentColors{
-  overflow: scroll;
+.scrollDisplay{
+  display: inline-block;
+  overflow-y: scroll;
   position: relative;
-  width: 20%;
+  width: 50%;
   height: 80%;
   top: 15%;
   left: 15%;
@@ -108,18 +114,64 @@ body{
   border: solid;
 }
 
-.listColors{
+/* .listColors{
   display: flex;
-  width: 100%;
-  height: 15%;
+  width: 30%;
+  height: 50%;
   font-size: large;
   text-align: center;
   justify-content: center;
   flex-direction: column;
+  margin: 5px 5px;
+} */
+
+.listColors:checked{
+  border: solid;
+
 }
-
-
 
 .verticalSpace{
   margin-left: 20px;
+}
+
+.moveText{
+  position: relative;
+  left: 100%;
+}
+
+.colorOptions{
+  display: flex;
+  height: 20%;
+}
+
+td{
+  margin: 0px 0px;
+  padding: 0px 0px;
+  border: 2px solid;
+}
+
+th{
+  border: 2px solid;
+}
+
+table{
+  border: 1px solid;
+  border-collapse: separate;
+}
+
+.spacer{
+  width: 100%;
+  height: 48px;
+  margin-bottom: 30px;
+}
+
+.infoHeader{
+  display: inline;
+  font-weight: bold;
+}
+
+.infoContent{
+  display: inline;
+  font-weight: normal;
+  margin-right: 40px;
 }
