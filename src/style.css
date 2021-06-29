@@ -2,6 +2,7 @@
   /* font-family: verdana;
   font-weight: bold; */
   white-space: nowrap;/*per non far andare a capo le canvas della distribuzione verticale*/
+  font-family: sans-serif;
 }
 
 h1{
@@ -48,9 +49,22 @@ body{
   background-color: #333;
 }
 
-#color{
+#optionIcon{
   padding: 3px 10px;
   float: right !important;
+}
+
+#navIconLeft{
+  position: relative;
+  border-radius: 10px;
+  margin-top: 5px;
+  left: 40%;
+}
+#navIconRight{
+  position: relative;
+  border-radius: 10px;
+  margin-top: 5px;
+  left: 42%;
 }
 
 #home{
@@ -61,7 +75,7 @@ body{
   float: left;
   color: #f2f2f2;
   text-align: center;
-  /* padding: 14px 16px; */
+
   text-decoration: none;
   font-size: 17px;
 }
@@ -78,56 +92,33 @@ body{
   color: white;
 }
 
-/* top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 100px;
-    height: 100px; */
-
-#overlay {
+#overlay{
   position: absolute;; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 70%; /* Full width (cover the whole page) */
+  display: none;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+#options{
+  /* position: absolute;; /* Sit on top of the page content */
+  /* display: none; /* Hidden by default */
+  position: relative;
+  width: 30%; /* Full width (cover the whole page) */
   height: 70%; /* Full height (cover the whole page) */
   top: 15%;
-  left: 15%;
-  right: 15%;
+  left: 30%;
+  right: 30%;
   bottom: 15%;
   background-color: rgba(255,255,255,1); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+
   cursor: pointer; /* Add a pointer on hover */
-  border: solid;
-  border-radius: 10px;
-}
-
-.scrollDisplay{
-  display: inline-block;
+  border: 1px solid;
   overflow-y: scroll;
-  position: relative;
-  width: 50%;
-  height: 80%;
-  top: 15%;
-  left: 15%;
-  right: 15%;
-  bottom: 15%;
-  border: solid;
 }
 
-/* .listColors{
-  display: flex;
-  width: 30%;
-  height: 50%;
-  font-size: large;
-  text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 5px 5px;
-} */
 
 .listColors:checked{
   border: solid;
-
 }
 
 .verticalSpace{
@@ -141,6 +132,8 @@ body{
 
 .colorOptions{
   display: flex;
+  margin: 10px 10px;
+  align-items: center;
   height: 20%;
 }
 
@@ -174,4 +167,75 @@ table{
   display: inline;
   font-weight: normal;
   margin-right: 40px;
+}
+
+.colorSelect{
+  height: 50px;
+  width: 50%;
+  border-radius: 3px;
+  margin-right: 70px;
+}
+
+.fontSelect{
+  width: 50%;
+  margin: 10px 10px;
+  border-radius: 3px;
+  margin-right: 70px;
+
+}
+
+#header{
+  position: fixed;
+  width: 100%;
+  height: 3%;
+}
+
+.overlayText{
+  margin-left: 10px;
+  /* font-family: monospace; */
+}
+
+
+.annulla{
+  float: left;
+  margin: 20px 10px;
+  font-size: large;
+  border-radius: 3px;
+}
+
+.annulla:hover{
+  background-color: rgba(255,255,255,1);
+}
+
+.conferma{
+  float: right;
+  margin: 20px 10px;
+  font-size: large;
+  border-radius: 3px;
+}
+
+.conferma:hover{
+  background-color: rgba(255,255,255,1);
+}
+
+.mainSelection:hover{
+  background-color: rgba(175, 193, 222, 1);
+}
+
+#info{
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+#file-input{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#file-input:hover{
+  border: solid;
+}
+
+#classes, #teachers, #courses{
+  margin-left: 20px;
 }

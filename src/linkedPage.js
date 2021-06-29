@@ -6,6 +6,28 @@ const selectedElement = urlParams.get('selectedElement');
 
 const data = JSON.parse(localStorage.getItem("fileData"));
 
+let navElements;
+let selectedElementIndex;
+
+switch (type) {
+  case 'CLASSES':
+      navElements = data.CLASSES;
+    break;
+  case 'TEACHERS':
+      navElements = data.TEACHERS;
+    break;
+  case 'COURSES':
+      navElements = data.COURSES;
+  break;
+}
+if(type === 'COURSES'){
+  selectedElementIndex = findWithAttr(navElements, 'name', selectedElement)
+}else selectedElementIndex = navElements.indexOf(selectedElement);
+
+console.log(navElements, selectedElementIndex);
+
+setNavLinks();
+
 const nD = data.nD;
 const nH = data.nH;
 const courses = coursesListConstructor(data.COURSES);
@@ -30,6 +52,10 @@ const colors = [
     {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(255, 133, 27, 1)'},
     {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 64, 54, 1)'}];
 
+const fontFamily = [
+  {fontFamily: 'monospace'}
+];
+let currentFontInUse = fontFamily[0];
 
 let filteredTimeTable;
 let totalPeriods;
@@ -44,6 +70,7 @@ let tableMatrix;
 let finalTable;
 
 let colorAssociations;
+let fontFamilyAssociations;
 let elementH;
 let elementVal;
 
@@ -56,7 +83,7 @@ switch (type) {
     elementsList = extractTeachersFromMatrix(tableMatrix);
     console.log(elementsList);
     colorAssociations = colorAssociationList(elementsList);
-
+    fontFamilyAssociations = fontFamilyAssociationsList(elementsList);
     finalTable = createTable(tableMatrix, type);
     break;
   case 'TEACHERS':
@@ -74,6 +101,7 @@ switch (type) {
 
     elementsList = extractClassesFromMatrix(tableMatrix);
     colorAssociations = colorAssociationList(elementsList);
+    fontFamilyAssociations = fontFamilyAssociationsList(elementsList);
     console.log(colorAssociations);
 
     finalTable = createTable(tableMatrix, type);
@@ -88,6 +116,7 @@ switch (type) {
 
     elementsList = [selectedElement];
     colorAssociations = colorAssociationList(elementsList);
+    fontFamilyAssociations = fontFamilyAssociationsList(elementsList);
 
     finalTable = createTable(tableMatrix, type);
 
@@ -98,6 +127,39 @@ switch (type) {
 print(finalTable);
 
 /*******************************************************************************************************************************************************************************************************/
+function findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function setNavLinks() {
+  	let navSelectedElementRigth;
+    let navSelectedElementLeft;
+
+    if(selectedElementIndex === navElements.length-1){
+      navSelectedElementRigth = navElements[0];
+    }else{
+      navSelectedElementRigth = navElements[selectedElementIndex+1];
+    }
+
+    if(selectedElementIndex === 0){
+      navSelectedElementLeft = navElements[navElements.length-1];
+      console.log('prova');
+    }else{
+      navSelectedElementLeft = navElements[selectedElementIndex-1];
+    }
+
+    if(type === 'COURSES'){
+      navSelectedElementRigth = navSelectedElementRigth.name;
+      navSelectedElementLeft = navSelectedElementLeft.name;
+    }
+    document.getElementById('navIconLeft').href = "./linkedPage.html?"+"type="+type+"&selectedElement="+navSelectedElementLeft;
+    document.getElementById('navIconRight').href = "./linkedPage.html?"+"type="+type+"&selectedElement="+navSelectedElementRigth;
+}
 
 function conferma(){
   document.getElementById('tableSpot').innerHTML="";
@@ -105,6 +167,7 @@ function conferma(){
   let color;
   let aux;
   let currentColors = document.getElementById('currentColors').children;
+  let fontChoice = document.getElementById('fontSelect');
 
   for(let i = 0; i<currentColors.length; i++){
     aux = currentColors[i].children;
@@ -114,9 +177,13 @@ function conferma(){
         color = JSON.parse(aux[j].value);
       }
     }
-
+    console.log(currentColors);
     colorAssociations[i].color = color;
   }
+
+  currentFontInUse = JSON.parse(fontChoice.value);
+
+  //console.log(currentFontInUse);
 
   print(createTable(tableMatrix, type));
   off();
@@ -538,6 +605,7 @@ function print(finalTable){
 
 function on() {
   document.getElementById("overlay").style.display = "block";
+  fontOption();
   printColorsInUse();
   console.log(colorAssociations);
   //printAllColors();
@@ -549,17 +617,50 @@ function off() {
 
   document.getElementById("overlay").style.display = "none";
   document.getElementById('currentColors').innerHTML = '';
+  document.getElementById('font').innerHTML = '';
+}
+
+function fontOption(){
+  fontDiv = document.getElementById('font');
+
+  fontDiv.appendChild(printFontOptions());
+}
+
+function printFontOptions(){
+  let select;
+  let option;
+  select = document.createElement('select');
+  select.id = 'fontSelect'
+  select.classList.add('fontSelect');
+  select.setAttribute("onchange", "selectFont(this)")
+
+  for(let i = 0; i<fontFamily.length; i++){
+    option = document.createElement('option');
+
+    option.style.fontFamily = fontFamily[i];
+    option.value = JSON.stringify(fontFamily[i]);
+    option.innerHTML = fontFamily[i].fontFamily;
+
+    if(currentFontInUse.fontFamily === option.innerHTML.fontFamily){
+      option.selected = 'selected';
+    }
+    //option.classList.add('listColors');
+    select.appendChild(option);
+  }
+
+  return select;
 }
 
 function printColorsInUse(){
   scrollView = document.getElementById('currentColors');
   let line;
-  let sampleText;
+  //let sampleText;
   let info;
 
   for(let i = 0; i<colorAssociations.length; i++){
     line = document.createElement('div');
-    sample = document.createElement('div');
+    //sample = document.createElement('div');
+    //line.classList.add('colorOptions');
     info = document.createElement('p');
 
     // sampleText.style.display = 'inline';
@@ -588,6 +689,7 @@ function printAllColors(currentColor){
   let option;
   select = document.createElement('select');
   select.setAttribute("onchange", "selectColor(this)")
+  select.classList.add('colorSelect');
 
   for(let i = 0; i<colors.length; i++){
     option = document.createElement('option');
@@ -614,6 +716,15 @@ function selectColor(selectedObject){
 
   selectedObject.style.backgroundColor = val.backGround;
   selectedObject.style.color = val.foreGround;
+}
+
+function selectFont(selectedObject){
+  console.log(selectedObject.value);
+
+  let val = JSON.parse(selectedObject.value);
+
+  selectedObject.style.fontFamily = val.fontFamily;
+  selectedObject.innerHTML = val.innerHTML;
 }
 
 function changeTableDimensions(table){
@@ -654,6 +765,21 @@ function colorAssociationList(list){
       {
         element: list[i],
         color: colors[i]
+      }
+    );
+  }
+  //console.log(temp);
+  return temp;
+}
+
+function fontFamilyAssociationsList(list){
+  let temp = [];
+
+  for(let i = 0; i<list.length; i++){
+    temp.push(
+      {
+        element: list[i],
+        fontFamily: fontFamily[0]
       }
     );
   }
@@ -881,6 +1007,8 @@ function createTable(matrix, type){
               temp.innerHTML = matrix[i][j][k].teacher;
               temp.style.color = findColor(matrix[i][j][k].teacher).foreGround;
               temp.style.backgroundColor = findColor(matrix[i][j][k].teacher).backGround;
+              //temp.style.fontFamily = findFontFamily(matrix[i][j][k].teacher).fontFamily;
+              temp.style.fontFamily = currentFontInUse.fontFamily;
               temp.classList.add('inTable');
               td.appendChild(temp);
             }
@@ -893,6 +1021,8 @@ function createTable(matrix, type){
                 temp.innerHTML = matrix[i][j][k].class;
                 temp.style.color = findColor(matrix[i][j][k].class).foreGround;
                 temp.style.backgroundColor = findColor(matrix[i][j][k].class).backGround;
+                //temp.style.fontFamily = findFontFamily(matrix[i][j][k].class).fontFamily;
+                temp.style.fontFamily = currentFontInUse.fontFamily;
                 temp.classList.add('inTable');
                 td.appendChild(temp);
               }
@@ -906,6 +1036,8 @@ function createTable(matrix, type){
                temp.innerHTML = aux;
                temp.style.color = findColor(aux).foreGround;
                temp.style.backgroundColor = findColor(aux).backGround;
+               //temp.style.fontFamily = findFontFamily(aux).fontFamily;
+               temp.style.fontFamily = currentFontInUse.fontFamily;
                temp.classList.add('inTable');
              }
               td.appendChild(temp);
@@ -967,6 +1099,14 @@ function findColor(element){
     if (element === colorAssociations [i].element) {
       //console.log(colorAssociations[i].color);
       return colorAssociations[i].color;
+    }
+  }
+}
+
+function findFontFamily(element){
+  for (let i = 0; i<fontFamilyAssociations.length; i++){
+    if (element === fontFamilyAssociations[i].element) {
+      return fontFamilyAssociations[i].fontFamily;
     }
   }
 }

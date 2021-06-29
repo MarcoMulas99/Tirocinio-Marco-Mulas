@@ -7,17 +7,35 @@
 </head>
 <body id="body">
 
-	<div id = 'overlay'>
-		<div id="currentColors" class="scrollDisplay"></div>
-		<button type="button" onclick="conferma()" style="float:right">Conferma</button>
-		<button type="button" onclick="off()" style="float:right">Esci</button>
+<div id='overlay'>
+	<div id = 'options'>
+		<!--<div id='header'></div>-->
+		<h2 class="overlayText">Personalizzazione font</h2>
+		<div id='font'>
+		</div>
+		<h2 class="overlayText">Personalizzazione colori</h2>
+		<div id="currentColors">
+		</div>
+
+		<button type="button" onclick="off()" class="annulla overlayText">Annulla</button>
+		<button type="button" onclick="conferma()" class="conferma overlayText">Conferma</button>
+
 		<!-- <div id="possibleColors" class="scrollDisplay" style="margin-left: 20%"></div> -->
 	</div>
+</div>
 
 
 	<div id="optionBar">
 		<a href="./index.html" id = 'home'>Home</a>
-  	<div href="#damettere" id = 'color' onclick="on()" style="display: inline"><img src = './Immagini/prova.png' width = '37' height = '37'></div>
+  	<a id = 'optionIcon' onclick="on()" style="display: inline">
+			<img src = './Immagini/three-horizontal-lines.png' width = '37' height = '37'>
+		</a>
+		<a id = 'navIconLeft' style="display: inline">
+			<img src = './Immagini/line-angle-left.png' width = '30' height = '30'>
+		</a>
+		<a id = 'navIconRight' style="display: inline">
+			<img src = './Immagini/line-angle-right.png' width = '30' height = '30'>
+		</a>
 	</div>
 
 	<div class="spacer"></div>

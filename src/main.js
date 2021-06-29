@@ -23,30 +23,78 @@ function read(file){
 	   		localStorage.setItem("fileData", text);
 
 
+				let aux;
 				let info = document.getElementById('info');
 
+
+				aux = document.createElement('P');
+				aux.innerHTML = 'Documento selezionato: ';
+				aux.style.fontWeight = 'bold';
 				let fileName = document.createElement('P');
-				fileName.innerHTML = "Documento selezionato: "+file.name;
+				fileName.innerHTML = file.name;
+				aux.style.display = 'inline';
+				fileName.style.display = 'inline';
+				info.appendChild(aux);
 				info.appendChild(fileName);
 
+				info.appendChild(document.createElement('br'));
+
+				aux = document.createElement('P');
+				aux.innerHTML = 'Numero giorni: ';
+				aux.style.fontWeight = 'bold';
 				let numDays = document.createElement('P');
-				numDays.innerHTML = "Numero di Giorni: "+parsedText.nD;
+				numDays.innerHTML = parsedText.nD;
+				aux.style.display = 'inline';
+				numDays.style.display = 'inline';
+				info.appendChild(aux);
 				info.appendChild(numDays);
 
+				info.appendChild(document.createElement('br'));
+
+				aux = document.createElement('P');
+				aux.innerHTML = 'Numero periodi: ';
+				aux.style.fontWeight = 'bold';
 				let numPeriods = document.createElement('P');
-				numPeriods.innerHTML = "Numero di periodi: "+parsedText.nH;
+				numPeriods.innerHTML = parsedText.nH;
+				aux.style.display = 'inline';
+				numPeriods.style.display = 'inline';
+				info.appendChild(aux);
 				info.appendChild(numPeriods);
 
+				info.appendChild(document.createElement('br'));
+
+				aux = document.createElement('P');
+				aux.innerHTML = 'Numero classi: ';
+				aux.style.fontWeight = 'bold';
 				let numClasses = document.createElement('P');
-				numClasses.innerHTML = "Numero di classi: "+ parsedText.CLASSES.length;
+				numClasses.innerHTML = parsedText.CLASSES.length;
+				aux.style.display = 'inline';
+				numClasses.style.display = 'inline';
+				info.appendChild(aux);
 				info.appendChild(numClasses);
 
+				info.appendChild(document.createElement('br'));
+
+				aux = document.createElement('P');
+				aux.innerHTML = 'Numero insegnanti: ';
+				aux.style.fontWeight = 'bold';
 				let numTeachers = document.createElement('P');
-				numTeachers.innerHTML = "Numero di insegnanti: "+ parsedText.TEACHERS.length;
+				numTeachers.innerHTML = parsedText.TEACHERS.length;
+				aux.style.display = 'inline';
+				numTeachers.style.display = 'inline';
+				info.appendChild(aux);
 				info.appendChild(numTeachers);
 
+				info.appendChild(document.createElement('br'));
+
+				aux = document.createElement('P');
+				aux.innerHTML = 'Numero corsi: ';
+				aux.style.fontWeight = 'bold';
 				let numCourses = document.createElement('P');
-				numCourses.innerHTML = "Numero di corsi: "+ coursesList.length;
+				numCourses.innerHTML = coursesList.length;
+				aux.style.display = 'inline';
+				numCourses.style.display = 'inline';
+				info.appendChild(aux);
 				info.appendChild(numCourses);
 		});
 	reader.readAsText(file);
@@ -119,6 +167,7 @@ function createTable(list, elementsType){
 		a.href = "./linkedPage.html?"+"type="+elementsType+"&selectedElement="+a.innerHTML;
 
 		td.appendChild(a);
+		td.classList.add('mainSelection');
 		tr.appendChild(td);
 	}
 
