@@ -39,10 +39,10 @@ const colors = [
     {backGround: 'rgba(170, 170, 170, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
     {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 133, 27, 1)'},
     {backGround: 'rgba(255, 133, 27, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
-    {backGround: 'rgba(57, 204, 204, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
-    {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(57, 204, 204, 1)'},
+    //{backGround: 'rgba(57, 204, 204, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
+    //{backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(57, 204, 204, 1)'},
     {backGround: 'rgba(46, 204, 64, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
-    {backGround: '(255, 255, 255, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
+    {backGround: 'rgba(255, 255, 255, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
     {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(1, 255, 111, 1)'},
     {backGround: 'rgba(1, 255, 111, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
     {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(127, 219, 255, 1)'},
@@ -53,7 +53,12 @@ const colors = [
     {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 64, 54, 1)'}];
 
 const fontFamily = [
-  {fontFamily: 'monospace'}
+  {fontFamily: 'monospace'},
+  {fontFamily: 'Times New Roman'},
+  {fontFamily: 'Georgia'},
+  {fontFamily: 'Garamond'},
+  {fontFamily: 'Tahoma'},
+  {fontFamily: 'Trebuchet MS'}
 ];
 let currentFontInUse = fontFamily[0];
 
@@ -177,10 +182,11 @@ function conferma(){
         color = JSON.parse(aux[j].value);
       }
     }
-    console.log(currentColors);
+    //console.log(currentColors);
     colorAssociations[i].color = color;
   }
 
+  console.log(fontChoice.value);
   currentFontInUse = JSON.parse(fontChoice.value);
 
   //console.log(currentFontInUse);
@@ -641,7 +647,7 @@ function printFontOptions(){
     option.value = JSON.stringify(fontFamily[i]);
     option.innerHTML = fontFamily[i].fontFamily;
 
-    if(currentFontInUse.fontFamily === option.innerHTML.fontFamily){
+    if(currentFontInUse.fontFamily === fontFamily[i].fontFamily){
       option.selected = 'selected';
     }
     //option.classList.add('listColors');
@@ -719,12 +725,10 @@ function selectColor(selectedObject){
 }
 
 function selectFont(selectedObject){
-  console.log(selectedObject.value);
 
   let val = JSON.parse(selectedObject.value);
-
+  console.log(val);
   selectedObject.style.fontFamily = val.fontFamily;
-  selectedObject.innerHTML = val.innerHTML;
 }
 
 function changeTableDimensions(table){
@@ -961,22 +965,22 @@ function createTable(matrix, type){
 				th.innerHTML = ""
 				break;
 			case 1:
-				th.innerHTML = "Lunedì"
+				th.innerHTML = "Monday"
 				break;
 			case 2:
-				th.innerHTML = "Martedì"
+				th.innerHTML = "Tusday"
 				break;
 			case 3:
-				th.innerHTML = "Mercoledì"
+				th.innerHTML = "Wednesday"
 				break;
       case 4:
-        th.innerHTML = "Giovedì"
+        th.innerHTML = "Thursday"
         break;
       case 5:
-        th.innerHTML = "Venerdì"
+        th.innerHTML = "Friday"
         break;
       case 6:
-        th.innerHTML = "Sabato"
+        th.innerHTML = "Saturday"
         break;
 		}
 		//console.log(td.innerHTML);

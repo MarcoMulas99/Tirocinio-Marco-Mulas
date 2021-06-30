@@ -28,7 +28,7 @@ function read(file){
 
 
 				aux = document.createElement('P');
-				aux.innerHTML = 'Documento selezionato: ';
+				aux.innerHTML = 'Document: ';
 				aux.style.fontWeight = 'bold';
 				let fileName = document.createElement('P');
 				fileName.innerHTML = file.name;
@@ -40,7 +40,7 @@ function read(file){
 				info.appendChild(document.createElement('br'));
 
 				aux = document.createElement('P');
-				aux.innerHTML = 'Numero giorni: ';
+				aux.innerHTML = 'Number of days: ';
 				aux.style.fontWeight = 'bold';
 				let numDays = document.createElement('P');
 				numDays.innerHTML = parsedText.nD;
@@ -52,7 +52,7 @@ function read(file){
 				info.appendChild(document.createElement('br'));
 
 				aux = document.createElement('P');
-				aux.innerHTML = 'Numero periodi: ';
+				aux.innerHTML = 'Number of periods: ';
 				aux.style.fontWeight = 'bold';
 				let numPeriods = document.createElement('P');
 				numPeriods.innerHTML = parsedText.nH;
@@ -64,7 +64,7 @@ function read(file){
 				info.appendChild(document.createElement('br'));
 
 				aux = document.createElement('P');
-				aux.innerHTML = 'Numero classi: ';
+				aux.innerHTML = 'Number of classes: ';
 				aux.style.fontWeight = 'bold';
 				let numClasses = document.createElement('P');
 				numClasses.innerHTML = parsedText.CLASSES.length;
@@ -76,7 +76,7 @@ function read(file){
 				info.appendChild(document.createElement('br'));
 
 				aux = document.createElement('P');
-				aux.innerHTML = 'Numero insegnanti: ';
+				aux.innerHTML = 'Number of teachers: ';
 				aux.style.fontWeight = 'bold';
 				let numTeachers = document.createElement('P');
 				numTeachers.innerHTML = parsedText.TEACHERS.length;
@@ -88,7 +88,7 @@ function read(file){
 				info.appendChild(document.createElement('br'));
 
 				aux = document.createElement('P');
-				aux.innerHTML = 'Numero corsi: ';
+				aux.innerHTML = 'Number of courses: ';
 				aux.style.fontWeight = 'bold';
 				let numCourses = document.createElement('P');
 				numCourses.innerHTML = coursesList.length;
@@ -103,16 +103,26 @@ function read(file){
 function dataManagement(data, coursesList){
 
 	console.log(data);
+	let header;
 
 	let body = document.getElementById('body');
 
+	header = document.createElement('h2');
+	header.innerHTML = 'Classes';
 	let classes = document.getElementById('classes');
+	classes.appendChild(header);
 	classes.appendChild(createTable(data.CLASSES, "CLASSES"));
 
+	header = document.createElement('h2');
+	header.innerHTML = 'Teachers';
 	let teachers = document.getElementById('teachers');
+	teachers.appendChild(header);
 	teachers.appendChild(createTable(data.TEACHERS, "TEACHERS"));
 
+	header = document.createElement('h2');
+	header.innerHTML = 'Courses';
 	let courses = document.getElementById('courses');
+	courses.appendChild(header);
 	courses.appendChild(createTable(coursesList, 'COURSES'));
 
 

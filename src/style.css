@@ -44,47 +44,68 @@ body{
 #optionBar{
   position: fixed;
   top: 0;
+  height: 5%;
   width: 100%;
   overflow: hidden;
   background-color: #333;
+  /* transition: background-color 1s linear; */
+  /* transition: background-color 1s; */
 }
 
 #optionIcon{
-  padding: 3px 10px;
+  align-content: center;
+  justify-content: center;
+  padding-top: 5px;
   float: right !important;
+  width: 3%;
+  height: 100%;
 }
 
 #navIconLeft{
+  align-content: center;
+  justify-content: center;
   position: relative;
-  border-radius: 10px;
-  margin-top: 5px;
+  padding-top: 5px;
   left: 40%;
+  width: 3%;
+  height: 100%;
 }
 #navIconRight{
+  align-content: center;
+  justify-content: center;
   position: relative;
-  border-radius: 10px;
-  margin-top: 5px;
+  padding-top: 5px;
   left: 42%;
+  width: 3%;
+  height: 100%;
 }
 
 #home{
-  padding: 14px 16px;
+  /* padding: 14px 16px; */
+  align-content: center;
+  justify-content: center;
+  padding-left: 5px;
+  padding-top: 5px;
+  width: 3%;
+  height: 100%;
 }
 
 #optionBar a,#optionBar div{
   float: left;
   color: #f2f2f2;
-  text-align: center;
-
-  text-decoration: none;
-  font-size: 17px;
 }
 
 
 
 #optionBar a:hover,#optionBar div:hover{
-  background-color: #ddd;
-  color: black;
+  /* background-color: #5f6e87; */
+  /* color: black; */
+
+}
+
+img:hover{
+  width: 34px;
+  height: 34px;
 }
 
 #optionBar a.active{
@@ -104,7 +125,7 @@ body{
   /* display: none; /* Hidden by default */
   position: relative;
   width: 30%; /* Full width (cover the whole page) */
-  height: 70%; /* Full height (cover the whole page) */
+  max-height: 70%; /* Full height (cover the whole page) */
   top: 15%;
   left: 30%;
   right: 30%;
@@ -141,6 +162,7 @@ td{
   margin: 0px 0px;
   padding: 0px 0px;
   border: 2px solid;
+  font-size: 135%;
 }
 
 th{
@@ -198,6 +220,8 @@ table{
 
 .annulla{
   float: left;
+  position: relative;
+  /* bottom: -30%; */
   margin: 20px 10px;
   font-size: large;
   border-radius: 3px;
@@ -209,6 +233,9 @@ table{
 
 .conferma{
   float: right;
+  position: relative;
+  /* bottom: -30%; */
+  /* left: 50%; */
   margin: 20px 10px;
   font-size: large;
   border-radius: 3px;
