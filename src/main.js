@@ -8,6 +8,13 @@ document.getElementById("read-button").addEventListener('click', function() {
 		document.getElementById('info').innerHTML = "";
 		});
 
+// prova();
+//
+ const data = JSON.parse(localStorage.getItem("fileData"));
+ if(data != null){
+	 printData(localStorage.getItem("fileData"));
+ }
+
 
 function read(file){
 
@@ -15,89 +22,95 @@ function read(file){
 
 		reader.addEventListener('load', function(e) {
 	   		let text = e.target.result;
-				let parsedText = JSON.parse(text);
-				const coursesList = coursesListConstructor(parsedText.COURSES);
-
-	   		dataManagement(parsedText, coursesList);
-
-	   		localStorage.setItem("fileData", text);
-
-
-				let aux;
-				let info = document.getElementById('info');
-
-
-				aux = document.createElement('P');
-				aux.innerHTML = 'Document: ';
-				aux.style.fontWeight = 'bold';
-				let fileName = document.createElement('P');
-				fileName.innerHTML = file.name;
-				aux.style.display = 'inline';
-				fileName.style.display = 'inline';
-				info.appendChild(aux);
-				info.appendChild(fileName);
-
-				info.appendChild(document.createElement('br'));
-
-				aux = document.createElement('P');
-				aux.innerHTML = 'Number of days: ';
-				aux.style.fontWeight = 'bold';
-				let numDays = document.createElement('P');
-				numDays.innerHTML = parsedText.nD;
-				aux.style.display = 'inline';
-				numDays.style.display = 'inline';
-				info.appendChild(aux);
-				info.appendChild(numDays);
-
-				info.appendChild(document.createElement('br'));
-
-				aux = document.createElement('P');
-				aux.innerHTML = 'Number of periods: ';
-				aux.style.fontWeight = 'bold';
-				let numPeriods = document.createElement('P');
-				numPeriods.innerHTML = parsedText.nH;
-				aux.style.display = 'inline';
-				numPeriods.style.display = 'inline';
-				info.appendChild(aux);
-				info.appendChild(numPeriods);
-
-				info.appendChild(document.createElement('br'));
-
-				aux = document.createElement('P');
-				aux.innerHTML = 'Number of classes: ';
-				aux.style.fontWeight = 'bold';
-				let numClasses = document.createElement('P');
-				numClasses.innerHTML = parsedText.CLASSES.length;
-				aux.style.display = 'inline';
-				numClasses.style.display = 'inline';
-				info.appendChild(aux);
-				info.appendChild(numClasses);
-
-				info.appendChild(document.createElement('br'));
-
-				aux = document.createElement('P');
-				aux.innerHTML = 'Number of teachers: ';
-				aux.style.fontWeight = 'bold';
-				let numTeachers = document.createElement('P');
-				numTeachers.innerHTML = parsedText.TEACHERS.length;
-				aux.style.display = 'inline';
-				numTeachers.style.display = 'inline';
-				info.appendChild(aux);
-				info.appendChild(numTeachers);
-
-				info.appendChild(document.createElement('br'));
-
-				aux = document.createElement('P');
-				aux.innerHTML = 'Number of courses: ';
-				aux.style.fontWeight = 'bold';
-				let numCourses = document.createElement('P');
-				numCourses.innerHTML = coursesList.length;
-				aux.style.display = 'inline';
-				numCourses.style.display = 'inline';
-				info.appendChild(aux);
-				info.appendChild(numCourses);
+				localStorage.setItem("fileData", text);
+				localStorage.setItem("fileName", file.name);
+				printData(text);
 		});
 	reader.readAsText(file);
+}
+
+function printData(text) {
+
+	let parsedText = JSON.parse(text);
+	const coursesList = coursesListConstructor(parsedText.COURSES);
+
+	dataManagement(parsedText, coursesList);
+
+	let aux;
+	let info = document.getElementById('info');
+
+
+	aux = document.createElement('P');
+	aux.innerHTML = 'Document: ';
+	aux.style.fontWeight = 'bold';
+	let fileName = document.createElement('P');
+	fileName.innerHTML = localStorage.getItem("fileName");
+	aux.style.display = 'inline';
+	fileName.style.display = 'inline';
+	info.appendChild(aux);
+	info.appendChild(fileName);
+
+	info.appendChild(document.createElement('br'));
+
+	aux = document.createElement('P');
+	aux.innerHTML = 'Number of days: ';
+	aux.style.fontWeight = 'bold';
+	let numDays = document.createElement('P');
+	numDays.innerHTML = parsedText.nD;
+	aux.style.display = 'inline';
+	numDays.style.display = 'inline';
+	info.appendChild(aux);
+	info.appendChild(numDays);
+
+	info.appendChild(document.createElement('br'));
+
+	aux = document.createElement('P');
+	aux.innerHTML = 'Number of periods: ';
+	aux.style.fontWeight = 'bold';
+	let numPeriods = document.createElement('P');
+	numPeriods.innerHTML = parsedText.nH;
+	aux.style.display = 'inline';
+	numPeriods.style.display = 'inline';
+	info.appendChild(aux);
+	info.appendChild(numPeriods);
+
+	info.appendChild(document.createElement('br'));
+
+	aux = document.createElement('P');
+	aux.innerHTML = 'Number of classes: ';
+	aux.style.fontWeight = 'bold';
+	let numClasses = document.createElement('P');
+	numClasses.innerHTML = parsedText.CLASSES.length;
+	aux.style.display = 'inline';
+	numClasses.style.display = 'inline';
+	info.appendChild(aux);
+	info.appendChild(numClasses);
+
+	info.appendChild(document.createElement('br'));
+
+	aux = document.createElement('P');
+	aux.innerHTML = 'Number of teachers: ';
+	aux.style.fontWeight = 'bold';
+	let numTeachers = document.createElement('P');
+	numTeachers.innerHTML = parsedText.TEACHERS.length;
+	aux.style.display = 'inline';
+	numTeachers.style.display = 'inline';
+	info.appendChild(aux);
+	info.appendChild(numTeachers);
+
+	info.appendChild(document.createElement('br'));
+
+	aux = document.createElement('P');
+	aux.innerHTML = 'Number of courses: ';
+	aux.style.fontWeight = 'bold';
+	let numCourses = document.createElement('P');
+	numCourses.innerHTML = coursesList.length;
+	aux.style.display = 'inline';
+	numCourses.style.display = 'inline';
+	info.appendChild(aux);
+	info.appendChild(numCourses);
+
+
 }
 
 function dataManagement(data, coursesList){

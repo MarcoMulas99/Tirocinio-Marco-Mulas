@@ -44,7 +44,7 @@ body{
 #optionBar{
   position: fixed;
   top: 0;
-  height: 5%;
+  height: 50px;
   width: 100%;
   overflow: hidden;
   background-color: #333;
@@ -219,30 +219,47 @@ table{
 
 
 .annulla{
-  float: left;
-  position: relative;
+  float: right;
+  top : 10px;
+  border: none;
+  /* right: 50px; */
+  position: sticky;
   /* bottom: -30%; */
-  margin: 20px 10px;
+  margin: 10px 10px;
   font-size: large;
-  border-radius: 3px;
+  background-color: transparent;
 }
 
-.annulla:hover{
-  background-color: rgba(255,255,255,1);
+.annulla img:hover{
+  width: 20px;
+  height: 20px;
+
 }
 
 .conferma{
-  float: right;
-  position: relative;
+  float: left;
+  top: 10px;
+  position: sticky;
+  border: none;
+  background-color: transparent;
   /* bottom: -30%; */
   /* left: 50%; */
-  margin: 20px 10px;
+  margin: 10px 10px;
   font-size: large;
   border-radius: 3px;
 }
 
-.conferma:hover{
-  background-color: rgba(255,255,255,1);
+.conferma img:hover{
+  width: 20px;
+  height: 20px;
+}
+
+#buttonOverlay{
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  height: 45px;
+  background-color: #333;
 }
 
 .mainSelection:hover{

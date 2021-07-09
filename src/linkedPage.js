@@ -9,6 +9,16 @@ const data = JSON.parse(localStorage.getItem("fileData"));
 let navElements;
 let selectedElementIndex;
 
+  // document.getElementById('home').href = document.referrer;
+  // console.log(document.referrer);
+
+const courses = coursesListConstructor(data.COURSES);
+
+for(let i = 0; i<courses.length; i++){
+  courses[i].push(0);
+}
+console.log(courses);
+
 switch (type) {
   case 'CLASSES':
       navElements = data.CLASSES;
@@ -17,20 +27,20 @@ switch (type) {
       navElements = data.TEACHERS;
     break;
   case 'COURSES':
-      navElements = data.COURSES;
+      navElements = courses;
   break;
 }
 if(type === 'COURSES'){
   selectedElementIndex = findWithAttr(navElements, 'name', selectedElement)
 }else selectedElementIndex = navElements.indexOf(selectedElement);
 
-console.log(navElements, selectedElementIndex);
+//console.log(navElements, selectedElementIndex);
 
 setNavLinks();
 
 const nD = data.nD;
 const nH = data.nH;
-const courses = coursesListConstructor(data.COURSES);
+
 
 const colors = [
     {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(255, 255, 255, 1)'},
@@ -40,7 +50,8 @@ const colors = [
     {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 133, 27, 1)'},
     {backGround: 'rgba(255, 133, 27, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
     //{backGround: 'rgba(57, 204, 204, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
-    //{backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(57, 204, 204, 1)'},
+    //
+    {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(57, 204, 204, 1)'},
     {backGround: 'rgba(46, 204, 64, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
     {backGround: 'rgba(255, 255, 255, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
     {backGround: 'rgba(133, 20, 75, 1)', foreGround: 'rgba(1, 255, 111, 1)'},
@@ -114,8 +125,11 @@ switch (type) {
   case 'COURSES':
     filteredTimeTable = [];
     const course = data.COURSES.filter(e => e.name === selectedElement);
+    //console.log(course);
 
     filteredTimeTable = filteredTimeTable.concat(data.TIMETABLE.filter(e => {return e.class === course[0].class}));
+
+    console.log(filteredTimeTable);
 
     tableMatrix = createTableMatrix(filteredTimeTable, nD, nH);
 
@@ -132,11 +146,17 @@ switch (type) {
 print(finalTable);
 
 /*******************************************************************************************************************************************************************************************************/
+
 function findWithAttr(array, attr, value) {
+  //console.log(array, value);
     for(var i = 0; i < array.length; i += 1) {
-        if(array[i][attr] === value) {
-            return i;
-        }
+
+      if(array[i].length-1>1){// && array[i][0][attr] === value
+        if(array[i][1][attr] === value) return i;
+        //return i;
+      }else if(array[i][0][attr] === value){
+          return i;
+      }
     }
     return -1;
 }
@@ -145,23 +165,42 @@ function setNavLinks() {
   	let navSelectedElementRigth;
     let navSelectedElementLeft;
 
-    if(selectedElementIndex === navElements.length-1){
-      navSelectedElementRigth = navElements[0];
-    }else{
-      navSelectedElementRigth = navElements[selectedElementIndex+1];
-    }
-
-    if(selectedElementIndex === 0){
-      navSelectedElementLeft = navElements[navElements.length-1];
-      console.log('prova');
-    }else{
-      navSelectedElementLeft = navElements[selectedElementIndex-1];
-    }
-
     if(type === 'COURSES'){
+      //console.log(selectedElementIndex);
+      if(selectedElementIndex === navElements.length-1){
+        navSelectedElementRigth = navElements[0][0];
+      }else{
+        navSelectedElementRigth = navElements[selectedElementIndex+1][0];
+      }
+
+      if(selectedElementIndex === 0){
+        navSelectedElementLeft = navElements[navElements.length-1][0];
+      }else{
+        navSelectedElementLeft = navElements[selectedElementIndex-1][0];
+      }
+
       navSelectedElementRigth = navSelectedElementRigth.name;
       navSelectedElementLeft = navSelectedElementLeft.name;
+    }else {
+
+      if(selectedElementIndex === navElements.length-1){
+        navSelectedElementRigth = navElements[0];
+      }else{
+        navSelectedElementRigth = navElements[selectedElementIndex+1];
+      }
+
+      if(selectedElementIndex === 0){
+        navSelectedElementLeft = navElements[navElements.length-1];
+      }else{
+        navSelectedElementLeft = navElements[selectedElementIndex-1];
+      }
     }
+
+
+
+    //console.log(selectedElementIndex);
+
+
     document.getElementById('navIconLeft').href = "./linkedPage.html?"+"type="+type+"&selectedElement="+navSelectedElementLeft;
     document.getElementById('navIconRight').href = "./linkedPage.html?"+"type="+type+"&selectedElement="+navSelectedElementRigth;
 }
@@ -1032,7 +1071,7 @@ function createTable(matrix, type){
               }
             }
             break;
-          case 'COURSES':
+          case 'COURSES'://////////////////////////
             const aux = findCourse(matrix[i][j]);
             temp = document.createElement('div');
             if(aux !== selectedElement) temp.innerHTML = "";
@@ -1057,44 +1096,62 @@ function createTable(matrix, type){
 }
 
 function findCourse(period){
-  let aux;
   let result = "";
   let count = 0;
 
-  if(period.length !== 0) aux = courses.filter(e => e.length === period.length);
-  else return "";
+  //console.log(period);
 
-  if(typeof aux !== "undefined"){
-    for(let i = 0; i<aux.length; i++){
+  // if(period.length !== 0) aux = courses.filter(e => e.length === period.length+1);
+  // else return "";
+
+
+let temp;
+let aux = false;
+
+  if(typeof courses !== "undefined"){
+    for(let i = 0; i<courses.length; i++){
+      if(aux) break;
+      aux = false;
       count=0;
       for(let j = 0; j<period.length; j++){
-        if(typeof aux[i].find(e => e.class === period[j].class && e.teacher === period[j].teacher) !== "undefined") count++;
+        if(typeof courses[i].find(e => e.class === period[j].class && e.teacher === period[j].teacher) !== "undefined") count++;
         else break;
-        if(count === period.length) result = aux[i][0].name;
+        if(count === period.length) {
+          if(courses[i][courses[i].length-1]<courses[i][0].duration){
+            courses[i][courses[i].length-1]++;
+            result = courses[i][0].name;
+            aux = true;
+            break;
+          }
+        }
       }
     }
   }
 
-  let classes = [];
-  let teachers = [];
-  aux = "undefined";
+//console.log(result);
+//console.log(courses);
 
-  if(result === ""){
-    for(let k = 0; k<period.length; k++){
-      aux = classes.find(e => e === period[k].class);
-      if(typeof aux === "undefined") classes.push(period[k].class);
-      aux = teachers.find(e => e === period[k].teacher);
-      if(typeof aux === "undefined") teachers.push(period[k].teacher);
-    }
-    result = "<div class='prova'>"+classes[0]+"</div>";
-    for (let i = 1; i<classes.length; i++){
-      result = result.concat('', "<div class='prova'>"+classes[i]+"</div>");
-    }
-    // for (let i = 0; i<teachers.length; i++){
-    //   result = result.concat('', "<p class='prova'>"+teachers[i]+"</p>");
-    // }
-  }
-  //console.log(result);
+  // let classes = [];
+  // let teachers = [];
+  //courses = "undefined";
+
+  // if(result === ""){
+  //   for(let k = 0; k<period.length; k++){
+  //     courses = classes.find(e => e === period[k].class);
+  //     if(typeof courses === "undefined") classes.push(period[k].class);
+  //     courses = teachers.find(e => e === period[k].teacher);
+  //     if(typeof courses === "undefined") teachers.push(period[k].teacher);
+  //   }
+  //   result = "<div class='prova'>"+classes[0]+"</div>";
+  //   for (let i = 1; i<classes.length; i++){
+  //     result = result.concat('', "<div class='prova'>"+classes[i]+"</div>");
+  //   }
+  //   // for (let i = 0; i<teachers.length; i++){
+  //   //   result = result.concat('', "<p class='prova'>"+teachers[i]+"</p>");
+  //   // }
+  // }
+
+
   return  result;
  }
 

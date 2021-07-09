@@ -9,6 +9,15 @@
 
 <div id='overlay'>
 	<div id = 'options'>
+		<div id="buttonOverlay">
+			<button type="button" onclick="off()" class="annulla overlayText">
+				<img src = './Immagini/close-red.png' width = '25' height = '25'>
+			</button>
+			<button type="button" onclick="conferma()" class="conferma overlayText">
+				<img src = './Immagini/save.png' width = '25' height = '25'>
+			</button>
+		</div>
+
 		<!--<div id='header'></div>-->
 		<h2 class="overlayText">Font personalization</h2>
 		<div id='font'>
@@ -17,8 +26,7 @@
 		<div id="currentColors">
 		</div>
 
-		<button type="button" onclick="off()" class="annulla overlayText">Exit</button>
-		<button type="button" onclick="conferma()" class="conferma overlayText">Confirm</button>
+
 
 		<!-- <div id="possibleColors" class="scrollDisplay" style="margin-left: 20%"></div> -->
 	</div>
