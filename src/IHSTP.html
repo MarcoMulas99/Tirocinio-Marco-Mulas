@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>IHSTP</title>
+  <link href="./style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Tab links -->
+  <div id="dataButtonsTab" class="tab">
+      <button type="button" id="InstanceTab" class="tablinks" onclick="openTabContent(event, 'InstanceContent')">Instance</button>
+      <button type="button" id="SubjectsTab" class="tablinks" onclick="openTabContent(event, 'SubjectsContent')">Subjects</button>
+      <button type="button" id="TeachersTab" class="tablinks" onclick="openTabContent(event, 'TeachersContent')">Teachers</button>
+      <button type="button" id="ClassesTab" class="tablinks" onclick="openTabContent(event, 'ClassesContent')">Classes</button>
+      <button type="button" id="ClassRequirementsTab" class="tablinks" onclick="openTabContent(event, 'ClasseRequirementsContent')">Class Requirements</button>
+      <button type="button" id="ClassTeacherAssignmentsTab" class="tablinks" onclick="openTabContent(event, 'ClassTeacherAssignmentsContent')">Class-Teacher Assignments</button>
+  </div>
+
+
+  <!-- Tab content -->
+<div id="InstanceContent" class="tabcontent">
+  <div>
+    <label for="InstanceName">Instance name:</label>
+    <input type="text" name="InstanceName" id="InstanceName"> <br><br>
+
+    <label for="InstanceName">Days:</label>
+    <select class="" name="InstanceDays" id="InstanceDays">
+      <option value="User-defined">User-defined</option>
+      <option value="Mon,Tue,Wed,Thu,Fri,Sat" selected="select">Mon,Tue,Wed,Thu,Fri,Sat</option>
+      <option value="Mon,Tue,Wed,Thu,Fri">Mon,Tue,Wed,Thu,Fri</option>
+      <option value="Mo,Tu,We,Th,Fr,Sa">Mo,Tu,We,Th,Fr,Sa</option>
+      <option value="Mo,Tu,We,Th,Fr">Mo,Tu,We,Th,Fr</option>
+      <option value="Lun,Mar,Mer,Gio,Ven,Sab">Lun,Mar,Mer,Gio,Ven,Sab</option>
+      <option value="Lun,Mar,Mer,Gio,Ven">Lun,Mar,Mer,Gio,Ven</option>
+      <option value="Lu,Ma,Me,Gi,Ve,Sa">Lu,Ma,Me,Gi,Ve,Sa</option>
+      <option value="Lu,Ma,Me,Gi,Ve">Lu,Ma,Me,Gi,Ve</option>
+    </select>
+    <input type="text" name="UserDefinedDays" id="UserDefinedDays"> <br><br>
+
+
+    <label for="DailyPeriods">Daily Periods:</label>
+    <select class="" name="DailyPeriods" id="DailyPeriods">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6" selected="select">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
+      <option value="21">21</option>
+      <option value="22">22</option>
+      <option value="23">23</option>
+      <option value="24">24</option>
+    </select> <br><br>
+
+    <button type="button" id="saveInstaceData" onclick="saveInstaceData()">Save</button>
+
+  </div>
+</div>
+
+<div id="SubjectsContent" class="tabcontent">
+  <input id="csvSubject" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <button type="button" name="exportSubjects" id="exportSubjects" onclick="exportToCsv('subjects', toRows(subjectsTable))">Export subjects to file...</button>
+  <!-- <button type="button" name="button">Save</button> -->
+  <br><br>
+
+  <label for="subjectId">Id:</label>
+  <input type="text" name="subjectId" id="subjectId" value=""><br>
+  <label for="subjectName">Name:</label>
+  <input type="text" name="subjectName" id="subjectName" value="">
+
+  <button type="button" name="button" onclick="insertNewSubject()">Insert</button>
+  <button type="button" name="button" onclick="deleteSubjects()">Delete</button>
+  <button type="button" name="button" onclick="updateSubject()">Update</button>
+
+  <br><br><br>
+
+  <table id="subjectsTable">
+    <thead>
+      <tr>
+        <th class="subjectsTableColumn">Id</th>
+        <th class="subjectsTableColumn">Name</th>
+      </tr>
+    </thead>
+    <tbody id="subjectsTableBody">
+
+    </tbody>
+
+  </table>
+
+</div>
+
+<div id="TeachersContent" class="tabcontent">
+  <h3>TeachersContent</h3>
+  <p>Input teachers data</p>
+</div>
+
+<div id="ClassesContent" class="tabcontent">
+  <h3>ClassesContent</h3>
+  <p>Input classes data</p>
+</div>
+
+<div id="ClasseRequirementsContent" class="tabcontent">
+  <h3>ClasseRequirementsContent</h3>
+  <p>Input class Requirements</p>
+</div>
+
+<div id="ClassTeacherAssignmentsContent" class="tabcontent">
+  <h3>ClassTeacherAssignmentsContent</h3>
+  <p>Input class-teachers Assignments</p>
+</div>
+
+
+
+<script type="text/javascript" src="./IHSTP.js"></script>
+</body>
+</html>
