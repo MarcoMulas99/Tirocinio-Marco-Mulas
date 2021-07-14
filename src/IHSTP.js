@@ -3,12 +3,37 @@ let instanceDays;
 let instanceDailyPeriods;
 
 let subjectsTable = [];
+let teachersTable = [];
+let classesTable = [];
+
 
 
 /*----------------------------------------------------------------------------*/
 
 let fileInput;
 let currentTab;
+
+
+const idSubjects = document.getElementById('subjectId');
+const nameSubjects = document.getElementById('subjectName');
+
+const idTechers = document.getElementById('teacherId');
+const nameTeachers = document.getElementById('teacherName');
+const surname = document.getElementById('teacherSurname');
+const dayOff = document.getElementById('teacherDayOff');
+const sameValueforAll = document.getElementById('sameValueforAll');
+const minAddDOff = document.getElementById('teacherMinAddDaysOff');
+const maxAddDOff = document.getElementById('teacherMaxAddDaysOff');
+const addDOffWeight = document.getElementById('teacherAddDaysOffWeight');
+const minDPeriods = document.getElementById('teacherMinDailyPeriods');
+const maxDPeriods = document.getElementById('teacherMaxDailyPeriods');
+const minClassPeriods = document.getElementById('teacherMinClassPeriods');
+const maxClassPeriods = document.getElementById('teacherMaxClassPeriods');
+
+const idClasses = document.getElementById('idClasses');
+const yearClasses = document.getElementById('yearClasses');
+const sectionClasses = document.getElementById('sectionClasses');
+const weekHoursClasses = document.getElementById('weekHoursClasses');
 
 
 /*----------------------------------------------------------------------------*/
@@ -40,8 +65,16 @@ function openTabContent(evt, selectedTab) {
       fileInput.addEventListener('change', readFile);
       currentTab = 'SubjectsTab';
       break;
-    default:
-
+    case 'TeachersTab':
+      fileInput = document.getElementById("csvTeachers");
+      fileInput.addEventListener('change', readFile);
+      currentTab = 'TeachersTab';
+      break;
+    case 'ClassesTab':
+      fileInput = document.getElementById('csvClasses');
+      fileInput.addEventListener('change', readFile);
+      currentTab = 'ClassesTab';
+    break;
   }
 }
 
@@ -58,72 +91,267 @@ function saveInstaceData(){
   instanceDailyPeriods = dailyPeriods.value;
 }
 
-function insertNewSubject(){
-  const tableBody = document.getElementById('subjectsTableBody');
-  const id = document.getElementById('subjectId');
-  const name = document.getElementById('subjectName');
+function insertNewElement(){
 
-  if(id.value !== '' && name.value !== ''){
-    subjectsTable.push(
-      {
-        id: id.value,
-        name: name.value
+  let tr = document.createElement('TR');
+  let td;
+
+  tr.setAttribute('onmousedown', 'RowClick(this,false)');
+
+  let tableBody;
+
+  switch (currentTab) {
+    case 'SubjectsTab':
+      tableBody = document.getElementById('subjectsTableBody');
+
+
+      if(idSubjects.value !== '' && nameSubjects.value !== ''){
+        tableBody.appendChild(tr);
+
+        subjectsTable.push(
+          {
+            id: idSubjects.value,
+            name: nameSubjects.value
+          }
+        );
+
+        td = document.createElement('TD');
+        td.innerHTML = idSubjects.value;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = nameSubjects.value;
+        tr.appendChild(td);
       }
-    );
 
-    let tr = document.createElement('TR');
-    let td = document.createElement('TD');
 
-    tr.setAttribute('onmousedown', 'RowClick(this,false)');
+    break;
 
-    tableBody.appendChild(tr);
+    case 'TeachersTab':
+      tableBody = document.getElementById('teachersTableBody');
+      tableBody.appendChild(tr);
 
-    td.innerHTML = id.value;
-    tr.appendChild(td);
+      teachersTable.push(
+          {
+            id : idTechers.value,
+            name : nameTeachers.value,
+            surname : surname.value,
+            dayOff : dayOff.value,
+            //sameValueforAll : sameValueforAll.value,
+            minAddDOff : minAddDOff.value,
+            maxAddDOff : maxAddDOff.value,
+            addDOffWeight : addDOffWeight.value,
+            minDPeriods : minDPeriods.value,
+            maxDPeriods : maxDPeriods.value,
+            minClassPeriods : minClassPeriods.value,
+            maxClassPeriods : maxClassPeriods.value
+          });
 
-    td = document.createElement('TD');
-    td.innerHTML = name.value;
-    tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = idTechers.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = nameTeachers.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = surname.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = dayOff.value;
+      tr.appendChild(td);
+
+      // td = document.createElement('TD');
+      // td.innerHTML = sameValueforAll.value;
+      // tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = minAddDOff.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = maxAddDOff.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = addDOffWeight.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = minDPeriods.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = maxDPeriods.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = minClassPeriods.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = maxClassPeriods.value;
+      tr.appendChild(td);
+
+      console.log(teachersTable);
+      break;
+      case 'ClassesTab':
+      tableBody = document.getElementById('classesTableBody');
+      tableBody.appendChild(tr);
+
+
+        classesTable.push(
+        {
+          id: idClasses.value,
+          year: yearClasses.value,
+          section: sectionClasses.value,
+          weekHours: weekHoursClasses.value
+        }
+      );
+
+
+        td = document.createElement('TD');
+        td.innerHTML = idClasses.value;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = yearClasses.value;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = sectionClasses.value;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = weekHoursClasses.value;
+        tr.appendChild(td);
+
+        break;
+      }
+
   }
 
-  console.log(subjectsTable);
-}
 
-function deleteSubjects(){
-  let trs = document.getElementById('subjectsTable').tBodies[0].getElementsByClassName('selected');
 
-  for(let i = trs.length-1; i>=0; i--){
-    subjectsTable.splice(trs[i].rowIndex-1,1);
-    trs[i].remove();
+function deleteElement(){
+  let trs;
+
+  switch (currentTab) {
+    case 'SubjectsTab':
+      trs = document.getElementById('subjectsTable').tBodies[0].getElementsByClassName('selected');
+      for(let i = trs.length-1; i>=0; i--){
+        subjectsTable.splice(trs[i].rowIndex-1,1);
+        trs[i].remove();
+      }
+      break;
+    case 'TeachersTab':
+      trs = document.getElementById('teachersTable').tBodies[0].getElementsByClassName('selected');
+      for(let i = trs.length-1; i>=0; i--){
+        teachersTable.splice(trs[i].rowIndex-1,1);
+        trs[i].remove();
+      }
+      break;
+    case 'ClassesTab':
+      trs = document.getElementById('classesTable').tBodies[0].getElementsByClassName('selected');
+      for(let i = trs.length-1; i>=0; i--){
+        classesTable.splice(trs[i].rowIndex-1,1);
+        trs[i].remove();
+      }
+      break;
   }
+
+
 }
 
-function updateSubject(){
-  const id = document.getElementById('subjectId');
-  const name = document.getElementById('subjectName');
+function updateElement(){
 
-  if(lastSelectedRow === 'undefined') return;
-  if(id.value === '' || name.value === '') return;
+  if(typeof lastSelectedRow === 'undefined') return;
 
   let tds = lastSelectedRow.childNodes;
 
-  tds[0].innerHTML = id.value;
-  tds[1].innerHTML = name.value;
+  switch (currentTab) {
+    case 'SubjectsTab':
 
-  subjectsTable[lastSelectedRow.rowIndex-1].id = id.value;
-  subjectsTable[lastSelectedRow.rowIndex-1].name = name.value;
+      tds[0].innerHTML = idSubjects.value;
+      tds[1].innerHTML = nameSubjects.value;
+
+      subjectsTable[lastSelectedRow.rowIndex-1].id = idSubjects.value;
+      subjectsTable[lastSelectedRow.rowIndex-1].name = nameSubjects.value;
+
+      console.log(subjectsTable);
+      break;
+    case 'TeachersTab':
+
+      tds[0].innerHTML = idTechers.value;
+      tds[1].innerHTML = nameTeachers.value;
+      tds[2].innerHTML = surname.value;
+      tds[3].innerHTML = dayOff.value;
+      tds[4].innerHTML = minAddDOff.value;
+      tds[5].innerHTML = maxAddDOff.value;
+      tds[6].innerHTML = addDOffWeight.value;
+      tds[7].innerHTML = minDPeriods.value;
+      tds[8].innerHTML = maxDPeriods.value;
+      tds[9].innerHTML = minClassPeriods.value;
+      tds[10].innerHTML = maxClassPeriods.value;
+
+      teachersTable[lastSelectedRow.rowIndex-1].id = idTechers.value;
+      teachersTable[lastSelectedRow.rowIndex-1].name = nameTeachers.value;
+      teachersTable[lastSelectedRow.rowIndex-1].surname = surname.value;
+      teachersTable[lastSelectedRow.rowIndex-1].dayOff = dayOff.value;
+      teachersTable[lastSelectedRow.rowIndex-1].minAddDOff = minAddDOff.value;
+      teachersTable[lastSelectedRow.rowIndex-1].maxAddDOff = maxAddDOff.value;
+      teachersTable[lastSelectedRow.rowIndex-1].addDOffWeight = addDOffWeight.value;
+      teachersTable[lastSelectedRow.rowIndex-1].minDPeriods = minDPeriods.value;
+      teachersTable[lastSelectedRow.rowIndex-1].maxDPeriods = maxDPeriods.value;
+      teachersTable[lastSelectedRow.rowIndex-1].minClassPeriods = minClassPeriods.value;
+      teachersTable[lastSelectedRow.rowIndex-1].maxClassPeriods = maxClassPeriods.value;
+
+      console.log(teachersTable);
+      break;
+    case 'ClassesTab':
+
+      tds[0].innerHTML = idClasses.value;
+      tds[1].innerHTML = yearClasses.value;
+      tds[2].innerHTML = sectionClasses.value;
+      tds[3].innerHTML = weekHoursClasses.value;
+
+      classesTable[lastSelectedRow.rowIndex-1].id = idClasses.value;
+      classesTable[lastSelectedRow.rowIndex-1].year = yearClasses.value;
+      classesTable[lastSelectedRow.rowIndex-1].section = sectionClasses.value;
+      classesTable[lastSelectedRow.rowIndex-1].weekHours = weekHoursClasses.value;
+      break;
+  }
+
+
 }
 
 
 //table manipulation
 let lastSelectedRow;
-let trs = document.getElementById('subjectsTable').tBodies[0].getElementsByTagName('tr');
+let trs;
 
 document.onselectstart = function() {
     return false;
 }
 
 function RowClick(currenttr, lock) {
+
+    switch (currentTab) {
+      case 'SubjectsTab':
+        trs = document.getElementById('subjectsTable').tBodies[0].getElementsByTagName('tr');
+        break;
+      case 'TeachersTab':
+        trs = document.getElementById('teachersTable').tBodies[0].getElementsByTagName('tr');
+        break;
+      case 'ClassesTab':
+        trs = document.getElementById('classesTable').tBodies[0].getElementsByTagName('tr');
+        break;
+    }
+
+
     if (window.event.ctrlKey) {
         toggleRow(currenttr);
     }
@@ -139,12 +367,36 @@ function RowClick(currenttr, lock) {
         }
     }
 
-    const id = document.getElementById('subjectId');
-    const name = document.getElementById('subjectName');
 
-    console.log(currenttr.rowIndex);
-    id.value = subjectsTable[currenttr.rowIndex-1].id;
-    name.value = subjectsTable[currenttr.rowIndex-1].name;
+    switch (currentTab) {
+      case 'SubjectsTab':
+
+        idSubjects.value = subjectsTable[currenttr.rowIndex-1].id;
+        nameSubjects.value = subjectsTable[currenttr.rowIndex-1].name;
+        break;
+      case 'TeachersTab':
+
+        idTechers.value = teachersTable[currenttr.rowIndex-1].id;
+        nameTeachers.value = teachersTable[currenttr.rowIndex-1].name;
+        surname.value = teachersTable[currenttr.rowIndex-1].surname;
+        dayOff.value = teachersTable[currenttr.rowIndex-1].dayOff;
+        minAddDOff.value = teachersTable[currenttr.rowIndex-1].minAddDOff;
+        maxAddDOff.value = teachersTable[currenttr.rowIndex-1].maxAddDOff;
+        addDOffWeight.value = teachersTable[currenttr.rowIndex-1].addDOffWeight;
+        minDPeriods.value = teachersTable[currenttr.rowIndex-1].minDPeriods;
+        maxDPeriods.value = teachersTable[currenttr.rowIndex-1].maxDPeriods;
+        minClassPeriods.value = teachersTable[currenttr.rowIndex-1].minClassPeriods;
+        maxClassPeriods.value = teachersTable[currenttr.rowIndex-1].maxClassPeriods;
+        break;
+      case 'ClassesTab':
+        idClasses.value = classesTable[currenttr.rowIndex-1].id;
+        yearClasses.value = classesTable[currenttr.rowIndex-1].year;
+        sectionClasses.value = classesTable[currenttr.rowIndex-1].section;
+        weekHoursClasses.value = classesTable[currenttr.rowIndex-1].weekHours;
+
+        break;
+
+    }
 
 }
 
@@ -170,23 +422,12 @@ function clearAll() {
 }
 
 function readFile() {
-  //console.log(typeof fileInput);
+
 
   var reader = new FileReader();
   reader.onload = function () {
-    //fileContent = reader.result;
-    //console.log(fileContent.split('\n'));
 
-    switch (currentTab) {
-      case 'SubjectsTab':
-          extractSubject(reader.result);
-        break;
-
-    }
-
-    //var encodedUri = encodeURI(fileContent);
-    //window.open(encodedUri);
-      //document.getElementById('out').innerHTML = reader.result;
+    extractElements(reader.result);
   };
   // start reading the file. When it is done, calls the onload event defined above.
   reader.readAsBinaryString(fileInput.files[0]);
@@ -234,45 +475,198 @@ function exportToCsv(filename, rows) {
     }
 }
 
-function extractSubject(content){
+function extractElements(content){
+  let tableBody;
+  let tr;
+  let td;
   let temp = content.split('\n');
 
   for(let i = 0; i<temp.length; i++){
     temp[i] = temp[i].split(',');
   }
 
+  switch (currentTab) {
+    case 'SubjectsTab':
+      subjectsTable = [];
+      tableBody = document.getElementById('subjectsTableBody');
+      tableBody.innerHTML = '';
+      break;
+    case 'TeachersTab':
+      teachersTable = [];
+      tableBody = document.getElementById('teachersTableBody');
+      tableBody.innerHTML = '';
+      break;
+    case 'ClassesTab':
+      classesTable = [];
+      tableBody = document.getElementById('classesTableBody');
+      tableBody.innerHTML = '';
+      break;
+    }
+
   for(i = 0; i<temp.length; i++){
     if(temp[i].length>1){
-      subjectsTable.push(
-        {
-          id: temp[i][0],
-          name: temp[i][1]
+
+      switch (currentTab) {
+        case 'SubjectsTab':
+          subjectsTable.push(
+            {
+              id: temp[i][0],
+              name: temp[i][1]
+            }
+          );
+          break;
+          case 'TeachersTab':
+            teachersTable.push(
+              {
+                id : temp[i][0],
+                name : temp[i][1],
+                surname : temp[i][2],
+                dayOff : temp[i][3],
+                //sameValueforAll : sameValueforAll.value,
+                minAddDOff : temp[i][4],
+                maxAddDOff : temp[i][5],
+                addDOffWeight : temp[i][6],
+                minDPeriods : temp[i][7],
+                maxDPeriods : temp[i][8],
+                minClassPeriods : temp[i][9],
+                maxClassPeriods : temp[i][10]
+              }
+            );
+            break;
+          case 'ClassesTab':
+          classesTable.push(
+          {
+            id: temp[i][0],
+            year: temp[i][1],
+            section: temp[i][2],
+            weekHours: temp[i][3]
+            }
+          );
+            break;
         }
-      );
     }
   }
 
-  const tableBody = document.getElementById('subjectsTableBody');
+  switch (currentTab) {
+    case 'SubjectsTab':
+    tableBody = document.getElementById('subjectsTableBody');
 
-  for(i = 0; i<subjectsTable.length; i++){
+    for(let j = 0; j<subjectsTable.length; j++){
 
-    let tr = document.createElement('TR');
-    let td = document.createElement('TD');
+      tr = document.createElement('TR');
 
-    tr.setAttribute('onmousedown', 'RowClick(this,false)');
+      tr.setAttribute('onmousedown', 'RowClick(this,false)');
 
-    tableBody.appendChild(tr);
+      tableBody.appendChild(tr);
 
-    td.innerHTML = subjectsTable[i].id;
-    tr.appendChild(td);
+      td = document.createElement('TD');
+      td.innerHTML = subjectsTable[j].id;
+      tr.appendChild(td);
 
-    td = document.createElement('TD');
-    td.innerHTML = subjectsTable[i].name;
-    tr.appendChild(td);
+      td = document.createElement('TD');
+      td.innerHTML = subjectsTable[j].name;
+      tr.appendChild(td);
 
-  }
+    }
+      break;
+      case 'TeachersTab':
+      tableBody = document.getElementById('teachersTableBody');
+
+      console.log(teachersTable);
+
+      for(let j = 0; j<teachersTable.length; j++){
+
+        tr = document.createElement('TR');
+
+        tr.setAttribute('onmousedown', 'RowClick(this,false)');
+
+        tableBody.appendChild(tr);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].id;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].name;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].surname;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].dayOff;
+        tr.appendChild(td);
+
+        // td = document.createElement('TD');
+        // td.innerHTML = sameValueforAll.value;
+        // tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].minAddDOff;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].maxAddDOff;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].addDOffWeight;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].minDPeriods;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].maxDPeriods;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].minClassPeriods;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].maxClassPeriods;
+        tr.appendChild(td);
+
+      }
+        break;
+
+      case 'ClassesTab':
+      tableBody = document.getElementById('classesTableBody');
+
+      for(let j = 0; j<classesTable.length; j++){
+
+        tr = document.createElement('TR');
+
+        tr.setAttribute('onmousedown', 'RowClick(this,false)');
+
+        tableBody.appendChild(tr);
+        
+
+        td = document.createElement('TD');
+        td.innerHTML = classesTable[j].id;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classesTable[j].year;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classesTable[j].section;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classesTable[j].weekHours;
+        tr.appendChild(td);
+
+      }
+        break;
+    }
+
+
 }
-
 
 function toRows(listOfObjects){
   let temp = [];

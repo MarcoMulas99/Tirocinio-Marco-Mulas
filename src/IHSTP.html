@@ -76,6 +76,7 @@
 <div id="SubjectsContent" class="tabcontent">
   <input id="csvSubject" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
   <button type="button" name="exportSubjects" id="exportSubjects" onclick="exportToCsv('subjects', toRows(subjectsTable))">Export subjects to file...</button>
+  <button type="button" name="okSubjects" id="okSubjects">OK</button>
   <!-- <button type="button" name="button">Save</button> -->
   <br><br>
 
@@ -84,13 +85,13 @@
   <label for="subjectName">Name:</label>
   <input type="text" name="subjectName" id="subjectName" value="">
 
-  <button type="button" name="button" onclick="insertNewSubject()">Insert</button>
-  <button type="button" name="button" onclick="deleteSubjects()">Delete</button>
-  <button type="button" name="button" onclick="updateSubject()">Update</button>
+  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
+  <button type="button" name="button" onclick="deleteElement()">Delete</button>
+  <button type="button" name="button" onclick="updateElement()">Update</button>
 
   <br><br><br>
 
-  <table id="subjectsTable">
+  <table id="subjectsTable" class="centerTable">
     <thead>
       <tr>
         <th class="subjectsTableColumn">Id</th>
@@ -106,13 +107,147 @@
 </div>
 
 <div id="TeachersContent" class="tabcontent">
-  <h3>TeachersContent</h3>
-  <p>Input teachers data</p>
+  <input id="csvTeachers" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <button type="button" name="exportTeachers" id="exportTeachers" onclick="exportToCsv('teachers', toRows(teachersTable))">Export teachers to file...</button>
+  <button type="button" name="okTeachers" id="okTeachers">OK</button>
+
+  <br><br>
+
+  <label for="teacherId">Id: </label>
+  <input type="text" name="teacherId" id="teacherId">
+
+  <label for="teacherName">Name: </label>
+  <input type="text" name="teacherName" id="teacherName">
+
+  <label for="teacherSurname">Surname: </label>
+  <input type="text" name="teacherSurname" id="teacherSurname">
+
+  <label for="teacherDayOff">Day off:</label>
+  <select id = "teacherDayOff">
+    <option value="0" select = "selected">Auto-assigned</option>
+    <option value="1">Mon</option>
+    <option value="2">Tue</option>
+    <option value="3">Wed</option>
+    <option value="4">Thu</option>
+    <option value="5">Fri</option>
+    <option value="6">Sat</option>
+  </select>
+
+  <label for="sameValueforAll">Same values for all teachers</label>
+  <input type="checkbox" name="sameValueforAll" id="sameValueforAll" value="true">
+
+  <br>
+
+  <label for="teacherMinAddDaysOff">Min additional days off:</label>
+  <select id = "teacherMinAddDaysOff">
+    <option value="0" select = "selected">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+
+  <label for="teacherMaxAddDaysOff">Max additional days off:</label>
+  <select id = "teacherMaxAddDaysOff">
+    <option value="0" select = "selected">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+
+  <label for="teacherAddDaysOffWeight">Additional days off weight: </label>
+  <input type="number" name="teacherAddDaysOffWeight" id="teacherAddDaysOffWeight">
+
+  <br>
+
+  <label for="teacherMinDailyPeriods">Min daily periods: </label>
+  <input type="number" name="teacherMinDailyPeriods" id="teacherMinDailyPeriods">
+
+  <label for="teacherMaxDailyPeriods">Max daily periods: </label>
+  <input type="number" name="teacherMaxDailyPeriods" id="teacherMaxDailyPeriods">
+
+  <label for="teacherMinClassPeriods">Min class periods: </label>
+  <input type="number" name="teacherMinClassPeriods" id="teacherMinClassPeriods">
+
+  <label for="teacherMaxClassPeriods">Max class periods: </label>
+  <input type="number" name="teacherMaxClassPeriods" id="teacherMaxClassPeriods">
+
+  <br><br>
+
+  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
+  <button type="button" name="button" onclick="deleteElement()">Delete</button>
+  <button type="button" name="button" onclick="updateElement()">Update</button>
+
+  <br><br><br>
+
+
+  <table id="teachersTable" class="centerTable">
+    <thead>
+      <tr>
+        <th class="subjectsTableColumn">Id</th>
+        <th class="subjectsTableColumn">Name</th>
+        <th class="subjectsTableColumn">Surname</th>
+        <th class="subjectsTableColumn">Day off</th>
+        <th class="subjectsTableColumn">Min add. days</th>
+        <th class="subjectsTableColumn">Max add. days</th>
+        <th class="subjectsTableColumn">Add days off weight</th>
+        <th class="subjectsTableColumn">Min daily periods</th>
+        <th class="subjectsTableColumn">Max daily periods</th>
+        <th class="subjectsTableColumn">Min class periods</th>
+        <th class="subjectsTableColumn">Max class periods</th>
+      </tr>
+    </thead>
+    <tbody id="teachersTableBody">
+    </tbody>
+  </table>
+
+
+
 </div>
 
 <div id="ClassesContent" class="tabcontent">
-  <h3>ClassesContent</h3>
-  <p>Input classes data</p>
+
+  <input id="csvClasses" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <button type="button" name="exportClasses" id="exportClasses" onclick="exportToCsv('teachers', toRows(classesTable))">Export teachers to file...</button>
+  <button type="button" name="okClasses" id="okClasses">OK</button>
+
+  <br><br>
+
+  <label for="idClasses">Id: </label>
+  <input type="text" name="idClasses" id="idClasses">
+
+  <label for="yearClasses">Year: </label>
+  <input type="text" name="yearClasses" id="yearClasses">
+
+  <label for="sectionClasses">Section: </label>
+  <input type="text" name="sectionClasses" id="sectionClasses">
+
+  <label for="weekHoursClasses">Week hours</label>
+  <input type="number" name="weekHoursClasses" id="weekHoursClasses">
+
+  <br><br>
+
+  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
+  <button type="button" name="button" onclick="deleteElement()">Delete</button>
+  <button type="button" name="button" onclick="updateElement()">Update</button>
+
+  <br><br><br>
+
+  <table id="classesTable" class="centerTable">
+    <thead>
+      <tr>
+        <th class="subjectsTableColumn">Id</th>
+        <th class="subjectsTableColumn">Year</th>
+        <th class="subjectsTableColumn">Section</th>
+        <th class="subjectsTableColumn">Week hours</th>
+      </tr>
+    </thead>
+    <tbody id="classesTableBody">
+    </tbody>
+  </table>
 </div>
 
 <div id="ClasseRequirementsContent" class="tabcontent">

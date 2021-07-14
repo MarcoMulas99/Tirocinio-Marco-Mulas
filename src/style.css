@@ -326,7 +326,7 @@ label{
   font-weight: bold;
 }
 
-#subjectsTable{
+.centerTable{
   margin-left: auto;
   margin-right: auto;
   min-width: 50%;
