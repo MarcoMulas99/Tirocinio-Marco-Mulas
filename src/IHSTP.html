@@ -14,7 +14,7 @@
       <button type="button" id="SubjectsTab" class="tablinks" onclick="openTabContent(event, 'SubjectsContent')">Subjects</button>
       <button type="button" id="TeachersTab" class="tablinks" onclick="openTabContent(event, 'TeachersContent')">Teachers</button>
       <button type="button" id="ClassesTab" class="tablinks" onclick="openTabContent(event, 'ClassesContent')">Classes</button>
-      <button type="button" id="ClassRequirementsTab" class="tablinks" onclick="openTabContent(event, 'ClasseRequirementsContent')">Class Requirements</button>
+      <button type="button" id="ClassRequirementsTab" class="tablinks" onclick="openTabContent(event, 'ClassesRequirementsContent')">Class Requirements</button>
       <button type="button" id="ClassTeacherAssignmentsTab" class="tablinks" onclick="openTabContent(event, 'ClassTeacherAssignmentsContent')">Class-Teacher Assignments</button>
   </div>
 
@@ -250,9 +250,80 @@
   </table>
 </div>
 
-<div id="ClasseRequirementsContent" class="tabcontent">
-  <h3>ClasseRequirementsContent</h3>
-  <p>Input class Requirements</p>
+<div id="ClassesRequirementsContent" class="tabcontent">
+  <input id="csvClassesRequiremnet" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <button type="button" name="exportClassesRequirements" id="exportClassesRequirements" onclick="exportToCsv('teachers', toRows(classesRequirementsTable))">Export teachers to file...</button>
+  <button type="button" name="okClassesRequirements" id="okClassesRequirements">OK</button>
+
+  <br><br>
+
+  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
+  <button type="button" name="button" onclick="deleteElement()">Delete</button>
+  <button type="button" name="button" onclick="updateElement()">Update</button>
+
+  <br><br><br>
+
+  <table id="classesListRequirements" style="display:inline-block; min-height: 40vh; ">
+    <thead>
+      <tr>
+        <th class="subjectsTableColumn">Classes</th>
+      </tr>
+    </thead>
+    <tbody id="classesListRequirementsTableBody">
+    </tbody>
+  </table>
+
+
+  <table id="subjectsListRequirements" style="display:inline-block; min-height: 40vh;">
+    <thead>
+      <tr>
+        <th class="subjectsTableColumn">Subjects</th>
+      </tr>
+    </thead>
+    <tbody id="subjectsListRequirementsTableBody">
+    </tbody>
+  </table>
+
+  <label for="requirementsHours">Hours</label>
+  <select id="requirementsHours">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+  </select>
+
+  <label for="classRequirementsId">Requirement Id: </label>
+  <input type="text" id="classRequirementsId">
+
+  <label for="currentHours">Current assigned hours: </label>
+  <p id="currentHours" style="display: inline"></p>
+
+
+  <table id="classesRequirementsTable" class="centerTable">
+    <thead>
+      <tr>
+        <th class="subjectsTableColumn">Id</th>
+        <th class="subjectsTableColumn">Class</th>
+        <th class="subjectsTableColumn">Subject</th>
+        <th class="subjectsTableColumn">Hours</th>
+      </tr>
+    </thead>
+    <tbody id="classesRequirementsTableBody">
+    </tbody>
+  </table>
+
 </div>
 
 <div id="ClassTeacherAssignmentsContent" class="tabcontent">

@@ -317,6 +317,7 @@ table{
 /* Style the tab content */
 .tabcontent {
   display: none;
+  min-height: 92vh;
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
@@ -339,3 +340,11 @@ label{
 .selected {
     background: lightBlue
 }
+
+/* .requirementsLists{
+  min-height: 40vh;
+  min-width: 20%;
+  position: relative;
+  display: inline-block;
+  border: solid;
+} */

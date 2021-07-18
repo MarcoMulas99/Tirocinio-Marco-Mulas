@@ -5,6 +5,7 @@ let instanceDailyPeriods;
 let subjectsTable = [];
 let teachersTable = [];
 let classesTable = [];
+let classesRequirementsTable = [];
 
 
 
@@ -12,6 +13,8 @@ let classesTable = [];
 
 let fileInput;
 let currentTab;
+let lastSelectedClass;
+let lastSelectedSubject;
 
 
 const idSubjects = document.getElementById('subjectId');
@@ -35,13 +38,20 @@ const yearClasses = document.getElementById('yearClasses');
 const sectionClasses = document.getElementById('sectionClasses');
 const weekHoursClasses = document.getElementById('weekHoursClasses');
 
+const classesListRequirements = document.getElementById('classesListRequirements');
+const subjectsListRequirements = document.getElementById('subjectsListRequirements');
+const requirementsHours = document.getElementById('requirementsHours');
+const classRequirementsId = document.getElementById('classRequirementsId');
+const currentHours = document.getElementById('currentHours');
+
 
 /*----------------------------------------------------------------------------*/
 
 
 function openTabContent(evt, selectedTab) {
   // Declare all variables
-  var i, tabcontent, tablinks;
+  let i, tabcontent, tablinks;
+  let tr, td;
 
   // Get all elements with class="tabcontent" and hide them
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -75,7 +85,68 @@ function openTabContent(evt, selectedTab) {
       fileInput.addEventListener('change', readFile);
       currentTab = 'ClassesTab';
     break;
+    case 'ClassRequirementsTab':
+    fileInput = document.getElementById('csvClassesRequiremnet');
+    fileInput.addEventListener('change', readFile);
+    currentTab = 'ClassRequirementsTab';
+
+    document.getElementById('classesListRequirementsTableBody').innerHTML = '';
+    document.getElementById('subjectsListRequirementsTableBody').innerHTML = '';
+
+    for(i = 0; i<classesTable.length; i++){
+      tr = document.createElement('TR');
+      tr.setAttribute('onmousedown', 'selectElement(this, "classes")');
+      td = document.createElement('TD');
+      td.innerHTML = classesTable[i].id;
+      tr.appendChild(td);
+      classesListRequirements.tBodies[0].appendChild(tr);
+    }
+
+    for(i = 0; i<subjectsTable.length; i++){
+      tr = document.createElement('TR');
+      tr.setAttribute('onmousedown', 'selectElement(this, "subjects")');
+      td = document.createElement('TD');
+      td.innerHTML = subjectsTable[i].id;
+      tr.appendChild(td);
+      subjectsListRequirements.tBodies[0].appendChild(tr);
+    }
+
+    break;
   }
+}
+
+function selectElement(element, type){
+
+  let list;
+  switch (type) {
+    case 'classes':
+      list = classesListRequirements.tBodies[0].childNodes;
+      lastSelectedClass = element;
+      currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
+      //console.log(element.childNodes[0].innerHTML);
+      break;
+    case 'subjects':
+      list = subjectsListRequirements.tBodies[0].childNodes;
+      lastSelectedSubject = element;
+      break;
+
+  }
+
+  for (let i = 0; i < list.length; i++) {
+      list[i].className = '';
+  }
+
+  element.className = element.className == 'selected' ? '' : 'selected';
+}
+
+function countClassHours(element){
+  let counter = 0;
+  for(let i = 0; i<classesRequirementsTable.length; i++){
+    if(classesRequirementsTable[i].class === element){
+      counter += parseInt(classesRequirementsTable[i].hours);
+    }
+  }
+  return counter;
 }
 
 function saveInstaceData(){
@@ -230,6 +301,42 @@ function insertNewElement(){
         tr.appendChild(td);
 
         break;
+        case 'ClassRequirementsTab':
+
+        tableBody = document.getElementById('classesRequirementsTableBody');
+
+        tableBody.appendChild(tr);
+
+        console.log(lastSelectedClass.childNodes[0].innerHTML);
+
+        classesRequirementsTable.push(
+          {
+            id: classRequirementsId.value,
+            class: lastSelectedClass.childNodes[0].innerHTML,
+            subject: lastSelectedSubject.childNodes[0].innerHTML,
+            hours: requirementsHours.value
+          }
+        );
+
+        td = document.createElement('TD');
+        td.innerHTML = classRequirementsId.value;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = lastSelectedClass.childNodes[0].innerHTML;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = requirementsHours.value;
+        tr.appendChild(td);
+
+        currentHours.innerHTML = countClassHours(lastSelectedClass.childNodes[0].innerHTML);
+
+          break;
       }
 
   }
@@ -261,6 +368,13 @@ function deleteElement(){
         trs[i].remove();
       }
       break;
+    case 'ClassRequirementsTab':
+      trs = document.getElementById('classesRequirementsTable').tBodies[0].getElementsByClassName('selected');
+      for(let i = trs.length-1; i>=0; i--){
+        classesRequirementsTable.splice(trs[i].rowIndex-1,1);
+        trs[i].remove();
+      }
+    break;
   }
 
 
@@ -323,6 +437,19 @@ function updateElement(){
       classesTable[lastSelectedRow.rowIndex-1].section = sectionClasses.value;
       classesTable[lastSelectedRow.rowIndex-1].weekHours = weekHoursClasses.value;
       break;
+    case 'ClassRequirementsTab':
+
+      tds[0].innerHTML = classRequirementsId.value;
+      tds[1].innerHTML = lastSelectedClass.childNodes[0].innerHTML;
+      tds[2].innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
+      tds[3].innerHTML = requirementsHours.value;
+
+      classesRequirementsTable[lastSelectedRow.rowIndex-1].id = classRequirementsId.value;
+      classesRequirementsTable[lastSelectedRow.rowIndex-1].class = lastSelectedClass.childNodes[0].innerHTML;
+      classesRequirementsTable[lastSelectedRow.rowIndex-1].subject = lastSelectedSubject.childNodes[0].innerHTML;
+      classesRequirementsTable[lastSelectedRow.rowIndex-1].hours = requirementsHours.value;
+
+    break;
   }
 
 
@@ -349,6 +476,10 @@ function RowClick(currenttr, lock) {
       case 'ClassesTab':
         trs = document.getElementById('classesTable').tBodies[0].getElementsByTagName('tr');
         break;
+      case 'ClassRequirementsTab':
+        trs = document.getElementById('classesRequirementsTable').tBodies[0].getElementsByTagName('tr');
+        console.log(trs);
+        break;
     }
 
 
@@ -358,6 +489,7 @@ function RowClick(currenttr, lock) {
 
     if (window.event.button === 0) {
         if (!window.event.ctrlKey && !window.event.shiftKey) {
+          console.log('prova1');
             clearAll();
             toggleRow(currenttr);
         }
@@ -395,9 +527,51 @@ function RowClick(currenttr, lock) {
         weekHoursClasses.value = classesTable[currenttr.rowIndex-1].weekHours;
 
         break;
+      case 'ClassRequirementsTab':
+        console.log(classesRequirementsTable);
+        classRequirementsId.value = classesRequirementsTable[currenttr.rowIndex-1].id;
+        requirementsHours.value = classesRequirementsTable[currenttr.rowIndex-1].hours;
+
+        list = classesListRequirements.tBodies[0].getElementsByTagName('tr');
+
+        for (let i = 0; i < list.length; i++) {
+            list[i].className = '';
+        }
+
+        lastSelectedClass = findRequirementsListElement(classesRequirementsTable[currenttr.rowIndex-1].class, 'class');
+        lastSelectedClass.className = 'selected';
+        list = subjectsListRequirements.tBodies[0].getElementsByTagName('tr');
+
+        for (i = 0; i < list.length; i++) {
+            list[i].className = '';
+        }
+
+        lastSelectedSubject = findRequirementsListElement(classesRequirementsTable[currenttr.rowIndex-1].subject, 'subject');
+        lastSelectedSubject.className = 'selected';
+        break;
 
     }
 
+}
+
+function findRequirementsListElement(id, type){
+  let list;
+  switch (type) {
+    case 'class':
+      list = classesListRequirements.tBodies[0].getElementsByTagName('tr');
+      for(let i = 0; i<list.length; i++){
+        if(list[i].childNodes[0].innerHTML === id) return list[i];
+      }
+      break;
+    case 'subject':
+      list = subjectsListRequirements.tBodies[0].getElementsByTagName('tr');
+      for(let i = 0; i<list.length; i++){
+        if(id === list[i].childNodes[0].innerHTML) {
+          return list[i];}
+      }
+    break;
+
+  }
 }
 
 function toggleRow(row) {
@@ -416,6 +590,7 @@ function selectRowsBetweenIndexes(indexes) {
 }
 
 function clearAll() {
+    console.log(trs);
     for (var i = 0; i < trs.length; i++) {
         trs[i].className = '';
     }
@@ -423,8 +598,7 @@ function clearAll() {
 
 function readFile() {
 
-
-  var reader = new FileReader();
+var reader = new FileReader();
   reader.onload = function () {
 
     extractElements(reader.result);
@@ -501,6 +675,11 @@ function extractElements(content){
       tableBody = document.getElementById('classesTableBody');
       tableBody.innerHTML = '';
       break;
+    case 'ClassRequirementsTab':
+      classesRequirementsTable = [];
+      tableBody = document.getElementById('classesRequirementsTableBody');
+      tableBody.innerHTML = '';
+      break;
     }
 
   for(i = 0; i<temp.length; i++){
@@ -540,6 +719,16 @@ function extractElements(content){
             year: temp[i][1],
             section: temp[i][2],
             weekHours: temp[i][3]
+            }
+          );
+            break;
+          case 'ClassRequirementsTab':
+          classesRequirementsTable.push(
+            {
+              id: temp[i][0],
+              class: temp[i][1],
+              subject: temp[i][2],
+              hours: temp[i][3]
             }
           );
             break;
@@ -643,7 +832,7 @@ function extractElements(content){
         tr.setAttribute('onmousedown', 'RowClick(this,false)');
 
         tableBody.appendChild(tr);
-        
+
 
         td = document.createElement('TD');
         td.innerHTML = classesTable[j].id;
@@ -662,6 +851,36 @@ function extractElements(content){
         tr.appendChild(td);
 
       }
+        break;
+      case 'ClassRequirementsTab':
+        tableBody = document.getElementById('classesRequirementsTableBody');
+
+        for(let j = 0; j<classesRequirementsTable.length; j++){
+
+          tr = document.createElement('TR');
+
+          tr.setAttribute('onmousedown', 'RowClick(this,false)');
+
+          tableBody.appendChild(tr);
+
+
+          td = document.createElement('TD');
+          td.innerHTML = classesRequirementsTable[j].id;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = classesRequirementsTable[j].class;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = classesRequirementsTable[j].subject;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = classesRequirementsTable[j].hours;
+          tr.appendChild(td);
+
+        }
         break;
     }
 
