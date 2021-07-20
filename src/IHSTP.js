@@ -6,6 +6,7 @@ let subjectsTable = [];
 let teachersTable = [];
 let classesTable = [];
 let classesRequirementsTable = [];
+let classTeacherTable = [];
 
 
 
@@ -15,6 +16,8 @@ let fileInput;
 let currentTab;
 let lastSelectedClass;
 let lastSelectedSubject;
+let lastSelectedTeacher;
+let lastSelectedCoTeacher;
 
 
 const idSubjects = document.getElementById('subjectId');
@@ -43,6 +46,18 @@ const subjectsListRequirements = document.getElementById('subjectsListRequiremen
 const requirementsHours = document.getElementById('requirementsHours');
 const classRequirementsId = document.getElementById('classRequirementsId');
 const currentHours = document.getElementById('currentHours');
+const requirementsTotalHours = document.getElementById('requirementsTotalHours');
+
+const classesListClassTeacher = document.getElementById('ClassTeacherClassList');
+const subjectsListClassTeachers = document.getElementById('ClassTeacherSubjectList');
+const teachersListClassTeacher = document.getElementById('ClassTeacherTeacherList');
+const coTeacherListClassTeachers = document.getElementById('ClassTeacherCoTeacherList');
+const classTeachersHours = document.getElementById('ClassTeacherHours');
+const classTeacherId = document.getElementById('ClassTeacherId');
+const classTeachercurrentHours = document.getElementById('ClassTeachercurrentHours');
+const classTeacherTotalHours = document.getElementById('ClassTeacherTotalHours');
+
+
 
 
 /*----------------------------------------------------------------------------*/
@@ -112,6 +127,54 @@ function openTabContent(evt, selectedTab) {
     }
 
     break;
+    case 'ClassTeacherTab':
+
+    fileInput = document.getElementById('csvClassTeacher');
+    fileInput.addEventListener('change', readFile);
+    currentTab = 'ClassTeacherTab';
+
+    document.getElementById('ClassTeacherClassListTableBody').innerHTML = '';
+    document.getElementById('ClassTeacherSubjectListTableBody').innerHTML = '';
+    document.getElementById('ClassTeacherTeacherListTableBody').innerHTML = '';
+    document.getElementById('ClassTeacherCoTeacherListTableBody').innerHTML = '';
+
+    for(i = 0; i<classesTable.length; i++){
+      tr = document.createElement('TR');
+      tr.setAttribute('onmousedown', 'selectElement(this, "classesA")');
+      td = document.createElement('TD');
+      td.innerHTML = classesTable[i].id;
+      tr.appendChild(td);
+      classesListClassTeacher.tBodies[0].appendChild(tr);
+    }
+
+    for(i = 0; i<subjectsTable.length; i++){
+      tr = document.createElement('TR');
+      tr.setAttribute('onmousedown', 'selectElement(this, "subjectsA")');
+      td = document.createElement('TD');
+      td.innerHTML = subjectsTable[i].id;
+      tr.appendChild(td);
+      subjectsListClassTeachers.tBodies[0].appendChild(tr);
+    }
+
+    for(i = 0; i<teachersTable.length; i++){
+      tr = document.createElement('TR');
+      tr.setAttribute('onmousedown', 'selectElement(this, "teachers")');
+      td = document.createElement('TD');
+      td.innerHTML = teachersTable[i].id;
+      tr.appendChild(td);
+      teachersListClassTeacher.tBodies[0].appendChild(tr);
+    }
+
+    for(i = 0; i<teachersTable.length; i++){
+      tr = document.createElement('TR');
+      tr.setAttribute('onmousedown', 'selectElement(this, "coTeachers")');
+      td = document.createElement('TD');
+      td.innerHTML = teachersTable[i].id;
+      tr.appendChild(td);
+      coTeacherListClassTeachers.tBodies[0].appendChild(tr);
+    }
+
+    break;
   }
 }
 
@@ -123,11 +186,33 @@ function selectElement(element, type){
       list = classesListRequirements.tBodies[0].childNodes;
       lastSelectedClass = element;
       currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
+      requirementsTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
       //console.log(element.childNodes[0].innerHTML);
       break;
     case 'subjects':
       list = subjectsListRequirements.tBodies[0].childNodes;
       lastSelectedSubject = element;
+      break;
+    case 'classesA':
+      list = classesListClassTeacher.tBodies[0].childNodes;
+      lastSelectedClass = element;
+      classTeachercurrentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
+      classTeacherTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
+        //console.log(element.childNodes[0].innerHTML);
+      break;
+    case 'subjectsA':
+      list = subjectsListClassTeachers.tBodies[0].childNodes;
+      lastSelectedSubject = element;
+      break;
+    case 'teachers':
+      list = teachersListClassTeacher.tBodies[0].childNodes;
+      lastSelectedTeacher = element;
+      currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
+          //console.log(element.childNodes[0].innerHTML);
+      break;
+    case 'coTeachers':
+      list = coTeacherListClassTeachers.tBodies[0].childNodes;
+      lastSelectedCoTeacher = element;
       break;
 
   }
@@ -141,11 +226,24 @@ function selectElement(element, type){
 
 function countClassHours(element){
   let counter = 0;
-  for(let i = 0; i<classesRequirementsTable.length; i++){
-    if(classesRequirementsTable[i].class === element){
-      counter += parseInt(classesRequirementsTable[i].hours);
+
+  switch (currentTab) {
+    case 'ClassRequirementsTab':
+    for(let i = 0; i<classesRequirementsTable.length; i++){
+      if(classesRequirementsTable[i].class === element){
+        counter += parseInt(classesRequirementsTable[i].hours);
+      }
     }
+      break;
+    case 'ClassTeacherTab':
+    for(let i = 0; i<classTeacherTable.length; i++){
+      if(classTeacherTable[i].class === element){
+        counter += parseInt(classTeacherTable[i].hours);
+      }
+    }
+    break;
   }
+
   return counter;
 }
 
@@ -173,6 +271,9 @@ function insertNewElement(){
 
   switch (currentTab) {
     case 'SubjectsTab':
+
+      if(typeof subjectsTable.find(e => e.id === idSubjects.value) !== 'undefined') return;
+
       tableBody = document.getElementById('subjectsTableBody');
 
 
@@ -199,6 +300,9 @@ function insertNewElement(){
     break;
 
     case 'TeachersTab':
+
+      if(typeof teachersTable.find(e => e.id === idTechers.value) !== 'undefined') return;
+
       tableBody = document.getElementById('teachersTableBody');
       tableBody.appendChild(tr);
 
@@ -270,6 +374,9 @@ function insertNewElement(){
       console.log(teachersTable);
       break;
       case 'ClassesTab':
+
+      if(typeof classesTable.find(e => e.id === idClasses.value) !== 'undefined') return;
+
       tableBody = document.getElementById('classesTableBody');
       tableBody.appendChild(tr);
 
@@ -303,6 +410,10 @@ function insertNewElement(){
         break;
         case 'ClassRequirementsTab':
 
+        console.log(typeof classesRequirementsTable.find(e => e.id === classRequirementsId.value) !== 'undefined');
+        if(typeof classesRequirementsTable.find(e => e.id === classRequirementsId.value) !== 'undefined') return;
+
+        if(countClassHours(lastSelectedClass.childNodes[0].innerHTML) + parseInt(requirementsHours.value) > classesTable.find(e => e.id === lastSelectedClass.childNodes[0].innerHTML).weekHours) return;
         tableBody = document.getElementById('classesRequirementsTableBody');
 
         tableBody.appendChild(tr);
@@ -337,6 +448,54 @@ function insertNewElement(){
         currentHours.innerHTML = countClassHours(lastSelectedClass.childNodes[0].innerHTML);
 
           break;
+        case 'ClassTeacherTab':
+
+        if(typeof classTeacherTable.find(e => e.id === classTeacherId.value) !== 'undefined') return;
+
+        if(countClassHours(lastSelectedClass.childNodes[0].innerHTML) + parseInt(classTeachersHours.value) > classesTable.find(e => e.id === lastSelectedClass.childNodes[0].innerHTML).weekHours) return;
+
+          tableBody = document.getElementById('ClassTeacherTableBody');
+
+          tableBody.appendChild(tr);
+
+          classTeacherTable.push(
+            {
+              id: classTeacherId.value,
+              class: lastSelectedClass.childNodes[0].innerHTML,
+              subject: lastSelectedSubject.childNodes[0].innerHTML,
+              teacher: lastSelectedTeacher.childNodes[0].innerHTML,
+              coTeacher: lastSelectedCoTeacher.childNodes[0].innerHTML,
+              hours: classTeachersHours.value,
+            }
+          );
+
+          td = document.createElement('TD');
+          td.innerHTML = classTeacherId.value;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = lastSelectedClass.childNodes[0].innerHTML;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = classTeachersHours.value;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = lastSelectedTeacher.childNodes[0].innerHTML;
+          tr.appendChild(td);
+
+          td = document.createElement('TD');
+          td.innerHTML = lastSelectedCoTeacher.childNodes[0].innerHTML;
+          tr.appendChild(td);
+
+          classTeachercurrentHours.innerHTML = countClassHours(lastSelectedClass.childNodes[0].innerHTML);
+
+        break;
       }
 
   }
@@ -375,6 +534,13 @@ function deleteElement(){
         trs[i].remove();
       }
     break;
+    case 'ClassTeacherTab':
+      trs = document.getElementById('ClassTeacherTable').tBodies[0].getElementsByClassName('selected');
+      for(let i = trs.length-1; i>=0; i--){
+        classTeacherTable.splice(trs[i].rowIndex-1,1);
+        trs[i].remove();
+      }
+      break;
   }
 
 
@@ -450,6 +616,23 @@ function updateElement(){
       classesRequirementsTable[lastSelectedRow.rowIndex-1].hours = requirementsHours.value;
 
     break;
+    case 'ClassTeacherTab':
+
+      tds[0].innerHTML = classTeacherId.value;
+      tds[1].innerHTML = lastSelectedClass.childNodes[0].innerHTML;
+      tds[2].innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
+      tds[3].innerHTML = classTeachersHours.value;
+      tds[4].innerHTML = lastSelectedTeacher.childNodes[0].innerHTML;
+      tds[5].innerHTML = lastSelectedCoTeacher.childNodes[0].innerHTML;
+
+      classTeacherTable[lastSelectedRow.rowIndex-1].id = classTeacherId.value;
+      classTeacherTable[lastSelectedRow.rowIndex-1].class = lastSelectedClass.childNodes[0].innerHTML;
+      classTeacherTable[lastSelectedRow.rowIndex-1].subject = lastSelectedSubject.childNodes[0].innerHTML;
+      classTeacherTable[lastSelectedRow.rowIndex-1].hours = classTeachersHours.value;
+      classTeacherTable[lastSelectedRow.rowIndex-1].teacher = lastSelectedTeacher.childNodes[0].innerHTML;
+      classTeacherTable[lastSelectedRow.rowIndex-1].coTeacher = lastSelectedCoTeacher.childNodes[0].innerHTML;
+
+      break;
   }
 
 
@@ -480,6 +663,9 @@ function RowClick(currenttr, lock) {
         trs = document.getElementById('classesRequirementsTable').tBodies[0].getElementsByTagName('tr');
         console.log(trs);
         break;
+      case 'ClassTeacherTab':
+      trs = document.getElementById('ClassTeacherTable').tBodies[0].getElementsByTagName('tr');
+      break;
     }
 
 
@@ -540,6 +726,7 @@ function RowClick(currenttr, lock) {
 
         lastSelectedClass = findRequirementsListElement(classesRequirementsTable[currenttr.rowIndex-1].class, 'class');
         lastSelectedClass.className = 'selected';
+
         list = subjectsListRequirements.tBodies[0].getElementsByTagName('tr');
 
         for (i = 0; i < list.length; i++) {
@@ -549,7 +736,48 @@ function RowClick(currenttr, lock) {
         lastSelectedSubject = findRequirementsListElement(classesRequirementsTable[currenttr.rowIndex-1].subject, 'subject');
         lastSelectedSubject.className = 'selected';
         break;
+      case 'ClassTeacherTab':
+        console.log(classTeacherTable);
+        classTeacherId.value = classTeacherTable[currenttr.rowIndex-1].id;
+        classTeachersHours.value = classTeacherTable[currenttr.rowIndex-1].hours;
 
+        list = classesListClassTeacher.tBodies[0].getElementsByTagName('tr');
+
+        for (let i = 0; i < list.length; i++) {
+            list[i].className = '';
+        }
+
+        lastSelectedClass = findRequirementsListElement(classTeacherTable[currenttr.rowIndex-1].class, 'classesA');
+        lastSelectedClass.className = 'selected';
+
+        list = subjectsListClassTeachers.tBodies[0].getElementsByTagName('tr');
+
+        for (i = 0; i < list.length; i++) {
+            list[i].className = '';
+        }
+
+        lastSelectedSubject = findRequirementsListElement(classTeacherTable[currenttr.rowIndex-1].subject, 'subjectsA');
+        lastSelectedSubject.className = 'selected';
+
+        list = teachersListClassTeacher.tBodies[0].getElementsByTagName('tr');
+
+        for (i = 0; i < list.length; i++) {
+            list[i].className = '';
+        }
+
+        lastSelectedTeacher = findRequirementsListElement(classTeacherTable[currenttr.rowIndex-1].teacher, 'teachers');
+        lastSelectedTeacher.className = 'selected';
+
+        list = coTeacherListClassTeachers.tBodies[0].getElementsByTagName('tr');
+
+        for (i = 0; i < list.length; i++) {
+            list[i].className = '';
+        }
+
+        lastSelectedCoTeacher = findRequirementsListElement(classTeacherTable[currenttr.rowIndex-1].coTeacher, 'coTeachers');
+        lastSelectedCoTeacher.className = 'selected';
+
+      break;
     }
 
 }
@@ -570,6 +798,34 @@ function findRequirementsListElement(id, type){
           return list[i];}
       }
     break;
+    case 'classesA':
+    list = classesListClassTeacher.tBodies[0].getElementsByTagName('tr');
+    for(let i = 0; i<list.length; i++){
+      if(id === list[i].childNodes[0].innerHTML) {
+        return list[i];}
+    }
+      break;
+    case 'subjectsA':
+      list = subjectsListClassTeachers.tBodies[0].getElementsByTagName('tr');
+      for(let i = 0; i<list.length; i++){
+        if(id === list[i].childNodes[0].innerHTML) {
+          return list[i];}
+      }
+    break;
+    case 'teachers':
+      list = teachersListClassTeacher.tBodies[0].getElementsByTagName('tr');
+      for(let i = 0; i<list.length; i++){
+        if(id === list[i].childNodes[0].innerHTML) {
+          return list[i];}
+      }
+      break;
+    case 'coTeachers':
+      list = coTeacherListClassTeachers.tBodies[0].getElementsByTagName('tr');
+      for(let i = 0; i<list.length; i++){
+        if(id === list[i].childNodes[0].innerHTML) {
+          return list[i];}
+      }
+      break;
 
   }
 }
@@ -680,6 +936,11 @@ function extractElements(content){
       tableBody = document.getElementById('classesRequirementsTableBody');
       tableBody.innerHTML = '';
       break;
+    case 'ClassTeacherTab':
+      classTeacherTable = [];
+      tableBody = document.getElementById('ClassTeacherTableBody');
+      tableBody.innerHTML = '';
+      break;
     }
 
   for(i = 0; i<temp.length; i++){
@@ -729,6 +990,18 @@ function extractElements(content){
               class: temp[i][1],
               subject: temp[i][2],
               hours: temp[i][3]
+            }
+          );
+            break;
+          case 'ClassTeacherTab':
+          classTeacherTable.push(
+            {
+              id: temp[i][0],
+              class: temp[i][1],
+              subject: temp[i][2],
+              teacher: temp[i][3],
+              coTeacher: temp[i][4],
+              hours: temp[i][5],
             }
           );
             break;
@@ -881,6 +1154,44 @@ function extractElements(content){
           tr.appendChild(td);
 
         }
+        break;
+      case 'ClassTeacherTab':
+      tableBody = document.getElementById('ClassTeacherTableBody');
+
+      for(let j = 0; j<classTeacherTable.length; j++){
+
+        tr = document.createElement('TR');
+
+        tr.setAttribute('onmousedown', 'RowClick(this,false)');
+
+        tableBody.appendChild(tr);
+
+
+        td = document.createElement('TD');
+        td.innerHTML = classTeacherTable[j].id;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classTeacherTable[j].class;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classTeacherTable[j].subject;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classTeacherTable[j].hours;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classTeacherTable[j].teacher;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = classTeacherTable[j].coTeacher;
+        tr.appendChild(td);
+
+      }
         break;
     }
 
