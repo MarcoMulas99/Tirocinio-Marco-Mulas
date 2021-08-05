@@ -1,6 +1,6 @@
 let instanceName;
 let instanceDays;
-let instanceDailyPeriods;
+let instanceDailyPeriods = 6;
 
 let subjectsTable = [];
 let teachersTable = [];
@@ -8,7 +8,7 @@ let classesTable = [];
 let classesRequirementsTable = [];
 let classTeacherTable = [];
 
-
+document.getElementById('InstanceTab').click();
 
 /*----------------------------------------------------------------------------*/
 
@@ -26,8 +26,9 @@ const nameSubjects = document.getElementById('subjectName');
 const idTechers = document.getElementById('teacherId');
 const nameTeachers = document.getElementById('teacherName');
 const surname = document.getElementById('teacherSurname');
+const weekHours = document.getElementById('teacherWeekHours');
 const dayOff = document.getElementById('teacherDayOff');
-const sameValueforAll = document.getElementById('sameValueforAll');
+//const sameValueforAll = document.getElementById('sameValueforAll');
 const minAddDOff = document.getElementById('teacherMinAddDaysOff');
 const maxAddDOff = document.getElementById('teacherMaxAddDaysOff');
 const addDOffWeight = document.getElementById('teacherAddDaysOffWeight');
@@ -35,11 +36,14 @@ const minDPeriods = document.getElementById('teacherMinDailyPeriods');
 const maxDPeriods = document.getElementById('teacherMaxDailyPeriods');
 const minClassPeriods = document.getElementById('teacherMinClassPeriods');
 const maxClassPeriods = document.getElementById('teacherMaxClassPeriods');
+const hoursDistributionBody = document.getElementById('teachersHoursDistributionBody');
+const hoursDistributionHead = document.getElementById('teachersHoursDistributionHead');
 
 const idClasses = document.getElementById('idClasses');
 const yearClasses = document.getElementById('yearClasses');
 const sectionClasses = document.getElementById('sectionClasses');
 const weekHoursClasses = document.getElementById('weekHoursClasses');
+const classHoursDistributionBody = document.getElementById('classHoursDistributionBody');
 
 const classesListRequirements = document.getElementById('classesListRequirements');
 const subjectsListRequirements = document.getElementById('subjectsListRequirements');
@@ -47,6 +51,7 @@ const requirementsHours = document.getElementById('requirementsHours');
 const classRequirementsId = document.getElementById('classRequirementsId');
 const currentHours = document.getElementById('currentHours');
 const requirementsTotalHours = document.getElementById('requirementsTotalHours');
+const requirementsHoursDistrBody = document.getElementById('requirementsDistributionBody');
 
 const classesListClassTeacher = document.getElementById('ClassTeacherClassList');
 const subjectsListClassTeachers = document.getElementById('ClassTeacherSubjectList');
@@ -56,17 +61,160 @@ const classTeachersHours = document.getElementById('ClassTeacherHours');
 const classTeacherId = document.getElementById('ClassTeacherId');
 const classTeachercurrentHours = document.getElementById('ClassTeachercurrentHours');
 const classTeacherTotalHours = document.getElementById('ClassTeacherTotalHours');
-
+const classTeacherHoursDistrBody = document.getElementById('classTeacherDistributionBody');
 
 
 
 /*----------------------------------------------------------------------------*/
+function getClassInfo(element){
+  for (let i = 0; i<classesTable.length; i++){
+    if(classesTable[i].id === element) return classesTable[i];
+  }
+}
 
+function setValueForAll() {
+  tableBody = document.getElementById('teachersTableBody');
+  tableBody.innerHTML = '';
+
+  for (let i = 0; i<teachersTable.length; i++){
+    teachersTable[i].dayOff = dayOff.value;
+    teachersTable[i].minAddDOff = minAddDOff.value;
+    teachersTable[i].maxAddDOff = maxAddDOff.value;
+    teachersTable[i].addDOffWeight = addDOffWeight.value;
+    teachersTable[i].minDPeriods = minDPeriods.value;
+    teachersTable[i].maxDPeriods = maxDPeriods.value;
+    teachersTable[i].minClassPeriods = minClassPeriods.value;
+    teachersTable[i].maxClassPeriods = maxClassPeriods.value;
+    teachersTable[i].hourDistribution = getHourDistribution(hoursDistributionBody);
+  }
+
+
+  for(let j = 0; j<teachersTable.length; j++){
+
+    tr = document.createElement('TR');
+
+    tr.setAttribute('onmousedown', 'RowClick(this,false)');
+
+    tableBody.appendChild(tr);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].id;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].name;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].surname;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].dayOff;
+    tr.appendChild(td);
+
+    // td = document.createElement('TD');
+    // td.innerHTML = sameValueforAll.value;
+    // tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].minAddDOff;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].maxAddDOff;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].addDOffWeight;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].minDPeriods;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].maxDPeriods;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].minClassPeriods;
+    tr.appendChild(td);
+
+    td = document.createElement('TD');
+    td.innerHTML = teachersTable[j].maxClassPeriods;
+    tr.appendChild(td);
+
+  }
+}
+
+function initializeTableDistr(body, head) {
+  let tr, td, th;
+  console.log(instanceDays);
+  body.innerHTML = '';
+  head.innerHTML = '';
+  console.log(body, head);
+
+  tr = document.createElement('TR');
+  th = document.createElement('TH');
+  th.innerHTML = 'Period';
+  tr.appendChild(th);
+  console.log(instanceDays.days);
+  for(let i = 0; i<instanceDays.days.length; i++){
+    th = document.createElement('TH');
+
+    th.innerHTML = instanceDays.days[i];
+    tr.appendChild(th);
+  }
+  head.appendChild(tr);
+
+  console.log(instanceDailyPeriods);
+
+  for(i = 0; i<instanceDailyPeriods; i++){
+    tr = document.createElement('TR');
+    body.appendChild(tr);
+    for(let j = 0; j<instanceDays.days.length+1; j++){
+      if(j === 0) {
+        td = document.createElement('TH');
+        td.innerHTML = i+1;
+      }
+      else{
+          td = document.createElement('TD');
+          td.setAttribute('onmousedown', 'cellClick(this)');
+      }
+      tr.appendChild(td);
+    }
+  }
+}
+
+function cellClick(element) {
+  element.className = element.className == 'selectedCell' ? '' : 'selectedCell';
+}
 
 function openTabContent(evt, selectedTab) {
   // Declare all variables
   let i, tabcontent, tablinks;
   let tr, td;
+
+  // Controlli per switch delle tab
+  switch (evt.currentTarget.id) {
+    case 'SubjectsTab':
+      if(typeof instanceName === 'undefined') return;
+      break;
+    case 'TeachersTab':
+      if(subjectsTable.length === 0) return;
+      break;
+    case 'ClassesTab':
+      if(teachersTable.length === 0) return;
+      break;
+    case 'ClassRequirementsTab':
+      if(classesTable.length === 0) return;
+      break;
+    case 'ClassTeacherTab':
+      if(classesRequirementsTable.length === 0) return;
+      break;
+  }
+
 
   // Get all elements with class="tabcontent" and hide them
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -99,6 +247,7 @@ function openTabContent(evt, selectedTab) {
       fileInput = document.getElementById('csvClasses');
       fileInput.addEventListener('change', readFile);
       currentTab = 'ClassesTab';
+      //initializeTableDistr();
     break;
     case 'ClassRequirementsTab':
     fileInput = document.getElementById('csvClassesRequiremnet');
@@ -128,6 +277,9 @@ function openTabContent(evt, selectedTab) {
 
     break;
     case 'ClassTeacherTab':
+
+    lastSelectedClass = undefined;
+    lastSelectedSubject = undefined;
 
     fileInput = document.getElementById('csvClassTeacher');
     fileInput.addEventListener('change', readFile);
@@ -176,6 +328,8 @@ function openTabContent(evt, selectedTab) {
 
     break;
   }
+
+
 }
 
 function selectElement(element, type){
@@ -185,24 +339,42 @@ function selectElement(element, type){
     case 'classes':
       list = classesListRequirements.tBodies[0].childNodes;
       lastSelectedClass = element;
+      console.log(element);
+      if(typeof lastSelectedSubject === 'undefined'){
+        classRequirementsId.value = "null_"+element.childNodes[0].innerHTML;
+      }else classRequirementsId.value = lastSelectedSubject.childNodes[0].innerHTML+"_"+element.childNodes[0].innerHTML;
+
       currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
       requirementsTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
       //console.log(element.childNodes[0].innerHTML);
+      setHourDistribution(getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution, requirementsHoursDistrBody);
+
       break;
     case 'subjects':
       list = subjectsListRequirements.tBodies[0].childNodes;
       lastSelectedSubject = element;
+      if(typeof lastSelectedClass === 'undefined'){
+        classRequirementsId.value = element.childNodes[0].innerHTML+"_null";
+      }else classRequirementsId.value = element.childNodes[0].innerHTML+"_"+lastSelectedClass.childNodes[0].innerHTML;
       break;
     case 'classesA':
       list = classesListClassTeacher.tBodies[0].childNodes;
       lastSelectedClass = element;
+      if(typeof lastSelectedSubject === 'undefined'){
+        classTeacherId.value = "null_"+element.childNodes[0].innerHTML;
+      }else classTeacherId.value = lastSelectedSubject.childNodes[0].innerHTML+"_"+element.childNodes[0].innerHTML;
       classTeachercurrentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
       classTeacherTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
+      setHourDistribution(getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution, classTeacherHoursDistrBody);
         //console.log(element.childNodes[0].innerHTML);
       break;
     case 'subjectsA':
       list = subjectsListClassTeachers.tBodies[0].childNodes;
       lastSelectedSubject = element;
+      if(typeof lastSelectedClass === 'undefined'){
+        classTeacherId.value = element.childNodes[0].innerHTML+"_null";
+      }else classTeacherId.value = element.childNodes[0].innerHTML+"_"+lastSelectedClass.childNodes[0].innerHTML;
+
       break;
     case 'teachers':
       list = teachersListClassTeacher.tBodies[0].childNodes;
@@ -255,9 +427,14 @@ function saveInstaceData(){
   let dailyPeriods = document.getElementById('DailyPeriods');
 
   instanceName = name.value;
-  if(days.value === 'User-defined') instanceDays = daysCustom.value;
-  else instanceDays = days.value;
+  if(days.value === 'User-defined') instanceDays = {days: daysCustom.value.split(',')};
+  else instanceDays = JSON.parse(days.value);
   instanceDailyPeriods = dailyPeriods.value;
+  initializeTableDistr(document.getElementById('teachersHoursDistributionBody'), document.getElementById('teachersHoursDistributionHead'));
+  initializeTableDistr(document.getElementById('classHoursDistributionBody'), document.getElementById('classHoursDistributionHead'));
+  initializeTableDistr(document.getElementById('requirementsDistributionBody'), document.getElementById('requirementsDistributionHead'));
+  initializeTableDistr(document.getElementById('classTeacherDistributionBody'), document.getElementById('classTeacherDistributionHead'));
+
 }
 
 function insertNewElement(){
@@ -311,6 +488,7 @@ function insertNewElement(){
             id : idTechers.value,
             name : nameTeachers.value,
             surname : surname.value,
+            weekHours : weekHours.value,
             dayOff : dayOff.value,
             //sameValueforAll : sameValueforAll.value,
             minAddDOff : minAddDOff.value,
@@ -319,7 +497,8 @@ function insertNewElement(){
             minDPeriods : minDPeriods.value,
             maxDPeriods : maxDPeriods.value,
             minClassPeriods : minClassPeriods.value,
-            maxClassPeriods : maxClassPeriods.value
+            maxClassPeriods : maxClassPeriods.value,
+            hourDistribution : getHourDistribution(hoursDistributionBody)
           });
 
 
@@ -333,6 +512,10 @@ function insertNewElement(){
 
       td = document.createElement('TD');
       td.innerHTML = surname.value;
+      tr.appendChild(td);
+
+      td = document.createElement('TD');
+      td.innerHTML = weekHours.value;
       tr.appendChild(td);
 
       td = document.createElement('TD');
@@ -386,7 +569,8 @@ function insertNewElement(){
           id: idClasses.value,
           year: yearClasses.value,
           section: sectionClasses.value,
-          weekHours: weekHoursClasses.value
+          weekHours: weekHoursClasses.value,
+          hourDistribution : getHourDistribution(classHoursDistributionBody)
         }
       );
 
@@ -500,7 +684,42 @@ function insertNewElement(){
 
   }
 
+function getHourDistribution(table){
+  let aux = table.childNodes;
+  let temp;
+  let result = '';
 
+  for(let i = 0; i<aux.length; i++){
+    temp = aux[i].childNodes;
+    for(let j = 0; j<temp.length; j++){
+      if(j!==0){
+        if(temp[j].classList.contains('selectedCell')) result = result.concat('1');
+        else result = result.concat('0');
+      }
+    }
+  }
+
+  console.log(result);
+  return result;
+}
+
+function setHourDistribution(str, table){
+  let distr = Array.from(str);
+  let count = 0;
+  let aux = table.childNodes;
+  let temp;
+
+  for(let i = 0; i<aux.length; i++){
+    temp = aux[i].childNodes;
+    for(let j = 0; j<temp.length; j++){
+      if(j!==0){
+        temp[j].className = '';
+        if(distr[count] === '1') temp[j].classList.add('selectedCell');
+        count++;
+      }
+    }
+  }
+}
 
 function deleteElement(){
   let trs;
@@ -568,18 +787,20 @@ function updateElement(){
       tds[0].innerHTML = idTechers.value;
       tds[1].innerHTML = nameTeachers.value;
       tds[2].innerHTML = surname.value;
-      tds[3].innerHTML = dayOff.value;
-      tds[4].innerHTML = minAddDOff.value;
-      tds[5].innerHTML = maxAddDOff.value;
-      tds[6].innerHTML = addDOffWeight.value;
-      tds[7].innerHTML = minDPeriods.value;
-      tds[8].innerHTML = maxDPeriods.value;
-      tds[9].innerHTML = minClassPeriods.value;
-      tds[10].innerHTML = maxClassPeriods.value;
+      tds[3].innerHTML = weekHours.value;
+      tds[4].innerHTML = dayOff.value;
+      tds[5].innerHTML = minAddDOff.value;
+      tds[6].innerHTML = maxAddDOff.value;
+      tds[7].innerHTML = addDOffWeight.value;
+      tds[8].innerHTML = minDPeriods.value;
+      tds[9].innerHTML = maxDPeriods.value;
+      tds[10].innerHTML = minClassPeriods.value;
+      tds[11].innerHTML = maxClassPeriods.value;
 
       teachersTable[lastSelectedRow.rowIndex-1].id = idTechers.value;
       teachersTable[lastSelectedRow.rowIndex-1].name = nameTeachers.value;
       teachersTable[lastSelectedRow.rowIndex-1].surname = surname.value;
+      teachersTable[lastSelectedRow.rowIndex-1].weekHours = weekHours.value;
       teachersTable[lastSelectedRow.rowIndex-1].dayOff = dayOff.value;
       teachersTable[lastSelectedRow.rowIndex-1].minAddDOff = minAddDOff.value;
       teachersTable[lastSelectedRow.rowIndex-1].maxAddDOff = maxAddDOff.value;
@@ -588,6 +809,7 @@ function updateElement(){
       teachersTable[lastSelectedRow.rowIndex-1].maxDPeriods = maxDPeriods.value;
       teachersTable[lastSelectedRow.rowIndex-1].minClassPeriods = minClassPeriods.value;
       teachersTable[lastSelectedRow.rowIndex-1].maxClassPeriods = maxClassPeriods.value;
+      teachersTable[lastSelectedRow.rowIndex-1].hourDistribution = getHourDistribution(hoursDistributionBody);
 
       console.log(teachersTable);
       break;
@@ -606,38 +828,46 @@ function updateElement(){
     case 'ClassRequirementsTab':
 
       tds[0].innerHTML = classRequirementsId.value;
-      tds[1].innerHTML = lastSelectedClass.childNodes[0].innerHTML;
-      tds[2].innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
+      if(typeof lastSelectedClass !== 'undefined')tds[1].innerHTML = lastSelectedClass.childNodes[0].innerHTML;
+      if(typeof lastSelectedSubject !== 'undefined')tds[2].innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
       tds[3].innerHTML = requirementsHours.value;
 
       classesRequirementsTable[lastSelectedRow.rowIndex-1].id = classRequirementsId.value;
-      classesRequirementsTable[lastSelectedRow.rowIndex-1].class = lastSelectedClass.childNodes[0].innerHTML;
-      classesRequirementsTable[lastSelectedRow.rowIndex-1].subject = lastSelectedSubject.childNodes[0].innerHTML;
+      if(typeof lastSelectedClass !== 'undefined')classesRequirementsTable[lastSelectedRow.rowIndex-1].class = lastSelectedClass.childNodes[0].innerHTML;
+      if(typeof lastSelectedSubject !== 'undefined')classesRequirementsTable[lastSelectedRow.rowIndex-1].subject = lastSelectedSubject.childNodes[0].innerHTML;
       classesRequirementsTable[lastSelectedRow.rowIndex-1].hours = requirementsHours.value;
 
+      currentHours.innerHTML = countClassHours(lastSelectedClass.childNodes[0].innerHTML);
+      requirementsTotalHours.innerHTML = '/' + classesTable.find(e => e.id === lastSelectedClass.childNodes[0].innerHTML).weekHours;
+
+      getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution = getHourDistribution(requirementsHoursDistrBody);
     break;
     case 'ClassTeacherTab':
 
       tds[0].innerHTML = classTeacherId.value;
-      tds[1].innerHTML = lastSelectedClass.childNodes[0].innerHTML;
+      if(typeof lastSelectedClass !== 'undefined')tds[1].innerHTML = lastSelectedClass.childNodes[0].innerHTML;
       tds[2].innerHTML = lastSelectedSubject.childNodes[0].innerHTML;
       tds[3].innerHTML = classTeachersHours.value;
       tds[4].innerHTML = lastSelectedTeacher.childNodes[0].innerHTML;
-      tds[5].innerHTML = lastSelectedCoTeacher.childNodes[0].innerHTML;
+      if(typeof lastSelectedCoTeacher !== 'undefined')tds[5].innerHTML = lastSelectedCoTeacher.childNodes[0].innerHTML;
 
       classTeacherTable[lastSelectedRow.rowIndex-1].id = classTeacherId.value;
-      classTeacherTable[lastSelectedRow.rowIndex-1].class = lastSelectedClass.childNodes[0].innerHTML;
+      if(typeof lastSelectedClass !== 'undefined')classTeacherTable[lastSelectedRow.rowIndex-1].class = lastSelectedClass.childNodes[0].innerHTML;
       classTeacherTable[lastSelectedRow.rowIndex-1].subject = lastSelectedSubject.childNodes[0].innerHTML;
       classTeacherTable[lastSelectedRow.rowIndex-1].hours = classTeachersHours.value;
       classTeacherTable[lastSelectedRow.rowIndex-1].teacher = lastSelectedTeacher.childNodes[0].innerHTML;
-      classTeacherTable[lastSelectedRow.rowIndex-1].coTeacher = lastSelectedCoTeacher.childNodes[0].innerHTML;
+      if(typeof lastSelectedCoTeacher !== 'undefined')classTeacherTable[lastSelectedRow.rowIndex-1].coTeacher = lastSelectedCoTeacher.childNodes[0].innerHTML;
+
+      classTeachercurrentHours.innerHTML = countClassHours(lastSelectedClass.childNodes[0].innerHTML);
+      classTeacherTotalHours.innerHTML = '/' + classesTable.find(e => e.id === lastSelectedClass.childNodes[0].innerHTML).weekHours;
+
+      getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution = getHourDistribution(classTeacherHoursDistrBody);
 
       break;
   }
 
 
 }
-
 
 //table manipulation
 let lastSelectedRow;
@@ -697,6 +927,7 @@ function RowClick(currenttr, lock) {
         idTechers.value = teachersTable[currenttr.rowIndex-1].id;
         nameTeachers.value = teachersTable[currenttr.rowIndex-1].name;
         surname.value = teachersTable[currenttr.rowIndex-1].surname;
+        weekHours.value = teachersTable[currenttr.rowIndex-1].weekHours;
         dayOff.value = teachersTable[currenttr.rowIndex-1].dayOff;
         minAddDOff.value = teachersTable[currenttr.rowIndex-1].minAddDOff;
         maxAddDOff.value = teachersTable[currenttr.rowIndex-1].maxAddDOff;
@@ -705,13 +936,15 @@ function RowClick(currenttr, lock) {
         maxDPeriods.value = teachersTable[currenttr.rowIndex-1].maxDPeriods;
         minClassPeriods.value = teachersTable[currenttr.rowIndex-1].minClassPeriods;
         maxClassPeriods.value = teachersTable[currenttr.rowIndex-1].maxClassPeriods;
+        console.log(teachersTable[currenttr.rowIndex-1].hourDistribution);
+        setHourDistribution(teachersTable[currenttr.rowIndex-1].hourDistribution, hoursDistributionBody);
         break;
       case 'ClassesTab':
         idClasses.value = classesTable[currenttr.rowIndex-1].id;
         yearClasses.value = classesTable[currenttr.rowIndex-1].year;
         sectionClasses.value = classesTable[currenttr.rowIndex-1].section;
         weekHoursClasses.value = classesTable[currenttr.rowIndex-1].weekHours;
-
+        setHourDistribution(classesTable[currenttr.rowIndex-1].hourDistribution, classHoursDistributionBody);
         break;
       case 'ClassRequirementsTab':
         console.log(classesRequirementsTable);
@@ -725,7 +958,7 @@ function RowClick(currenttr, lock) {
         }
 
         lastSelectedClass = findRequirementsListElement(classesRequirementsTable[currenttr.rowIndex-1].class, 'class');
-        lastSelectedClass.className = 'selected';
+        if(typeof lastSelectedClass !== 'undefined') lastSelectedClass.className = 'selected';
 
         list = subjectsListRequirements.tBodies[0].getElementsByTagName('tr');
 
@@ -734,7 +967,9 @@ function RowClick(currenttr, lock) {
         }
 
         lastSelectedSubject = findRequirementsListElement(classesRequirementsTable[currenttr.rowIndex-1].subject, 'subject');
-        lastSelectedSubject.className = 'selected';
+        if(typeof lastSelectedSubject !== 'undefined')lastSelectedSubject.className = 'selected';
+
+        setHourDistribution(getClassInfo(classesRequirementsTable[currenttr.rowIndex-1].class).hourDistribution, requirementsHoursDistrBody);
         break;
       case 'ClassTeacherTab':
         console.log(classTeacherTable);
@@ -775,8 +1010,9 @@ function RowClick(currenttr, lock) {
         }
 
         lastSelectedCoTeacher = findRequirementsListElement(classTeacherTable[currenttr.rowIndex-1].coTeacher, 'coTeachers');
-        lastSelectedCoTeacher.className = 'selected';
+        if(typeof lastSelectedCoTeacher !== 'undefined')lastSelectedCoTeacher.className = 'selected';
 
+        setHourDistribution(getClassInfo(classesRequirementsTable[currenttr.rowIndex-1].class).hourDistribution, classTeacherHoursDistrBody);
       break;
     }
 
@@ -863,7 +1099,6 @@ var reader = new FileReader();
   reader.readAsBinaryString(fileInput.files[0]);
 }
 
-
 function exportToCsv(filename, rows) {
     var processRow = function (row) {
         var finalVal = '';
@@ -911,9 +1146,13 @@ function extractElements(content){
   let td;
   let temp = content.split('\n');
 
+
+
   for(let i = 0; i<temp.length; i++){
     temp[i] = temp[i].split(',');
   }
+
+  console.log(temp);
 
   switch (currentTab) {
     case 'SubjectsTab':
@@ -962,6 +1201,7 @@ function extractElements(content){
                 name : temp[i][1],
                 surname : temp[i][2],
                 dayOff : temp[i][3],
+                weekHours : temp[i][11],
                 //sameValueforAll : sameValueforAll.value,
                 minAddDOff : temp[i][4],
                 maxAddDOff : temp[i][5],
@@ -969,7 +1209,8 @@ function extractElements(content){
                 minDPeriods : temp[i][7],
                 maxDPeriods : temp[i][8],
                 minClassPeriods : temp[i][9],
-                maxClassPeriods : temp[i][10]
+                maxClassPeriods : temp[i][10],
+                hourDistribution: temp[i][12]
               }
             );
             break;
@@ -979,7 +1220,8 @@ function extractElements(content){
             id: temp[i][0],
             year: temp[i][1],
             section: temp[i][2],
-            weekHours: temp[i][3]
+            weekHours: temp[i][3],
+            hourDistribution: temp[i][4]
             }
           );
             break;
@@ -1054,6 +1296,10 @@ function extractElements(content){
 
         td = document.createElement('TD');
         td.innerHTML = teachersTable[j].surname;
+        tr.appendChild(td);
+
+        td = document.createElement('TD');
+        td.innerHTML = teachersTable[j].weekHours;
         tr.appendChild(td);
 
         td = document.createElement('TD');

@@ -19,28 +19,29 @@
   </div>
 
 
+
   <!-- Tab content -->
 <div id="InstanceContent" class="tabcontent">
   <div>
-    <label for="InstanceName">Instance name:</label>
+    <label for="InstanceName"  >Instance name</label>
     <input type="text" name="InstanceName" id="InstanceName"> <br><br>
 
-    <label for="InstanceName">Days:</label>
+    <label for="InstanceName"  >Days</label>
     <select class="" name="InstanceDays" id="InstanceDays">
       <option value="User-defined">User-defined</option>
-      <option value="Mon,Tue,Wed,Thu,Fri,Sat" selected="select">Mon,Tue,Wed,Thu,Fri,Sat</option>
-      <option value="Mon,Tue,Wed,Thu,Fri">Mon,Tue,Wed,Thu,Fri</option>
-      <option value="Mo,Tu,We,Th,Fr,Sa">Mo,Tu,We,Th,Fr,Sa</option>
-      <option value="Mo,Tu,We,Th,Fr">Mo,Tu,We,Th,Fr</option>
-      <option value="Lun,Mar,Mer,Gio,Ven,Sab">Lun,Mar,Mer,Gio,Ven,Sab</option>
-      <option value="Lun,Mar,Mer,Gio,Ven">Lun,Mar,Mer,Gio,Ven</option>
-      <option value="Lu,Ma,Me,Gi,Ve,Sa">Lu,Ma,Me,Gi,Ve,Sa</option>
-      <option value="Lu,Ma,Me,Gi,Ve">Lu,Ma,Me,Gi,Ve</option>
+      <option value='{"days": ["Mon","Tue","Wed","Thu","Fri","Sat"]}' selected="select">Mon,Tue,Wed,Thu,Fri,Sat</option>
+      <option value='{"days": ["Mon","Tue","Wed","Thu","Fri"]}'>Mon,Tue,Wed,Thu,Fri</option>
+      <option value='{"days": ["Mo","Tu","We","Th","Fr","Sa"]}'>Mo,Tu,We,Th,Fr,Sa</option>
+      <option value='{"days": ["Mo","Tu","We","Th","Fr"]}'>Mo,Tu,We,Th,Fr</option>
+      <option value='{"days": ["Lun","Mar","Mer","Gio","Ven","Sab"]}'>Lun,Mar,Mer,Gio,Ven,Sab</option>
+      <option value='{"days": ["Lun","Mar","Mer","Gio","Ven"]}'>Lun,Mar,Mer,Gio,Ven</option>
+      <option value='{"days": ["Lu","Ma","Me","Gi","Ve","Sa"]}'>Lu,Ma,Me,Gi,Ve,Sa</option>
+      <option value='{"days": ["Lu","Ma","Me","Gi","Ve"]}'>Lu,Ma,Me,Gi,Ve</option>
     </select>
     <input type="text" name="UserDefinedDays" id="UserDefinedDays"> <br><br>
 
 
-    <label for="DailyPeriods">Daily Periods:</label>
+    <label for="DailyPeriods"  >Daily Periods</label>
     <select class="" name="DailyPeriods" id="DailyPeriods">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -68,26 +69,34 @@
       <option value="24">24</option>
     </select> <br><br>
 
-    <button type="button" id="saveInstaceData" onclick="saveInstaceData()">Save</button>
+    <button type="button" id="saveInstaceData" onclick="saveInstaceData()" class="buttonStyle">Ok</button>
 
   </div>
 </div>
 
 <div id="SubjectsContent" class="tabcontent">
-  <input id="csvSubject" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+
+  <input id="csvSubject" type="file" class="buttonStyle"> <!--da cambiare in input file quando si implementa la funzionalità-->
   <button type="button" name="exportSubjects" id="exportSubjects" onclick="exportToCsv('subjects', toRows(subjectsTable))">Export subjects to file...</button>
-  <button type="button" name="okSubjects" id="okSubjects">OK</button>
+  <!-- <button type="button" name="okSubjects" id="okSubjects">OK</button> -->
   <!-- <button type="button" name="button">Save</button> -->
   <br><br>
 
-  <label for="subjectId">Id:</label>
-  <input type="text" name="subjectId" id="subjectId" value=""><br>
-  <label for="subjectName">Name:</label>
-  <input type="text" name="subjectName" id="subjectName" value="">
+  <div>
+    <div id="inputSubjects">
+      <label for="subjectId"  >Id</label>
+      <input type="text" name="subjectId" id="subjectId" value=""><br>
+      <label for="subjectName"  >Name</label>
+      <input type="text" name="subjectName" id="subjectName" value="">
+    </div>
 
-  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
-  <button type="button" name="button" onclick="deleteElement()">Delete</button>
-  <button type="button" name="button" onclick="updateElement()">Update</button>
+
+  <div id="subjectButtons">
+    <button type="button" name="button" onclick="insertNewElement()" class="buttonStyle" style="display:block">Insert</button>
+    <button type="button" name="button" onclick="deleteElement()" class="buttonStyle" style="display:block">Delete</button>
+    <button type="button" name="button" onclick="updateElement()" class="buttonStyle" style="display:block">Update</button>
+  </div>
+</div>
 
   <br><br><br>
 
@@ -103,7 +112,6 @@
     </tbody>
 
   </table>
-
 </div>
 
 <div id="TeachersContent" class="tabcontent">
@@ -113,73 +121,110 @@
 
   <br><br>
 
-  <label for="teacherId">Id: </label>
-  <input type="text" name="teacherId" id="teacherId">
+  <div class="line">
+    <div  class="line">
+      <label for="teacherId">Id</label>
+      <input type="text" name="teacherId" id="teacherId">
+    </div>
+    <div  class="line">
+      <label for="teacherName">Name</label>
+      <input type="text" name="teacherName" id="teacherName">
+    </div>
+    <div  class="line">
+      <label for="teacherSurname">Surname</label>
+      <input type="text" name="teacherSurname" id="teacherSurname">
+    </div>
+    <div  class="line">
+      <label for="teacherWeekHours">Week hours</label>
+      <input type="number" name="teacherWeekHours" id="teacherWeekHours">
+    </div>
 
-  <label for="teacherName">Name: </label>
-  <input type="text" name="teacherName" id="teacherName">
+    <br><br>
 
-  <label for="teacherSurname">Surname: </label>
-  <input type="text" name="teacherSurname" id="teacherSurname">
+    <div  class="line">
+      <label for="teacherDayOff"  >Day off</label>
+      <select id = "teacherDayOff" class="selectStyle">
+        <option value="0" select = "selected">Auto-assigned</option>
+        <option value="1">Mon</option>
+        <option value="2">Tue</option>
+        <option value="3">Wed</option>
+        <option value="4">Thu</option>
+        <option value="5">Fri</option>
+        <option value="6">Sat</option>
+      </select>
+    </div>
 
-  <label for="teacherDayOff">Day off:</label>
-  <select id = "teacherDayOff">
-    <option value="0" select = "selected">Auto-assigned</option>
-    <option value="1">Mon</option>
-    <option value="2">Tue</option>
-    <option value="3">Wed</option>
-    <option value="4">Thu</option>
-    <option value="5">Fri</option>
-    <option value="6">Sat</option>
-  </select>
+    <div  class="line" >
+      <label for="teacherMinAddDaysOff"  >Min additional days off</label>
+      <select id = "teacherMinAddDaysOff" class="selectStyle">
+        <option value="0" select = "selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
 
-  <label for="sameValueforAll">Same values for all teachers</label>
-  <input type="checkbox" name="sameValueforAll" id="sameValueforAll" value="true">
+    <div  class="line">
+      <label for="teacherMaxAddDaysOff"  >Max additional days off:</label>
+      <select id = "teacherMaxAddDaysOff" class="selectStyle">
+        <option value="0" select = "selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
 
-  <br>
+    <div  class="line">
+      <label for="teacherAddDaysOffWeight"  >Additional days off weight</label>
+      <input type="number" name="teacherAddDaysOffWeight" id="teacherAddDaysOffWeight">
+    </div>
 
-  <label for="teacherMinAddDaysOff">Min additional days off:</label>
-  <select id = "teacherMinAddDaysOff">
-    <option value="0" select = "selected">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-  </select>
+    <br><br>
 
-  <label for="teacherMaxAddDaysOff">Max additional days off:</label>
-  <select id = "teacherMaxAddDaysOff">
-    <option value="0" select = "selected">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-  </select>
+    <div  class="line">
+      <label for="teacherMinDailyPeriods"  >Min daily periods</label>
+      <input type="number" name="teacherMinDailyPeriods" id="teacherMinDailyPeriods">
+    </div>
 
-  <label for="teacherAddDaysOffWeight">Additional days off weight: </label>
-  <input type="number" name="teacherAddDaysOffWeight" id="teacherAddDaysOffWeight">
+    <div  class="line">
+      <label for="teacherMaxDailyPeriods"  >Max daily periods</label>
+      <input type="number" name="teacherMaxDailyPeriods" id="teacherMaxDailyPeriods">
+    </div>
 
-  <br>
+    <div  class="line">
+      <label for="teacherMinClassPeriods"  >Min class periods</label>
+      <input type="number" name="teacherMinClassPeriods" id="teacherMinClassPeriods">
+    </div>
 
-  <label for="teacherMinDailyPeriods">Min daily periods: </label>
-  <input type="number" name="teacherMinDailyPeriods" id="teacherMinDailyPeriods">
+    <div  class="line">
+      <label for="teacherMaxClassPeriods"  >Max class periods</label>
+      <input type="number" name="teacherMaxClassPeriods" id="teacherMaxClassPeriods">
+    </div>
+  </div>
 
-  <label for="teacherMaxDailyPeriods">Max daily periods: </label>
-  <input type="number" name="teacherMaxDailyPeriods" id="teacherMaxDailyPeriods">
-
-  <label for="teacherMinClassPeriods">Min class periods: </label>
-  <input type="number" name="teacherMinClassPeriods" id="teacherMinClassPeriods">
-
-  <label for="teacherMaxClassPeriods">Max class periods: </label>
-  <input type="number" name="teacherMaxClassPeriods" id="teacherMaxClassPeriods">
+  <div class="side" style="float:right">
+    <table id="teachersHoursDistribution" class="noMargin">
+      <thead id="teachersHoursDistributionHead">
+      </thead>
+      <tbody id="teachersHoursDistributionBody">
+      </tbody>
+    </table>
+  </div>
 
   <br><br>
 
-  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
-  <button type="button" name="button" onclick="deleteElement()">Delete</button>
-  <button type="button" name="button" onclick="updateElement()">Update</button>
+  <div class="side" style="float:right">
+    <button type="button" name="button" onclick="insertNewElement()"  class="buttonStyle displayBlock">Insert</button>
+    <button type="button" name="button" onclick="deleteElement()" class="buttonStyle displayBlock">Delete</button>
+    <button type="button" name="button" onclick="updateElement()" class="buttonStyle displayBlock">Update</button>
+    <button type="button" name="button" id="sameValueforAll" onclick="setValueForAll()" class="buttonStyle displayBlock">Set same values for all teachers</button>
+  </div>
+  <br><br>
+
 
   <br><br><br>
 
@@ -190,6 +235,7 @@
         <th class="subjectsTableColumn">Id</th>
         <th class="subjectsTableColumn">Name</th>
         <th class="subjectsTableColumn">Surname</th>
+        <th class="subjectsTableColumn">Week hours</th>
         <th class="subjectsTableColumn">Day off</th>
         <th class="subjectsTableColumn">Min add. days</th>
         <th class="subjectsTableColumn">Max add. days</th>
@@ -212,104 +258,148 @@
 
   <input id="csvClasses" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
   <button type="button" name="exportClasses" id="exportClasses" onclick="exportToCsv('teachers', toRows(classesTable))">Export teachers to file...</button>
-  <button type="button" name="okClasses" id="okClasses">OK</button>
 
   <br><br>
 
-  <label for="idClasses">Id: </label>
-  <input type="text" name="idClasses" id="idClasses">
+  <div class="line">
+    <div class="displayBlock">
+      <div  class="line">
+        <label for="idClasses">Id</label>
+        <input type="text" name="idClasses" id="idClasses">
+      </div>
 
-  <label for="yearClasses">Year: </label>
-  <input type="text" name="yearClasses" id="yearClasses">
+      <div  class="line">
+        <label for="yearClasses">Year</label>
+        <input type="text" name="yearClasses" id="yearClasses">
+      </div>
 
-  <label for="sectionClasses">Section: </label>
-  <input type="text" name="sectionClasses" id="sectionClasses">
+      <div  class="line">
+        <label for="sectionClasses">Section</label>
+        <input type="text" name="sectionClasses" id="sectionClasses">
+      </div>
 
-  <label for="weekHoursClasses">Week hours</label>
-  <input type="number" name="weekHoursClasses" id="weekHoursClasses">
+      <div  class="line">
+        <label for="weekHoursClasses">Week hours</label>
+        <input type="number" name="weekHoursClasses" id="weekHoursClasses">
+      </div>
+  </div>
 
-  <br><br>
-
-  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
-  <button type="button" name="button" onclick="deleteElement()">Delete</button>
-  <button type="button" name="button" onclick="updateElement()">Update</button>
-
-  <br><br><br>
-
-  <table id="classesTable" class="centerTable">
-    <thead>
-      <tr>
-        <th class="subjectsTableColumn">Id</th>
-        <th class="subjectsTableColumn">Year</th>
-        <th class="subjectsTableColumn">Section</th>
-        <th class="subjectsTableColumn">Week hours</th>
-      </tr>
-    </thead>
-    <tbody id="classesTableBody">
-    </tbody>
-  </table>
 </div>
+
+      <div  class="side" style="float:right">
+        <table class="noMargin">
+          <thead id="classHoursDistributionHead">
+          </thead>
+          <tbody id="classHoursDistributionBody">
+          </tbody>
+        </table>
+      </div>
+
+    <br><br><br>
+
+    <div class="side" style="float:right">
+      <button type="button" name="button" onclick="insertNewElement()" class="buttonStyle displayBlock">Insert</button>
+      <button type="button" name="button" onclick="deleteElement()" class="buttonStyle displayBlock">Delete</button>
+      <button type="button" name="button" onclick="updateElement()" class="buttonStyle displayBlock">Update</button>
+    </div>
+
+
+    <br><br><br>
+
+    <table id="classesTable" class="centerTable">
+      <thead>
+        <tr>
+          <th class="subjectsTableColumn">Id</th>
+          <th class="subjectsTableColumn">Year</th>
+          <th class="subjectsTableColumn">Section</th>
+          <th class="subjectsTableColumn">Week hours</th>
+        </tr>
+      </thead>
+      <tbody id="classesTableBody">
+      </tbody>
+    </table>
+  </div>
 
 <div id="ClassesRequirementsContent" class="tabcontent">
   <input id="csvClassesRequiremnet" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
   <button type="button" name="exportClassesRequirements" id="exportClassesRequirements" onclick="exportToCsv('ClassRequirements', toRows(classesRequirementsTable))">Export teachers to file...</button>
-  <button type="button" name="okClassesRequirements" id="okClassesRequirements">OK</button>
-
-  <br><br>
-
-  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
-  <button type="button" name="button" onclick="deleteElement()">Delete</button>
-  <button type="button" name="button" onclick="updateElement()">Update</button>
 
   <br><br><br>
+  <div class="line">
 
-  <table id="classesListRequirements" style="display:inline-block; min-height: 40vh; ">
-    <thead>
-      <tr>
-        <th class="subjectsTableColumn">Classes</th>
-      </tr>
-    </thead>
-    <tbody id="classesListRequirementsTableBody">
-    </tbody>
-  </table>
+    <div class="line">
+      <table id="classesListRequirements" style="display:inline-block; min-height: 40vh;" class="noMargin">
+        <thead>
+          <tr>
+            <th class="subjectsTableColumn">Classes</th>
+          </tr>
+        </thead>
+        <tbody id="classesListRequirementsTableBody">
+        </tbody>
+      </table>
 
 
-  <table id="subjectsListRequirements" style="display:inline-block; min-height: 40vh;">
-    <thead>
-      <tr>
-        <th class="subjectsTableColumn">Subjects</th>
-      </tr>
-    </thead>
-    <tbody id="subjectsListRequirementsTableBody">
-    </tbody>
-  </table>
+      <table id="subjectsListRequirements" style="display:inline-block; min-height: 40vh;" class="noMargin">
+        <thead>
+          <tr>
+            <th class="subjectsTableColumn">Subjects</th>
+          </tr>
+        </thead>
+        <tbody id="subjectsListRequirementsTableBody">
+        </tbody>
+      </table>
+    </div>
 
-  <label for="requirementsHours">Hours</label>
-  <select id="requirementsHours">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-    <option value="13">13</option>
-    <option value="14">14</option>
-    <option value="15">15</option>
-    <option value="16">16</option>
-  </select>
+    <br><br><br>
 
-  <label for="classRequirementsId">Requirement Id: </label>
-  <input type="text" id="classRequirementsId">
+    <div class="side">
+      <div  class="line">
+        <label for="requirementsHours">Hours</label>
+        <select id="requirementsHours" class="selectStyle">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </div>
+      <div  class="line">
+        <label for="classRequirementsId">Requirement Id</label>
+        <input type="text" id="classRequirementsId">
+      </div>
+      <div  class="line">
+        <label for="currentHours">Current assigned hours</label>
+        <p id="currentHours" style="display: inline"></p>
+        <p id="requirementsTotalHours" style="display: inline"> / </p>
+      </div>
+    </div>
+</div>
 
-  <label for="currentHours">Current assigned hours: </label>
-  <p id="currentHours" style="display: inline"></p>
-  <p id="requirementsTotalHours" style="display: inline"> / </p>
+  <div  class="side" style="float: right;">
+    <table class="noMargin">
+      <thead id="requirementsDistributionHead">
+      </thead>
+      <tbody id="requirementsDistributionBody">
+      </tbody>
+    </table>
+  </div>
+
+  <div class="side" style=" float:right;">
+    <button type="button" name="button" onclick="insertNewElement()" class="buttonStyle displayBlock">Insert</button>
+    <button type="button" name="button" onclick="deleteElement()" class="buttonStyle displayBlock">Delete</button>
+    <button type="button" name="button" onclick="updateElement()" class="buttonStyle displayBlock">Update</button>
+  </div>
 
 
   <table id="classesRequirementsTable" class="centerTable">
@@ -330,17 +420,12 @@
 <div id="ClassTeacherContent" class="tabcontent">
   <input id="csvClassTeacher" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
   <button type="button" name="exportClassTeacher" id="exportClassTeacher" onclick="exportToCsv('ClassTeacher', toRows(classTeacherTable))">Export teachers to file...</button>
-  <button type="button" name="okClassTeacher" id="okClassTeacher">OK</button>
 
-  <br><br>
-
-  <button type="button" name="button" onclick="insertNewElement()">Insert</button>
-  <button type="button" name="button" onclick="deleteElement()">Delete</button>
-  <button type="button" name="button" onclick="updateElement()">Update</button>
 
   <br><br><br>
 
-  <table id="ClassTeacherClassList" style="display:inline-block; min-height: 40vh; ">
+<div class="line">
+  <table id="ClassTeacherClassList" style="display:inline-block; min-height: 40vh;" class="noMargin">
     <thead>
       <tr>
         <th class="subjectsTableColumn">Classes</th>
@@ -351,7 +436,7 @@
   </table>
 
 
-  <table id="ClassTeacherSubjectList" style="display:inline-block; min-height: 40vh;">
+  <table id="ClassTeacherSubjectList" style="display:inline-block; min-height: 40vh;" class="noMargin">
     <thead>
       <tr>
         <th class="subjectsTableColumn">Subjects</th>
@@ -361,7 +446,7 @@
     </tbody>
   </table>
 
-  <table id="ClassTeacherTeacherList" style="display:inline-block; min-height: 40vh;">
+  <table id="ClassTeacherTeacherList" style="display:inline-block; min-height: 40vh;" class="noMargin">
     <thead>
       <tr>
         <th class="subjectsTableColumn">Teachers</th>
@@ -371,7 +456,9 @@
     </tbody>
   </table>
 
-  <table id="ClassTeacherCoTeacherList" style="display:inline-block; min-height: 40vh;">
+
+
+  <table id="ClassTeacherCoTeacherList" style="display:inline-block; min-height: 40vh;" class="noMargin">
     <thead>
       <tr>
         <th class="subjectsTableColumn">CoTeachers</th>
@@ -381,32 +468,59 @@
     </tbody>
   </table>
 
-  <label for="ClassTeacherHours">Hours</label>
-  <select id="ClassTeacherHours">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-    <option value="13">13</option>
-    <option value="14">14</option>
-    <option value="15">15</option>
-    <option value="16">16</option>
-  </select>
 
-  <label for="ClassTeacherId">Requirement Id: </label>
-  <input type="text" id="ClassTeacherId">
+  <br><br>
 
-  <label for="ClassTeachercurrentHours">Current assigned hours: </label>
-  <p id="ClassTeachercurrentHours" style="display: inline"></p>
-  <p id="ClassTeacherTotalHours" style="display: inline"> / </p>
+  <div  class="line">
+    <label for="ClassTeacherHours">Hours</label>
+    <select id="ClassTeacherHours" class="selectStyle">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+    </select>
+  </div>
+
+  <div  class="line">
+    <label for="ClassTeacherId">Requirement Id</label>
+    <input type="text" id="ClassTeacherId">
+  </div>
+
+  <div  class="line">
+    <label for="ClassTeachercurrentHours">Current assigned hours</label>
+    <p id="ClassTeachercurrentHours" style="display: inline"></p>
+    <p id="ClassTeacherTotalHours" style="display: inline"> / </p>
+  </div>
+</div>
+
+  <div  class="side" style="float:right">
+    <table class="noMargin">
+      <thead id="classTeacherDistributionHead">
+      </thead>
+      <tbody id="classTeacherDistributionBody">
+      </tbody>
+    </table>
+  </div>
+
+  <br><br><br>
+
+  <div class="side" style="float:right">
+    <button type="button" name="button" onclick="insertNewElement()" class="buttonStyle displayBlock">Insert</button>
+    <button type="button" name="button" onclick="deleteElement()" class="buttonStyle displayBlock">Delete</button>
+    <button type="button" name="button" onclick="updateElement()" class="buttonStyle displayBlock">Update</button>
+  </div>
 
 
   <table id="ClassTeacherTable" class="centerTable">
@@ -428,5 +542,6 @@
 
 
 <script type="text/javascript" src="./IHSTP.js"></script>
+
 </body>
 </html>
