@@ -346,7 +346,7 @@ function selectElement(element, type){
 
       currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
       requirementsTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
-      //console.log(element.childNodes[0].innerHTML);
+      //console.log(element);
       setHourDistribution(getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution, requirementsHoursDistrBody);
 
       break;
@@ -891,7 +891,7 @@ function RowClick(currenttr, lock) {
         break;
       case 'ClassRequirementsTab':
         trs = document.getElementById('classesRequirementsTable').tBodies[0].getElementsByTagName('tr');
-        console.log(trs);
+        //console.log(trs);
         break;
       case 'ClassTeacherTab':
       trs = document.getElementById('ClassTeacherTable').tBodies[0].getElementsByTagName('tr');
@@ -905,7 +905,7 @@ function RowClick(currenttr, lock) {
 
     if (window.event.button === 0) {
         if (!window.event.ctrlKey && !window.event.shiftKey) {
-          console.log('prova1');
+
             clearAll();
             toggleRow(currenttr);
         }
@@ -947,7 +947,7 @@ function RowClick(currenttr, lock) {
         setHourDistribution(classesTable[currenttr.rowIndex-1].hourDistribution, classHoursDistributionBody);
         break;
       case 'ClassRequirementsTab':
-        console.log(classesRequirementsTable);
+        //console.log(classesRequirementsTable);
         classRequirementsId.value = classesRequirementsTable[currenttr.rowIndex-1].id;
         requirementsHours.value = classesRequirementsTable[currenttr.rowIndex-1].hours;
 
@@ -972,7 +972,7 @@ function RowClick(currenttr, lock) {
         setHourDistribution(getClassInfo(classesRequirementsTable[currenttr.rowIndex-1].class).hourDistribution, requirementsHoursDistrBody);
         break;
       case 'ClassTeacherTab':
-        console.log(classTeacherTable);
+        //console.log(classTeacherTable);
         classTeacherId.value = classTeacherTable[currenttr.rowIndex-1].id;
         classTeachersHours.value = classTeacherTable[currenttr.rowIndex-1].hours;
 
@@ -1082,7 +1082,7 @@ function selectRowsBetweenIndexes(indexes) {
 }
 
 function clearAll() {
-    console.log(trs);
+    //console.log(trs);
     for (var i = 0; i < trs.length; i++) {
         trs[i].className = '';
     }
@@ -1140,6 +1140,196 @@ function exportToCsv(filename, rows) {
     }
 }
 
+function exportInstance(){
+  let aux = '';
+  let file = 'PARTIZIONI = {};\n\n';
+  let temp;
+
+  console.log(classesRequirementsTable);
+
+  //restrizioni
+  file+='R = {\n'
+  for(let i = 0; i<classesRequirementsTable.length; i++){
+    aux = '';
+    aux += '\t<'+'"'+classesRequirementsTable[i].id+'"'+', '+'{'+classesRequirementsTable[i].class+'}'+', '+'{'+classesRequirementsTable[i].subject+'}'+', '+classesRequirementsTable[i].hours;
+    if(i===classesRequirementsTable.length-1)aux+='>\n';
+    else aux+='>,\n';
+    file+=aux;
+  }
+  file+='};\n\n'
+
+  //ALIAS
+  file+='ALIAS = {\n};\n\n'
+
+  file+='L = {\n};\n\n'
+
+  file+='B = {\n};\n\n'
+
+  file+='O = {\n};\n\n'
+
+  //numero giorni di lezione
+  file+='nD = '+instanceDays.days.length+';\n'
+  //numero di periodi giornalieri
+  file+='nH = '+instanceDailyPeriods+';\n'
+  //eta
+  file+='eta = 1;\n\n'
+  //tau
+  file+='tau = [\n'
+  for(i = 0; i<teachersTable.length; i++){
+    aux = '';
+    aux += '\t['+teachersTable[i].dayOff+','+teachersTable[i].minAddDOff+','+teachersTable[i].maxAddDOff+','+teachersTable[i].addDOffWeight;
+    if(i===teachersTable.length-1)aux+=']\n';
+    else aux+='],\n';
+    file+=aux;
+  }
+  file+='];\n\n';
+
+  file+='alfamin = [\n'
+  for(i = 0; i<teachersTable.length; i++){
+    aux = '\t[';
+    for(let j = 0; j<instanceDays.days.length; j++){
+      if(j===instanceDays.days.length-1)aux += teachersTable[i].minDPeriods+'';
+      else aux += teachersTable[i].minDPeriods+',';
+    }
+    if(i===teachersTable.length-1) aux+=']\n';
+    else aux+='],\n';
+    file+=aux;
+  }
+  file+='];\n\n';
+
+  file+='alfamax = [\n'
+  for(i = 0; i<teachersTable.length; i++){
+    aux = '\t[';
+    for(j = 0; j<instanceDays.days.length; j++){
+      if(j===instanceDays.days.length-1)aux += teachersTable[i].maxDPeriods+'';
+      else aux += teachersTable[i].maxDPeriods+',';
+    }
+    if(i===teachersTable.length-1) aux+=']\n';
+    else aux+='],\n';
+    file+=aux;
+  }
+  file+='];\n\n';
+
+  file+='rhomin = [\n'
+  for(i = 0; i<classesTable.length; i++){
+    aux = '\t[';
+    for(j = 0; j<teachersTable.length; j++){
+      if(j===teachersTable.length-1)aux += teachersTable[j].minClassPeriods+'';
+      else aux += teachersTable[i].minClassPeriods+',';
+    }
+    if(i===classesTable.length-1) aux+=']\n';
+    else aux+='],\n';
+    file+=aux;
+  }
+  file+='];\n\n';
+
+  file+='rhomax = [\n'
+  for(i = 0; i<classesTable.length; i++){
+    aux = '\t[';
+    for(j = 0; j<teachersTable.length; j++){
+      if(j===teachersTable.length-1)aux += teachersTable[j].maxClassPeriods+'';
+      else aux += teachersTable[i].maxClassPeriods+',';
+    }
+    if(i===classesTable.length-1) aux+=']\n';
+    else aux+='],\n';
+    file+=aux;
+  }
+  file+='];\n\n';
+
+  file+='beta = [\n';
+  for(i = 0; i<classesTable.length; i++){
+    file+='[\n'
+    aux = '\t[';
+    temp = Array.from(classesTable[i].hourDistribution);
+    for(j = 0; j<temp.length; j++){
+      if(j===temp.length-1)aux += temp[j]+']';
+      else if((j+1)%instanceDailyPeriods === 0) aux+=temp[j]+'],\n\t['
+      else aux += temp[j]+',';
+    }
+    file+=aux;
+    if(i===classesTable.length-1)file+='\n]\n';
+    else file+='\n],\n';
+  }
+  file+='];\n\n'
+
+  file+='delta = [\n';
+  for(i = 0; i<classesTable.length; i++){
+    file+='[\n'
+    aux = '\t[';
+    temp = Array.from(classesTable[i].hourDistribution);
+    for(j = 0; j<temp.length; j++){
+      if(j===temp.length-1)aux += temp[j]+']';
+      else if((j+1)%instanceDailyPeriods === 0) aux+=temp[j]+'],\n\t['
+      else aux += temp[j]+',';
+    }
+    file+=aux;
+    if(i===classesTable.length-1)file+='\n]\n';
+    else file+='\n],\n';
+  }
+  file+='];\n\n'
+
+
+
+  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });//camibiare il tipo di testo?
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, instanceName+'.OPL.dat');
+  } else {
+      let link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          let url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", instanceName+'.OPL.dat');
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+
+  exportInstanceAt();
+}
+
+function exportInstanceAt(){
+
+  let file = '';
+
+  file+='gamma = [\n';
+  for(i = 0; i<teachersTable.length; i++){
+    file+='[\n'
+    aux = '\t[';
+    temp = Array.from(teachersTable[i].hourDistribution);
+    for(j = 0; j<temp.length; j++){
+      if(j===temp.length-1)aux += temp[j]+']';
+      else if((j+1)%instanceDailyPeriods === 0) aux+=temp[j]+'],\n\t['
+      else aux += temp[j]+',';
+    }
+    file+=aux;
+    if(i===teachersTable.length-1)file+='\n]\n';
+    else file+='\n],\n';
+  }
+  file+='];\n\n'
+
+  console.log(file);
+
+  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });//camibiare il tipo di testo?
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, instanceName+'.OPL.dat');
+  } else {
+      let link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          let url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", instanceName+'_aT.OPL.dat');
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+}
+
 function extractElements(content){
   let tableBody;
   let tr;
@@ -1152,7 +1342,7 @@ function extractElements(content){
     temp[i] = temp[i].split(',');
   }
 
-  console.log(temp);
+  //console.log(temp);
 
   switch (currentTab) {
     case 'SubjectsTab':
