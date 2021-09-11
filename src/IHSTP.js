@@ -28,7 +28,6 @@ const nameTeachers = document.getElementById('teacherName');
 const surname = document.getElementById('teacherSurname');
 const weekHours = document.getElementById('teacherWeekHours');
 const dayOff = document.getElementById('teacherDayOff');
-//const sameValueforAll = document.getElementById('sameValueforAll');
 const minAddDOff = document.getElementById('teacherMinAddDaysOff');
 const maxAddDOff = document.getElementById('teacherMaxAddDaysOff');
 const addDOffWeight = document.getElementById('teacherAddDaysOffWeight');
@@ -112,10 +111,6 @@ function setValueForAll() {
     td = document.createElement('TD');
     td.innerHTML = teachersTable[j].dayOff;
     tr.appendChild(td);
-
-    // td = document.createElement('TD');
-    // td.innerHTML = sameValueforAll.value;
-    // tr.appendChild(td);
 
     td = document.createElement('TD');
     td.innerHTML = teachersTable[j].minAddDOff;
@@ -247,7 +242,6 @@ function openTabContent(evt, selectedTab) {
       fileInput = document.getElementById('csvClasses');
       fileInput.addEventListener('change', readFile);
       currentTab = 'ClassesTab';
-      //initializeTableDistr();
     break;
     case 'ClassRequirementsTab':
     fileInput = document.getElementById('csvClassesRequiremnet');
@@ -346,7 +340,6 @@ function selectElement(element, type){
 
       currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
       requirementsTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
-      //console.log(element);
       setHourDistribution(getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution, requirementsHoursDistrBody);
 
       break;
@@ -366,7 +359,6 @@ function selectElement(element, type){
       classTeachercurrentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
       classTeacherTotalHours.innerHTML = '/' + classesTable.find(e => e.id === element.childNodes[0].innerHTML).weekHours;
       setHourDistribution(getClassInfo(lastSelectedClass.childNodes[0].innerHTML).hourDistribution, classTeacherHoursDistrBody);
-        //console.log(element.childNodes[0].innerHTML);
       break;
     case 'subjectsA':
       list = subjectsListClassTeachers.tBodies[0].childNodes;
@@ -380,7 +372,7 @@ function selectElement(element, type){
       list = teachersListClassTeacher.tBodies[0].childNodes;
       lastSelectedTeacher = element;
       currentHours.innerHTML = countClassHours(element.childNodes[0].innerHTML);
-          //console.log(element.childNodes[0].innerHTML);
+
       break;
     case 'coTeachers':
       list = coTeacherListClassTeachers.tBodies[0].childNodes;
@@ -490,7 +482,6 @@ function insertNewElement(){
             surname : surname.value,
             weekHours : weekHours.value,
             dayOff : dayOff.value,
-            //sameValueforAll : sameValueforAll.value,
             minAddDOff : minAddDOff.value,
             maxAddDOff : maxAddDOff.value,
             addDOffWeight : addDOffWeight.value,
@@ -521,10 +512,6 @@ function insertNewElement(){
       td = document.createElement('TD');
       td.innerHTML = dayOff.value;
       tr.appendChild(td);
-
-      // td = document.createElement('TD');
-      // td.innerHTML = sameValueforAll.value;
-      // tr.appendChild(td);
 
       td = document.createElement('TD');
       td.innerHTML = minAddDOff.value;
@@ -869,7 +856,6 @@ function updateElement(){
 
 }
 
-//table manipulation
 let lastSelectedRow;
 let trs;
 
@@ -891,7 +877,6 @@ function RowClick(currenttr, lock) {
         break;
       case 'ClassRequirementsTab':
         trs = document.getElementById('classesRequirementsTable').tBodies[0].getElementsByTagName('tr');
-        //console.log(trs);
         break;
       case 'ClassTeacherTab':
       trs = document.getElementById('ClassTeacherTable').tBodies[0].getElementsByTagName('tr');
@@ -947,7 +932,7 @@ function RowClick(currenttr, lock) {
         setHourDistribution(classesTable[currenttr.rowIndex-1].hourDistribution, classHoursDistributionBody);
         break;
       case 'ClassRequirementsTab':
-        //console.log(classesRequirementsTable);
+
         classRequirementsId.value = classesRequirementsTable[currenttr.rowIndex-1].id;
         requirementsHours.value = classesRequirementsTable[currenttr.rowIndex-1].hours;
 
@@ -972,7 +957,7 @@ function RowClick(currenttr, lock) {
         setHourDistribution(getClassInfo(classesRequirementsTable[currenttr.rowIndex-1].class).hourDistribution, requirementsHoursDistrBody);
         break;
       case 'ClassTeacherTab':
-        //console.log(classTeacherTable);
+
         classTeacherId.value = classTeacherTable[currenttr.rowIndex-1].id;
         classTeachersHours.value = classTeacherTable[currenttr.rowIndex-1].hours;
 
@@ -1082,7 +1067,7 @@ function selectRowsBetweenIndexes(indexes) {
 }
 
 function clearAll() {
-    //console.log(trs);
+
     for (var i = 0; i < trs.length; i++) {
         trs[i].className = '';
     }
@@ -1090,19 +1075,18 @@ function clearAll() {
 
 function readFile() {
 
-var reader = new FileReader();
+let reader = new FileReader();
   reader.onload = function () {
 
     extractElements(reader.result);
   };
-  // start reading the file. When it is done, calls the onload event defined above.
   reader.readAsBinaryString(fileInput.files[0]);
 }
 
 function exportToCsv(filename, rows) {
     var processRow = function (row) {
         var finalVal = '';
-        for (var j = 0; j < row.length; j++) {//DA CAMBIARE iterare per gli elemetni di un oggetto
+        for (var j = 0; j < row.length; j++) {
             var innerValue = row[j] === null ? '' : row[j].toString();
             if (row[j] instanceof Date) {
                 innerValue = row[j].toLocaleString();
@@ -1141,6 +1125,14 @@ function exportToCsv(filename, rows) {
 }
 
 function exportInstance(){
+
+
+  if(classesRequirementsTable.length === 0){
+    alert('Attenzione, prima di esportare l\'istanza devi inserire tutti i dati');
+    return;
+  }
+
+
   let aux = '';
   let file = 'PARTIZIONI = {};\n\n';
   let temp;
@@ -1270,7 +1262,7 @@ function exportInstance(){
 
 
 
-  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });//camibiare il tipo di testo?
+  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });
   if (navigator.msSaveBlob) { // IE 10+
       navigator.msSaveBlob(blob, instanceName+'.OPL.dat');
   } else {
@@ -1288,6 +1280,8 @@ function exportInstance(){
   }
 
   exportInstanceAt();
+  exportInstancePreass();
+  exportInstanceWeights();
 }
 
 function exportInstanceAt(){
@@ -1310,11 +1304,10 @@ function exportInstanceAt(){
   }
   file+='];\n\n'
 
-  console.log(file);
 
-  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });//camibiare il tipo di testo?
+  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });
   if (navigator.msSaveBlob) { // IE 10+
-      navigator.msSaveBlob(blob, instanceName+'.OPL.dat');
+      navigator.msSaveBlob(blob, instanceName+'_aT.OPL.dat');
   } else {
       let link = document.createElement("a");
       if (link.download !== undefined) { // feature detection
@@ -1322,6 +1315,72 @@ function exportInstanceAt(){
           let url = URL.createObjectURL(blob);
           link.setAttribute("href", url);
           link.setAttribute("download", instanceName+'_aT.OPL.dat');
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+}
+
+function exportInstancePreass(){
+  let file = 'P = {\n\t};';
+
+  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, instanceName+'_preass.OPL.dat');
+  } else {
+      let link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          let url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", instanceName+'_preass.OPL.dat');
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+}
+
+function exportInstanceWeights(){
+  let file = '//	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19\n'+
+   'omega = [\n'+
+	 '\t[0	0	0	1	0 	0      	0 	0 	0 	0      	0   	0 	10  	3	0      	0      	0 	0 	0],\n'+
+   '\t[100000 // C01 - ex HC01 CLASSES AND TEACHERS MUST HAVE ALL REQUIRED LESSONS\n'+
+	 '\t100000 // C02 - ex HC02 A CLASS MUST FOLLOW ALL REQUIRED LESSONS\n'+
+	 '\t100000 // C03 - ex HC03 A CLASS CAN BE TAUGHT ONLY WHEN IT IS AVAILABLE\n'+
+	 '\t100000 // C04 - ex HC04 A TEACHER CAN TEACH ONLY WHEN HE IS AVAILABLE\n'+
+	 '\t100000 // C05 - ex HC05 NO SPLIT MULTIPLE PERIOD LESSONS\n'+
+	 '\t100000 // C06 - ex HC06 DAY OFF FOR ANY TEACHER\n'+
+	 '\t100000 // C07 - ex HC07 CO-TEACHING TYPE 1  - LESSONS TAUGHT BY TWO TEACHERS SIMULTANEOUSLY\n'+
+	 '\t100000 // C08 - ex HC08 BLOCK - LESSONS TAUGHT TO TWO CLASSES SIMULTANEOUSLY WITH INDEPENDENT TEACHERS\n'+
+	 '\t100000 // C09 - ex HC09 PREASSIGNMENT - LESSONS FOR A PAIR CLASS/TEACHER PREASSIGNED AT DAY/HOUR SPECIFIED\n'+
+	 '\t100000	// C10 - ex HC10 EQUAL INACTIVITY PERIODS FOR ANY TEACHER\n'+
+	 '\t100    // C11 - ex SC01 HOLES FOR TEACHERS\n'+
+	 '\t0      // C12 - ex SC02 LIMIT MULTIPLE LESSONS\n'+
+	 '\t10     // C13 - ex SC03 GOOD WEEKLY HORIZONTAL DISTRIBUTION\n'+
+	 '\t3      // C14 - ex SC04 GOOD DAILY VERTICAL DISTRIBUTION\n'+
+	 '\t100000 // C15 - ex SC05 UNDERLOAD/OVERLOAD FOR TEACHERS: no few/many lessons in a single day\n'+
+	 '\t100000 // C16 - ex SC06 UNDERLOAD/OVERLOAD FOR CLASS/TEACHERS: no too few/many lessons in a single day\n'+
+	 '\t1      // C17 - ex SC07 OVERLOAD2 FOR CLASSES: no many multiple lessons in a single day\n'+
+	 '\t1000   // C18 - ex SC08 OVERLOAD3 FOR TEACHERS: avoid two overloaded consecutive days for teachers\n'+
+	 '\t0      // C19 - ex SC09 MULTIPLE PERIOD RESPECT\n'+
+   '\t]\n'+
+   '];\n'
+
+
+  let blob = new Blob([file], { type: 'text/plain;charset=utf-8;' });
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, instanceName+'_weights.OPL.dat');
+  } else {
+      let link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          let url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", instanceName+'_weights.OPL.dat');
           link.style.visibility = 'hidden';
           document.body.appendChild(link);
           link.click();
@@ -1342,7 +1401,6 @@ function extractElements(content){
     temp[i] = temp[i].split(',');
   }
 
-  //console.log(temp);
 
   switch (currentTab) {
     case 'SubjectsTab':
@@ -1392,7 +1450,6 @@ function extractElements(content){
                 surname : temp[i][2],
                 dayOff : temp[i][3],
                 weekHours : temp[i][11],
-                //sameValueforAll : sameValueforAll.value,
                 minAddDOff : temp[i][4],
                 maxAddDOff : temp[i][5],
                 addDOffWeight : temp[i][6],
@@ -1495,10 +1552,6 @@ function extractElements(content){
         td = document.createElement('TD');
         td.innerHTML = teachersTable[j].dayOff;
         tr.appendChild(td);
-
-        // td = document.createElement('TD');
-        // td.innerHTML = sameValueforAll.value;
-        // tr.appendChild(td);
 
         td = document.createElement('TD');
         td.innerHTML = teachersTable[j].minAddDOff;

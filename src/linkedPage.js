@@ -9,8 +9,6 @@ const data = JSON.parse(localStorage.getItem("fileData"));
 let navElements;
 let selectedElementIndex;
 
-  // document.getElementById('home').href = document.referrer;
-  // console.log(document.referrer);
 
 const courses = coursesListConstructor(data.COURSES);
 
@@ -34,7 +32,6 @@ if(type === 'COURSES'){
   selectedElementIndex = findWithAttr(navElements, 'name', selectedElement)
 }else selectedElementIndex = navElements.indexOf(selectedElement);
 
-//console.log(navElements, selectedElementIndex);
 
 setNavLinks();
 
@@ -49,8 +46,6 @@ const colors = [
     {backGround: 'rgba(170, 170, 170, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
     {backGround: 'rgba(0, 0, 0, 1)', foreGround: 'rgba(255, 133, 27, 1)'},
     {backGround: 'rgba(255, 133, 27, 1)', foreGround: 'rgba(0, 0, 0, 1)'},
-    //{backGround: 'rgba(57, 204, 204, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
-    //
     {backGround: 'rgba(0, 32, 63, 1)', foreGround: 'rgba(57, 204, 204, 1)'},
     {backGround: 'rgba(46, 204, 64, 1)', foreGround: 'rgba(0, 32, 63, 1)'},
     {backGround: 'rgba(255, 255, 255, 1)', foreGround: 'rgba(133, 20, 75, 1)'},
@@ -125,7 +120,6 @@ switch (type) {
   case 'COURSES':
     filteredTimeTable = [];
     const course = data.COURSES.filter(e => e.name === selectedElement);
-    //console.log(course);
 
     filteredTimeTable = filteredTimeTable.concat(data.TIMETABLE.filter(e => {return e.class === course[0].class}));
 
@@ -148,12 +142,10 @@ print(finalTable);
 /*******************************************************************************************************************************************************************************************************/
 
 function findWithAttr(array, attr, value) {
-  //console.log(array, value);
     for(var i = 0; i < array.length; i += 1) {
 
-      if(array[i].length-1>1){// && array[i][0][attr] === value
+      if(array[i].length-1>1){
         if(array[i][1][attr] === value) return i;
-        //return i;
       }else if(array[i][0][attr] === value){
           return i;
       }
@@ -166,7 +158,6 @@ function setNavLinks() {
     let navSelectedElementLeft;
 
     if(type === 'COURSES'){
-      //console.log(selectedElementIndex);
       if(selectedElementIndex === navElements.length-1){
         navSelectedElementRigth = navElements[0][0];
       }else{
@@ -198,9 +189,6 @@ function setNavLinks() {
 
 
 
-    //console.log(selectedElementIndex);
-
-
     document.getElementById('navIconLeft').href = "./linkedPage.html?"+"type="+type+"&selectedElement="+navSelectedElementLeft;
     document.getElementById('navIconRight').href = "./linkedPage.html?"+"type="+type+"&selectedElement="+navSelectedElementRigth;
 }
@@ -221,23 +209,22 @@ function conferma(){
         color = JSON.parse(aux[j].value);
       }
     }
-    //console.log(currentColors);
+
     colorAssociations[i].color = color;
   }
 
   console.log(fontChoice.value);
   currentFontInUse = JSON.parse(fontChoice.value);
 
-  //console.log(currentFontInUse);
+
 
   print(createTable(tableMatrix, type));
   off();
-  //console.log(currentColors);
+
 
 }
 
 function print(finalTable){
-  //htmlTable.appendChild(header);
 
   switch (type) {
     case 'CLASSES':
@@ -312,7 +299,7 @@ function print(finalTable){
   changeTableDimensions(finalTable);
   let horizontalInfo;
   let info2;
-  //INFORMAZIONI AGGIUNTIVE
+
   switch (type) {
     case 'CLASSES':
 
@@ -323,17 +310,13 @@ function print(finalTable){
 
       for(let i = 0; i<verticalInfo.length; i++){
         let canvas = document.createElement('canvas');
-        //canvas.style.display = 'inline-block';
+
         canvas.classList.add('prova');
 
-        //canvas.id = i;
         canvas.width = 70;
         canvas.height = finalTable.getBoundingClientRect().height-15;
-        //canvas.style.width  = '1px';
-        //canvas.style.height = '1px';
 
         htmlTable.appendChild(canvas);
-        //canvas.removeAttribute("style");
 
         let ctx = canvas.getContext('2d');
 
@@ -366,13 +349,9 @@ function print(finalTable){
               responsive: false,
               scales: {
                   x: {
-                      // title: {/////////////
-                      //     display: true,
-                      //     text: 'TESTaffafafafafafafafafafafafafafafafafaf'
-                      //   },
+
                       grid:{
                         display: false
-                        //color: "rgba(0, 0, 0, 0)"
                       },
                       max: nD,
                       min: 0,
@@ -385,7 +364,6 @@ function print(finalTable){
                   y: {
                     grid:{
                       display: false
-                      //color: "rgba(0, 0, 0, 0)"
                     },
                     ticks: {
                       display: false,
@@ -408,12 +386,8 @@ function print(finalTable){
       for(let i = 0; i<horizontalInfo.length; i++){
         let canvas = document.createElement('canvas');
         canvas.classList.add('verticalSpace');
-        //canvas.classList.add('prova');
-        //canvas.id = i;
         canvas.width = finalTable.getBoundingClientRect().width;
         canvas.height = 70;
-        //canvas.style.width  = '1px';
-        //canvas.style.height = '1px';
 
         htmlTable.appendChild(canvas);
         canvas.removeAttribute("style");
@@ -441,13 +415,8 @@ function print(finalTable){
               responsive: false,
               scales: {
                   y: {
-                      // title: {/////////////
-                      //   display: true,
-                      //   text: 'TESTaffafafafafafafafafafafafafafafafafaf'
-                      // },
                       grid:{
                         display: false
-                        //color: "rgba(0, 0, 0, 0)"
                       },
                       max: nH,
                       min: 0,
@@ -460,7 +429,7 @@ function print(finalTable){
                   x: {
                     grid:{
                       display: false
-                      //color: "rgba(0, 0, 0, 0)"
+
                     },
                     ticks: {
                       display: false,
@@ -487,20 +456,16 @@ function print(finalTable){
 
       verticalInfo = chartsInfo(type, elementsList, tableMatrix, 'vertical');
       horizontalInfo = chartsInfo(type, elementsList, tableMatrix, 'horizontal');
-      //console.log(horizontalInfo);
       for(let i = 0; i<verticalInfo.length; i++){
         let canvas = document.createElement('canvas');
-        //canvas.style.display = 'inline-block';
         canvas.classList.add('prova');
 
-        //canvas.id = i;
+
         canvas.width = 70;
         canvas.height = finalTable.getBoundingClientRect().height-15;
-        //canvas.style.width  = '1px';
-        //canvas.style.height = '1px';
+
 
         htmlTable.appendChild(canvas);
-        //canvas.removeAttribute("style");
 
         let ctx = canvas.getContext('2d');
 
@@ -533,13 +498,8 @@ function print(finalTable){
               responsive: false,
               scales: {
                   x: {
-                      // title: {/////////////
-                      //     display: true,
-                      //     text: 'TESTaffafafafafafafafafafafafafafafafafaf'
-                      //   },
                       grid:{
                         display: false
-                        //color: "rgba(0, 0, 0, 0)"
                       },
                       max: nD,
                       min: 0,
@@ -552,7 +512,6 @@ function print(finalTable){
                   y: {
                     grid:{
                       display: false
-                      //color: "rgba(0, 0, 0, 0)"
                     },
                     ticks: {
                       display: false,
@@ -575,12 +534,9 @@ function print(finalTable){
       for(let i = 0; i<horizontalInfo.length; i++){
         let canvas = document.createElement('canvas');
         canvas.classList.add('verticalSpace');
-        //canvas.classList.add('prova');
-        //canvas.id = i;
         canvas.width = finalTable.getBoundingClientRect().width;
         canvas.height = 70;
-        //canvas.style.width  = '1px';
-        //canvas.style.height = '1px';
+
 
         htmlTable.appendChild(canvas);
         canvas.removeAttribute("style");
@@ -608,13 +564,8 @@ function print(finalTable){
               responsive: false,
               scales: {
                   y: {
-                      // title: {/////////////
-                      //   display: true,
-                      //   text: 'TESTaffafafafafafafafafafafafafafafafafaf'
-                      // },
                       grid:{
                         display: false
-                        //color: "rgba(0, 0, 0, 0)"
                       },
                       max: nH,
                       min: 0,
@@ -627,7 +578,6 @@ function print(finalTable){
                   x: {
                     grid:{
                       display: false
-                      //color: "rgba(0, 0, 0, 0)"
                     },
                     ticks: {
                       display: false,
@@ -653,7 +603,6 @@ function on() {
   fontOption();
   printColorsInUse();
   console.log(colorAssociations);
-  //printAllColors();
 }
 
 function off() {
@@ -689,7 +638,6 @@ function printFontOptions(){
     if(currentFontInUse.fontFamily === fontFamily[i].fontFamily){
       option.selected = 'selected';
     }
-    //option.classList.add('listColors');
     select.appendChild(option);
   }
 
@@ -699,22 +647,15 @@ function printFontOptions(){
 function printColorsInUse(){
   scrollView = document.getElementById('currentColors');
   let line;
-  //let sampleText;
   let info;
 
   for(let i = 0; i<colorAssociations.length; i++){
     line = document.createElement('div');
-    //sample = document.createElement('div');
-    //line.classList.add('colorOptions');
     info = document.createElement('p');
 
-    // sampleText.style.display = 'inline';
-    // info.style.display = 'inline';
 
     info.innerHTML = colorAssociations[i].element;
     line.classList.add('colorOptions');
-
-    //info.classList.add('moveText');
 
 
     let temp = printAllColors(colorAssociations[i].color);
@@ -729,7 +670,7 @@ function printColorsInUse(){
 }
 
 function printAllColors(currentColor){
-  //scrollView = document.getElementById('possibleColors');
+
   let select;
   let option;
   select = document.createElement('select');
@@ -747,7 +688,7 @@ function printAllColors(currentColor){
     if(currentColor.backGround === colors[i].backGround && currentColor.foreGround === colors[i].foreGround){
       option.selected = 'selected';
     }
-    //option.classList.add('listColors');
+
     select.appendChild(option);
   }
 
@@ -781,7 +722,7 @@ function changeTableDimensions(table){
   const tdWidth = totWidth/6;
   const tdHeight = totHeight/6;
 
-  //console.log(window.innerWidth);
+
 
 
   for(let i = 0; i<rows.length; i++){
@@ -811,7 +752,7 @@ function colorAssociationList(list){
       }
     );
   }
-  //console.log(temp);
+
   return temp;
 }
 
@@ -826,7 +767,7 @@ function fontFamilyAssociationsList(list){
       }
     );
   }
-  //console.log(temp);
+
   return temp;
 }
 
@@ -892,7 +833,7 @@ function extractClassesFromMatrix(matrix){
       }
     }
   }
-  //console.log(c);
+
 
   return c;
 }
@@ -947,7 +888,7 @@ function countFreePeriods(matrix, nH, nD){
         flag = true;
         result += count;
         count = 0;
-        //console.log(result);
+
       }
       if(flag && matrix[r][c].length === 0){
         count++;
@@ -984,9 +925,7 @@ function createTable(matrix, type){
   let table = document.createElement('TABLE');
   table.id = 'timeTable';
   table.classList.add('verticalSpace');
-	//table.border = '1';
-  //table.style.minWidth = '50%';
-  //table.style.minHeight = '50%';
+
   let tr;
 	let td;
   let th;
@@ -1022,7 +961,7 @@ function createTable(matrix, type){
         th.innerHTML = "Saturday"
         break;
 		}
-		//console.log(td.innerHTML);
+
 		tr.appendChild(th);
   }
 
@@ -1044,34 +983,31 @@ function createTable(matrix, type){
       if(matrix[i][j].length !== 0){
         switch (type) {
           case 'CLASSES':
-            //td.innerHTML = findCourse(matrix[i][j]);
+
             for(let k = 0; k<matrix[i][j].length; k++){
               temp = document.createElement('div');
               temp.innerHTML = matrix[i][j][k].teacher;
               temp.style.color = findColor(matrix[i][j][k].teacher).foreGround;
               temp.style.backgroundColor = findColor(matrix[i][j][k].teacher).backGround;
-              //temp.style.fontFamily = findFontFamily(matrix[i][j][k].teacher).fontFamily;
               temp.style.fontFamily = currentFontInUse.fontFamily;
               temp.classList.add('inTable');
               td.appendChild(temp);
             }
             break;
           case 'TEACHERS':
-            //td.innerHTML = findCourse(matrix[i][j]);
             for(let k = 0; k<matrix[i][j].length; k++){
               if(matrix[i][j][k].teacher === selectedElement){
                 temp = document.createElement('div');
                 temp.innerHTML = matrix[i][j][k].class;
                 temp.style.color = findColor(matrix[i][j][k].class).foreGround;
                 temp.style.backgroundColor = findColor(matrix[i][j][k].class).backGround;
-                //temp.style.fontFamily = findFontFamily(matrix[i][j][k].class).fontFamily;
                 temp.style.fontFamily = currentFontInUse.fontFamily;
                 temp.classList.add('inTable');
                 td.appendChild(temp);
               }
             }
             break;
-          case 'COURSES'://////////////////////////
+          case 'COURSES':
             const aux = findCourse(matrix[i][j]);
             temp = document.createElement('div');
             if(aux !== selectedElement) temp.innerHTML = "";
@@ -1079,7 +1015,6 @@ function createTable(matrix, type){
                temp.innerHTML = aux;
                temp.style.color = findColor(aux).foreGround;
                temp.style.backgroundColor = findColor(aux).backGround;
-               //temp.style.fontFamily = findFontFamily(aux).fontFamily;
                temp.style.fontFamily = currentFontInUse.fontFamily;
                temp.classList.add('inTable');
              }
@@ -1098,11 +1033,6 @@ function createTable(matrix, type){
 function findCourse(period){
   let result = "";
   let count = 0;
-
-  //console.log(period);
-
-  // if(period.length !== 0) aux = courses.filter(e => e.length === period.length+1);
-  // else return "";
 
 
 let temp;
@@ -1128,37 +1058,12 @@ let aux = false;
     }
   }
 
-//console.log(result);
-//console.log(courses);
-
-  // let classes = [];
-  // let teachers = [];
-  //courses = "undefined";
-
-  // if(result === ""){
-  //   for(let k = 0; k<period.length; k++){
-  //     courses = classes.find(e => e === period[k].class);
-  //     if(typeof courses === "undefined") classes.push(period[k].class);
-  //     courses = teachers.find(e => e === period[k].teacher);
-  //     if(typeof courses === "undefined") teachers.push(period[k].teacher);
-  //   }
-  //   result = "<div class='prova'>"+classes[0]+"</div>";
-  //   for (let i = 1; i<classes.length; i++){
-  //     result = result.concat('', "<div class='prova'>"+classes[i]+"</div>");
-  //   }
-  //   // for (let i = 0; i<teachers.length; i++){
-  //   //   result = result.concat('', "<p class='prova'>"+teachers[i]+"</p>");
-  //   // }
-  // }
-
-
   return  result;
  }
 
 function findColor(element){
   for (let i = 0; i<colorAssociations.length; i++){
     if (element === colorAssociations [i].element) {
-      //console.log(colorAssociations[i].color);
       return colorAssociations[i].color;
     }
   }

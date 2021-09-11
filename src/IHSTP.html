@@ -16,6 +16,9 @@
       <button type="button" id="ClassesTab" class="tablinks" onclick="openTabContent(event, 'ClassesContent')">Classes</button>
       <button type="button" id="ClassRequirementsTab" class="tablinks" onclick="openTabContent(event, 'ClassesRequirementsContent')">Class Requirements</button>
       <button type="button" id="ClassTeacherTab" class="tablinks" onclick="openTabContent(event, 'ClassTeacherContent')">Class-Teacher Assignments</button>
+
+      <button type="button" id="exportInstance" onclick="exportInstance()" class="tablinks" style="float: right;">Export instance</button>
+
   </div>
 
 
@@ -70,8 +73,7 @@
     </select> <br><br>
 
     <button type="button" id="saveInstaceData" onclick="saveInstaceData()" class="buttonStyle">Ok</button>
-    <button type="button" id="exportInstance" onclick="exportInstance()" class="buttonStyle">Export instance</button>
-    <button type="button" id="importInstance" onclick="importInstance()" class="buttonStyle">import instance</button>
+    <!-- <button type="button" id="importInstance" onclick="importInstance()" class="buttonStyle">import instance</button> -->
 
 
   </div>
@@ -79,10 +81,9 @@
 
 <div id="SubjectsContent" class="tabcontent">
 
-  <input id="csvSubject" type="file" class="buttonStyle"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <input id="csvSubject" type="file" class="buttonStyle">
   <button type="button" name="exportSubjects" id="exportSubjects" onclick="exportToCsv('subjects', toRows(subjectsTable))">Export subjects to file...</button>
-  <!-- <button type="button" name="okSubjects" id="okSubjects">OK</button> -->
-  <!-- <button type="button" name="button">Save</button> -->
+
   <br><br>
 
   <div>
@@ -118,7 +119,7 @@
 </div>
 
 <div id="TeachersContent" class="tabcontent">
-  <input id="csvTeachers" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <input id="csvTeachers" type="file">
   <button type="button" name="exportTeachers" id="exportTeachers" onclick="exportToCsv('teachers', toRows(teachersTable))">Export teachers to file...</button>
   <button type="button" name="okTeachers" id="okTeachers">OK</button>
 
@@ -259,7 +260,7 @@
 
 <div id="ClassesContent" class="tabcontent">
 
-  <input id="csvClasses" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <input id="csvClasses" type="file">
   <button type="button" name="exportClasses" id="exportClasses" onclick="exportToCsv('teachers', toRows(classesTable))">Export teachers to file...</button>
 
   <br><br>
@@ -324,7 +325,7 @@
   </div>
 
 <div id="ClassesRequirementsContent" class="tabcontent">
-  <input id="csvClassesRequiremnet" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <input id="csvClassesRequiremnet" type="file">
   <button type="button" name="exportClassesRequirements" id="exportClassesRequirements" onclick="exportToCsv('ClassRequirements', toRows(classesRequirementsTable))">Export teachers to file...</button>
 
   <br><br><br>
@@ -421,7 +422,7 @@
 </div>
 
 <div id="ClassTeacherContent" class="tabcontent">
-  <input id="csvClassTeacher" type="file"> <!--da cambiare in input file quando si implementa la funzionalità-->
+  <input id="csvClassTeacher" type="file">
   <button type="button" name="exportClassTeacher" id="exportClassTeacher" onclick="exportToCsv('ClassTeacher', toRows(classTeacherTable))">Export teachers to file...</button>
 
 

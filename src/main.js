@@ -1,4 +1,5 @@
-document.getElementById("read-button").addEventListener('click', function() {
+document.getElementById("file-input").addEventListener('change', function() {
+
 		let file = document.getElementById("file-input").files[0];
 		read(file);
 		//document.getElementById('read-button').disabled = true;
@@ -8,8 +9,6 @@ document.getElementById("read-button").addEventListener('click', function() {
 		document.getElementById('info').innerHTML = "";
 		});
 
-// prova();
-//
  const data = JSON.parse(localStorage.getItem("fileData"));
  if(data != null){
 	 printData(localStorage.getItem("fileData"));
@@ -156,7 +155,6 @@ function coursesListConstructor(coursesList){
 
 function createTable(list, elementsType){
 
-	//let body = document.getElementById('body');
 	let table = document.createElement('TABLE');
 	table.border = '1';
 
