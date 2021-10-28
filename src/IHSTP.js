@@ -1169,6 +1169,7 @@ function exportInstance(){
   file+='tau = [\n'
   for(i = 0; i<teachersTable.length; i++){
     aux = '';
+    //if(teachersTable[i].addDOffWeight === 0) teachersTable[i].addDOffWeight = 1;
     aux += '\t['+teachersTable[i].dayOff+','+teachersTable[i].minAddDOff+','+teachersTable[i].maxAddDOff+','+teachersTable[i].addDOffWeight;
     if(i===teachersTable.length-1)aux+=']\n';
     else aux+='],\n';
@@ -1443,6 +1444,7 @@ function extractElements(content){
           );
           break;
           case 'TeachersTab':
+            if(temp[i][6] <= 0) temp[i][6] = 1;
             teachersTable.push(
               {
                 id : temp[i][0],
